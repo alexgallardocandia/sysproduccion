@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
+use App\Http\Controllers\LogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('NiceAdmin/index');
-});
+// Route::get('/', function () {
+//     return view('login');
+// });
+
+Route::get('/',[App\Http\Controllers\LogController::class, 'index']);
+Route::get('/home',[App\Http\Controllers\PrincipalController::class, 'index']);
+
+Route::get('/users',[App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
+
+//Route::get('/index')->name('logados');
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
