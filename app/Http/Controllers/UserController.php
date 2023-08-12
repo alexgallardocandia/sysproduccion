@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index(lain $lain)
     {
         $usuarios = User::get();
-        return view('users', compact('usuarios'));
+        return view('pages.users.index', compact('usuarios'));
     }
 
     /**
