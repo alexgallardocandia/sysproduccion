@@ -20,9 +20,13 @@ use App\Http\Controllers\LogController;
 // });
 
 Route::get('/',[App\Http\Controllers\LogController::class, 'index']);
-Route::get('/home',[App\Http\Controllers\PrincipalController::class, 'index']);
+Route::get('/home',[App\Http\Controllers\PrincipalController::class, 'index'])->name('home');
 
-Route::get('/users',[App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+Route::get('users','App\Http\Controllers\UserController@index')->name('users.index');
+Route::get('users/create','App\Http\Controllers\UserController@create')->name('users.create');
+Route::post('users','App\Http\Controllers\UserController@store')->name('users.store');
+Route::get('users/{users}', 'App\Http\Controllers\UserController@show')->name('user.show');
+Route::get('users/{users}/edit', 'App\Http\Controllers\UserController@edit')->name('user.edit');
 Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
 
 //Route::get('/index')->name('logados');

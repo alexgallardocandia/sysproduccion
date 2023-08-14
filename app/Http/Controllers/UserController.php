@@ -6,88 +6,50 @@ namespace App\Http\Controllers;
 use App\Models\lain;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Toastr;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  \App\Models\lain  $lain
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index(lain $lain)
     {
         $usuarios = User::get();
         return view('pages.users.index', compact('usuarios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param  \App\Models\lain  $lain
-     * @return \Illuminate\Http\Response
-     */
-    public function create(lain $lain)
+    public function create()
     {
-        //
+        return view('pages.users.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\lain  $lain
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, lain $lain)
+    public function store()
     {
-        //
+        dd(request()->all());
+
+        Toastr::success('La notificación ha sido mostrada con éxito', 'Título de la notificación');
+
+        return redirect('users');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\lain  $lain
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
+    public function show(User $users)
     {
-        //
+        // dd($users);
+        return view('pages.users.show', compact('users'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\lain  $lain
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
+    
+    public function edit(User $users)
     {
-        //
+        return view('pages.users.edit', compact('users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\lain  $lain
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\lain  $lain
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy()
     {
         //

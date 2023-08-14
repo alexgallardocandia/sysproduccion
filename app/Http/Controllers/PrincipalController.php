@@ -16,7 +16,7 @@ class PrincipalController extends Controller
      */
     public function index(lain $lain)
     {
-        return view('principal');
+        return view('layouts.principal');
     }
 
     /**
