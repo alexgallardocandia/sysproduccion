@@ -40,6 +40,11 @@
               <i class="bi bi-circle"></i><span>Ciudades</span>
             </a>
           </li>
+          <li>
+            <a href="{{route('personas.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Personas</span>
+            </a>
+          </li>
         </ul>
       </li>
     </ul>

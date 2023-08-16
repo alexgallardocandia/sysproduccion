@@ -61,6 +61,14 @@ Route::get('ciudades/{sucursal_id}', 'App\Http\Controllers\CiudadController@show
 Route::get('ciudades/{sucursal_id}/edit', 'App\Http\Controllers\CiudadController@edit')->name('ciudades.edit');
 Route::put('ciudades', 'App\Http\Controllers\CiudadController@update')->name('ciudades.update');
 Route::delete('ciudades', 'App\Http\Controllers\CiudadController@destroy')->name('ciudades.delete');
+//personas routes
+Route::get('personas','App\Http\Controllers\PersonaController@index')->name('personas.index');
+Route::get('personas/create','App\Http\Controllers\PersonaController@create')->name('personas.create');
+Route::post('personas','App\Http\Controllers\PersonaController@store')->name('personas.store');
+Route::get('personas/{sucursal_id}', 'App\Http\Controllers\PersonaController@show')->name('personas.show');
+Route::get('personas/{sucursal_id}/edit', 'App\Http\Controllers\PersonaController@edit')->name('personas.edit');
+Route::put('personas', 'App\Http\Controllers\PersonaController@update')->name('personas.update');
+Route::delete('personas', 'App\Http\Controllers\PersonaController@destroy')->name('personas.delete');
 
 Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
 

@@ -7,56 +7,33 @@ use Illuminate\Http\Request;
 
 class PersonaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        $personas = Persona::get();
+        return view('pages.personas.index', compact('personas'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function create(){
+        return view('pages.personas.create');
+    }
+    
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Persona  $persona
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Persona $persona)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Persona  $persona
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Persona $persona)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Persona  $persona
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Persona $persona)
     {
         //
