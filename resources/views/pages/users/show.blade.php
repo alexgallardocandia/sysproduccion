@@ -15,7 +15,9 @@
                               <!-- List group With Icons -->
                               <ul class="list-group">
                                   <li class="list-group-item"><i class="ri-mail-line me-1 text-success"></i><b>Correo: </b>{{$users->email}}</li>
-                                  <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-primary"></i><b>Creado: </b>{{$users->created_at->format('d/m/Y')}}</li>
+                                  <li class="list-group-item"><i class="ri-checkbox-circle-line me-1 text-primary"></i><b>Estado: </b> <span class="badge bg-{{config('constants.users-status-label.'.$users->status)}}" >{{config('constants.users-status.'.$users->status)}}</span></li>
+                                  <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Creado: </b>{{$users->created_at->format('d/m/Y H:m:s')}}</li>
+                                  <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-primary"></i><b>Modificado:</b>{{$users->updated_at->format('d/m/Y H:m:s')}}</td>                        
                               </ul><!-- End List group With Icons -->
                           </div>
                       </div>

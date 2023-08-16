@@ -20,6 +20,26 @@
               <i class="bi bi-circle"></i><span>Usuarios</span>
             </a>
           </li>
+          <li>
+            <a href="{{route('estados-civiles.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Estados Civiles</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('cargos.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Cargos</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('sucursales.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Sucursales</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('ciudades.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Ciudades</span>
+            </a>
+          </li>
         </ul>
       </li>
     </ul>

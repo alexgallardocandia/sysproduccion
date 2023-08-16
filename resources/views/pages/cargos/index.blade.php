@@ -7,8 +7,8 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h5>Usuarios</h5>
-              <a href="{{url('users/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              <h5>Cargos</h5>
+              <a href="{{url('cargos/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
               <!-- Table with stripped rows -->
@@ -16,26 +16,20 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Descripcion</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($usuarios as $usuario)
+                  @foreach ($cargos as $cargo)
                   
                       <tr>
-                        <td>{{$usuario->id}}</td>
-                        <td>{{$usuario->name}}</td>
-                        <td>{{$usuario->email}}</td>
-                        <td><span class="badge bg-{{ config('constants.users-status-label.' . intval($usuario->status)) }}">{{ config('constants.users-status.'. intval($usuario->status)) }}</span></td>                        
+                        <td>{{$cargo->id}}</td>
+                        <td>{{$cargo->descripcion}}</td>                                                
                         <td>                        
-                          <a href="{{url('users/' . $usuario->id)}}"><i class="bi bi-info-circle-fill"></i></a>
-                          @if($usuario->status == 1)
-                            <a href="{{url('users/' . $usuario->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#user_delete" data-name="{{$usuario->name}}" data-id="{{ $usuario->id }}"><i class="bi bi-trash-fill"></i></a>                          
-                          @endif
+                          <a href="{{url('cargos/' . $cargo->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                            <a href="{{url('cargos/' . $cargo->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                            <a data-bs-toggle="modal" data-bs-target="#cargo_delete" data-name="{{$cargo->descripcion}}" data-id="{{ $cargo->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                         </td>
                       </tr>
                   @endforeach
@@ -45,19 +39,19 @@
               <!-- End Table with stripped rows -->
           </div>  
                    
-              <div class="modal fade" id="user_delete" tabindex="-1">
+              <div class="modal fade" id="cargo_delete" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Inactivar Usuario</h5>
+                      <h5 class="modal-title">Eliminar cargo </h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="POST" action="{{route('user.delete')}}">
+                    <form method="POST" action="{{route('cargos.delete')}}">
                       @csrf
                       @method('DELETE')
                       <div class="modal-body">
-                        <p>Deseas inactivar el usuario <b><span id="userId"></span></b></p>
-                        <input name="id_usuario" type="hidden" id="id_usuario"/>
+                        <p>Deseas eliminar el cargo <b><span id="cargo_id"></span></b>?</p>
+                        <input name="cargo_id" type="hidden" id="id_cargo"/>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
@@ -75,14 +69,13 @@
 @endsection
 @section('script')
 <script>
-    $('#user_delete').on('show.bs.modal', function(event) {
+    $('#cargo_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
-        var userId = button.data('id'); // Extraer el valor del atributo data-id
-        var username = button.data('name'); // Extraer el valor del atributo data-id
+        var cargo_id = button.data('id'); // Extraer el valor del atributo data-id
+        var descripcion = button.data('name'); // Extraer el valor del atributo data-id
         var modal = $(this);
-        modal.find('#userId').text(username); // Insertar el valor en el modal
-        $('#id_usuario').val(userId); // Insertar el valor en el modal
-        console.log(userId);
+        modal.find('#cargo_id').text(descripcion); // Insertar el valor en el modal
+        $('#id_cargo').val(cargo_id); // Insertar el valor en el modal        
     });
 </script>
 @endsection
