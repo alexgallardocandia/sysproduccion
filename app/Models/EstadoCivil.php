@@ -17,4 +17,10 @@ class EstadoCivil extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function persona(){
+        return $this->hasMany('App\Models\Persona');
+    }
+    
 }
+

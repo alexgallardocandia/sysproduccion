@@ -65,8 +65,8 @@ Route::delete('ciudades', 'App\Http\Controllers\CiudadController@destroy')->name
 Route::get('personas','App\Http\Controllers\PersonaController@index')->name('personas.index');
 Route::get('personas/create','App\Http\Controllers\PersonaController@create')->name('personas.create');
 Route::post('personas','App\Http\Controllers\PersonaController@store')->name('personas.store');
-Route::get('personas/{sucursal_id}', 'App\Http\Controllers\PersonaController@show')->name('personas.show');
-Route::get('personas/{sucursal_id}/edit', 'App\Http\Controllers\PersonaController@edit')->name('personas.edit');
+Route::get('personas/{persona_id}', 'App\Http\Controllers\PersonaController@show')->name('personas.show');
+Route::get('personas/{persona_id}/edit', 'App\Http\Controllers\PersonaController@edit')->name('personas.edit');
 Route::put('personas', 'App\Http\Controllers\PersonaController@update')->name('personas.update');
 Route::delete('personas', 'App\Http\Controllers\PersonaController@destroy')->name('personas.delete');
 

@@ -13,4 +13,8 @@ class Cargo extends Model
     protected $fillable = [
         'descripcion'
     ];
+    
+    public function persona(){
+        return $this->hasMany('App\Models\Persona');
+    }
 }

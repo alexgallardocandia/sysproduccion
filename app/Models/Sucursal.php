@@ -19,4 +19,7 @@ class Sucursal extends Model
         'updated_at'
     ];    
 
+    public function persona(){
+        return $this->hasMany('App\Models\Persona');
+    }
 }

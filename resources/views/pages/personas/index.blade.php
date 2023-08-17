@@ -16,7 +16,11 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Descripcion</th>
+                    <th scope="col">Nombres y Apellidos</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Fecha Nacimiento</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
@@ -24,11 +28,15 @@
                   @foreach ($personas as $persona)                  
                       <tr>
                         <td>{{$persona->id}}</td>
-                        <td>{{$persona->descripcion}}</td>                                                
+                        <td>{{$persona->nombres.' '.$persona->apellidos}}</td>                                               
+                        <td>{{$persona->direccion}}</td>                                               
+                        <td>{{$persona->telefono}}</td>                                               
+                        <td>{{$persona->email}}</td>                                             
+                        <td>{{$persona->fecha_nacimiento}}</td>                                               
                         <td>                        
                           <a href="{{url('personas/' . $persona->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                             <a href="{{url('personas/' . $persona->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#persona_delete" data-name="{{$persona->descripcion}}" data-id="{{ $persona->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                            <a data-bs-toggle="modal" data-bs-target="#persona_delete" data-name="{{$persona->nombres}}" data-id="{{ $persona->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                         </td>
                       </tr>
                   @endforeach
@@ -49,7 +57,7 @@
                       @csrf
                       @method('DELETE')
                       <div class="modal-body">
-                        <p>Deseas eliminar el persona <b><span id="persona_id"></span></b>?</p>
+                        <p>Deseas eliminar la persona <b><span id="persona_id"></span></b>?</p>
                         <input name="persona_id" type="hidden" id="id_persona"/>
                       </div>
                       <div class="modal-footer">
