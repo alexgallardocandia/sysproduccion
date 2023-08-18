@@ -45,6 +45,26 @@
               <i class="bi bi-circle"></i><span>Personas</span>
             </a>
           </li>
+          <li>
+            <a href="{{route('depositos.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Depositos</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('unidades-medidas.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Unidades de Medida</span>
+            </a>
+          </li> 
+          <li>
+            <a href="{{route('tipos-impuestos.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Tipos de Impuestos</span>
+            </a>
+          </li> 
+          <li>
+            <a href="{{route('timbrados.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Timbrados</span>
+            </a>
+          </li>          
         </ul>
       </li>
     </ul>

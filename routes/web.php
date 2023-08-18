@@ -69,6 +69,40 @@ Route::get('personas/{persona_id}', 'App\Http\Controllers\PersonaController@show
 Route::get('personas/{persona_id}/edit', 'App\Http\Controllers\PersonaController@edit')->name('personas.edit');
 Route::put('personas', 'App\Http\Controllers\PersonaController@update')->name('personas.update');
 Route::delete('personas', 'App\Http\Controllers\PersonaController@destroy')->name('personas.delete');
+//depositos routes
+Route::get('depositos','App\Http\Controllers\DepositoController@index')->name('depositos.index');
+Route::get('depositos/create','App\Http\Controllers\DepositoController@create')->name('depositos.create');
+Route::post('depositos','App\Http\Controllers\DepositoController@store')->name('depositos.store');
+Route::get('depositos/{deposito_id}', 'App\Http\Controllers\DepositoController@show')->name('depositos.show');
+Route::get('depositos/{deposito_id}/edit', 'App\Http\Controllers\DepositoController@edit')->name('depositos.edit');
+Route::put('depositos', 'App\Http\Controllers\DepositoController@update')->name('depositos.update');
+Route::delete('depositos', 'App\Http\Controllers\DepositoController@destroy')->name('depositos.delete');
+Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
+//unidades-medidas routes
+Route::get('unidades-medidas','App\Http\Controllers\UnidadMedidaController@index')->name('unidades-medidas.index');
+Route::get('unidades-medidas/create','App\Http\Controllers\UnidadMedidaController@create')->name('unidades-medidas.create');
+Route::post('unidades-medidas','App\Http\Controllers\UnidadMedidaController@store')->name('unidades-medidas.store');
+Route::get('unidades-medidas/{unidad_id}', 'App\Http\Controllers\UnidadMedidaController@show')->name('unidades-medidas.show');
+Route::get('unidades-medidas/{unidad_id}/edit', 'App\Http\Controllers\UnidadMedidaController@edit')->name('unidades-medidas.edit');
+Route::put('unidades-medidas', 'App\Http\Controllers\UnidadMedidaController@update')->name('unidades-medidas.update');
+Route::delete('unidades-medidas', 'App\Http\Controllers\UnidadMedidaController@destroy')->name('unidades-medidas.delete');
+//tipos-impuestos routes
+Route::get('tipos-impuestos','App\Http\Controllers\TipoImpuestoController@index')->name('tipos-impuestos.index');
+Route::get('tipos-impuestos/create','App\Http\Controllers\TipoImpuestoController@create')->name('tipos-impuestos.create');
+Route::post('tipos-impuestos','App\Http\Controllers\TipoImpuestoController@store')->name('tipos-impuestos.store');
+Route::get('tipos-impuestos/{tipo_id}', 'App\Http\Controllers\TipoImpuestoController@show')->name('tipos-impuestos.show');
+Route::get('tipos-impuestos/{tipo_id}/edit', 'App\Http\Controllers\TipoImpuestoController@edit')->name('tipos-impuestos.edit');
+Route::put('tipos-impuestos', 'App\Http\Controllers\TipoImpuestoController@update')->name('tipos-impuestos.update');
+Route::delete('tipos-impuestos', 'App\Http\Controllers\TipoImpuestoController@destroy')->name('tipos-impuestos.delete');
+//timbrados routes
+Route::get('timbrados','App\Http\Controllers\TimbradoController@index')->name('timbrados.index');
+Route::get('timbrados/create','App\Http\Controllers\TimbradoController@create')->name('timbrados.create');
+Route::post('timbrados','App\Http\Controllers\TimbradoController@store')->name('timbrados.store');
+Route::get('timbrados/{timbrado_id}', 'App\Http\Controllers\TimbradoController@show')->name('timbrados.show');
+Route::get('timbrados/{timbrado_id}/edit', 'App\Http\Controllers\TimbradoController@edit')->name('timbrados.edit');
+Route::put('timbrados', 'App\Http\Controllers\TimbradoController@update')->name('timbrados.update');
+Route::delete('timbrados', 'App\Http\Controllers\TimbradoController@destroy')->name('timbrados.delete');
+
 
 Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
 
