@@ -102,7 +102,14 @@ Route::get('timbrados/{timbrado_id}', 'App\Http\Controllers\TimbradoController@s
 Route::get('timbrados/{timbrado_id}/edit', 'App\Http\Controllers\TimbradoController@edit')->name('timbrados.edit');
 Route::put('timbrados', 'App\Http\Controllers\TimbradoController@update')->name('timbrados.update');
 Route::delete('timbrados', 'App\Http\Controllers\TimbradoController@destroy')->name('timbrados.delete');
-
+//proveedores routes
+Route::get('proveedores','App\Http\Controllers\ProveedorController@index')->name('proveedores.index');
+Route::get('proveedores/create','App\Http\Controllers\ProveedorController@create')->name('proveedores.create');
+Route::post('proveedores','App\Http\Controllers\ProveedorController@store')->name('proveedores.store');
+Route::get('proveedores/{proveedor_id}', 'App\Http\Controllers\ProveedorController@show')->name('proveedores.show');
+Route::get('proveedores/{proveedor_id}/edit', 'App\Http\Controllers\ProveedorController@edit')->name('proveedores.edit');
+Route::put('proveedores', 'App\Http\Controllers\ProveedorController@update')->name('proveedores.update');
+Route::delete('proveedores', 'App\Http\Controllers\ProveedorController@destroy')->name('proveedores.delete');
 
 Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
 

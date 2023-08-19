@@ -64,6 +64,11 @@
             <a href="{{route('timbrados.index')}}" class="">
               <i class="bi bi-circle"></i><span>Timbrados</span>
             </a>
+          </li> 
+          <li>
+            <a href="{{route('proveedores.index')}}" class="">
+              <i class="bi bi-circle"></i><span>Proveedores</span>
+            </a>
           </li>          
         </ul>
       </li>
