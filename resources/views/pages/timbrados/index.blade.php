@@ -29,7 +29,7 @@
                         <td>{{$timbrado->id}}</td>
                         <td>{{$timbrado->numero}}</td>                                                
                         <td>{{$timbrado->fecha_emision}}</td>                                                
-                        <td>{{$timbrado->estado}}</td>                                                
+                        <td><span class="badge bg-{{config('constants.timbrado-status-label.'.$timbrado->estado)}}">{{config('constants.timbrado-status.'.$timbrado->estado)}}</span></td>                                                
                         <td>                        
                           <a href="{{url('timbrados/' . $timbrado->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                             <a href="{{url('timbrados/' . $timbrado->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>

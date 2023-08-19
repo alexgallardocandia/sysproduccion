@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Timbrado;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Type\Time;
 
@@ -21,25 +22,58 @@ class TimbradoController extends Controller
     
     public function store(Request $request)
     {        
-        $timbradoval = Timbrado::where('numero', $request->numero)->where('fecha_emision');
+        $timbradoval = Timbrado::where('numero', $request->numero)->where('fecha_emision',$request->fecha_emision)->where('fecha_vencimiento',$request->fecha_vencimiento)->first();
+        
+        if($timbradoval){
+            return redirect()->route('timbrados.creates')->with('danger','El numero de timbrado ya esta registrado');        
+        }else{
+            Timbrado::create([
+                'numero'            => $request->numero,
+                'fecha_emision'     => Carbon::createFromFormat('Y-m-d',$request->fecha_emision),
+                'fecha_vencimiento' => Carbon::createFromFormat('Y-m-d',$request->fecha_vencimiento),
+                'tipo'              => $request->tipo,
+                'estado'            => 1
+            ]);
+
+            return redirect()->route('timbrados.index')->with('success','Timbrado registrado exitosamente');
+        }
+
     }
 
-    public function show(Timbrado $timbrado)
+    public function show($timbrado_id)
     {
-        //
+        $timbrado = Timbrado::find($timbrado_id);
+
+        return view('pages.timbrados.show', compact('timbrado'));
     }
 
-    public function edit(){
-        //
+    public function edit($timbrado_id){
+        $timbrado = Timbrado::find($timbrado_id);
+
+        return view('pages.timbrados.edit', compact('timbrado'));
     }
 
-    public function update(Request $request, Timbrado $timbrado)
+    public function update(Request $request)
     {
-        //
+        $timbrado = Timbrado::find($request->timbrado_id);
+
+        $timbrado->update([
+            'numero'            => $request->numero,
+            'fecha_emision'     => Carbon::createFromFormat('Y-m-d',$request->fecha_emision),
+            'fecha_vencimiento' => Carbon::createFromFormat('Y-m-d',$request->fecha_vencimiento),
+            'tipo'              => $request->tipo,
+            'estado'            => 1
+        ]);
+
+        return redirect()->route('timbrados.index')->with('warning','Timbrado editado correctamente');
     }
 
-    public function destroy(Timbrado $timbrado)
+    public function destroy(Request $request)
     {
-        //
+        $timbrado = Timbrado::find($request->timbrado_id);
+
+        $timbrado->delete();
+
+        return redirect()->route('timbrados.index')->with('danger', 'Timbrado eliminado correctamente');
     }
 }

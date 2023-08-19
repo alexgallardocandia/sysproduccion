@@ -14,6 +14,7 @@ class Timbrado extends Model
         'numero',
         'fecha_emision',
         'fecha_vencimiento',
-        'tipo'
+        'tipo',
+        'estado'
     ];
 }

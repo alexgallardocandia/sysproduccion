@@ -7,34 +7,40 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h5>Editar Tipo de Impuesto {{$tipo->descripcion}}</h5>              
+              <h5>Editar Timbrado</h5>              
             </div>
-            <div class="card-body">                   
-                <form method="POST" action="{{route('tipos-impuestos.update')}}">
+            <div class="card-body">                                  
+                <form method="POST" action="{{route('timbrados.update')}}">
                 @csrf
                 @method('PUT')
-                    <div class="row mb-3">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Descripcion</label>
-                        <div class="col-sm-10">
-                        <input name="descripcion" type="text" class="form-control" id="inputText" value="{{$tipo->descripcion}}" required>
-                        <input name="tipo_id" type="hidden" class="form-control" id="inputText" value="{{$tipo->id}}" required>
+                    <div class="row mb-2">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Numero</b></label>
+                        <div class="col-sm-3">
+                        <input name="numero" type="number" min="100" class="form-control" value="{{$timbrado->numero}}" required>
+                        <input name="timbrado_id" type="hidden" class="form-control" value="{{$timbrado->id}}" required>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Valor</label>
-                        <div class="col-sm-10">
-                        <input name="valor" type="number" step="0.01" class="form-control" id="inputText" value="{{$tipo->valor}}" required>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Tipo</b></label>
+                        <div class="col-sm-3">
+                            <select class="form-control" name="tipo" id="tipo">
+                              <option value="{{$timbrado->tipo}}" selected>{{config('constants.timbrado-type.'.$timbrado->tipo)}}</option>
+                              <option value="1">Compra</option>
+                              <option value="2">Venta</option>
+                            </select>                          
                         </div>
-                    </div>
+                    </div>     
                     <div class="row mb-3">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Signo</label>
-                        <div class="col-sm-10">
-                        <input name="signo" type="text" class="form-control" id="inputText" value="{{$tipo->signo}}" required>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Fecha de Emision</b></label>
+                        <div class="col-sm-3">
+                        <input name="fecha_emision" type="date" id="fecha_mision" class="form-control" value="{{$timbrado->fecha_emision}}" required>
                         </div>
-                    </div>
-                    <div class="">                        
-                        <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Modificar</button>
-                        <a href="{{url('tipos-impuestos')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Fecha de Vencimiento</b></label>
+                        <div class="col-sm-3">
+                        <input name="fecha_vencimiento" type="date" id="fecha_venimiento" class="form-control" value="{{$timbrado->fecha_vencimiento}}" required>
+                        </div>
+                    </div>                                     
+                    <div class="card-footer">                        
+                        <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
+                        <a href="{{url('timbrados')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
                     </div>
                 </form><!-- End Horizontal Form -->
             </div>
@@ -44,4 +50,16 @@
     </section>      
   </div>
 </div>    
+@endsection
+@section('script')
+  <script>
+    flatpickr("#fecha_vencimiento",{
+       minDate: "today", // Impide seleccionar fechas anteriores a la actual
+      dateFormat: "d-m-Y", // Formato de fecha
+    });
+    flatpickr("#fecha_emision",{
+      maxDate: "today", // Impide seleccionar fechas mayores a la actual
+      dateFormat: "d-m-Y", // Formato de fecha
+    });
+  </script>
 @endsection
