@@ -110,6 +110,14 @@ Route::get('proveedores/{proveedor_id}', 'App\Http\Controllers\ProveedorControll
 Route::get('proveedores/{proveedor_id}/edit', 'App\Http\Controllers\ProveedorController@edit')->name('proveedores.edit');
 Route::put('proveedores', 'App\Http\Controllers\ProveedorController@update')->name('proveedores.update');
 Route::delete('proveedores', 'App\Http\Controllers\ProveedorController@destroy')->name('proveedores.delete');
+//materias-primas routes
+Route::get('materias-primas','App\Http\Controllers\MateriaPrimaController@index')->name('materias-primas.index');
+Route::get('materias-primas/create','App\Http\Controllers\MateriaPrimaController@create')->name('materias-primas.create');
+Route::post('materias-primas','App\Http\Controllers\MateriaPrimaController@store')->name('materias-primas.store');
+Route::get('materias-primas/{materia_id}', 'App\Http\Controllers\MateriaPrimaController@show')->name('materias-primas.show');
+Route::get('materias-primas/{materia_id}/edit', 'App\Http\Controllers\MateriaPrimaController@edit')->name('materias-primas.edit');
+Route::put('materias-primas', 'App\Http\Controllers\MateriaPrimaController@update')->name('materias-primas.update');
+Route::delete('materias-primas', 'App\Http\Controllers\MateriaPrimaController@destroy')->name('materias-primas.delete');
 
 Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
 

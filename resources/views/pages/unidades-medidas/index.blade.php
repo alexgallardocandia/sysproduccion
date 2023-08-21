@@ -71,6 +71,9 @@
 @endsection
 @section('script')
 <script>
+  $( document ).ready(function() {
+    $('#referenciales-nav').addClass("show");//coloca el menu en show
+    $('#unidades-menu').addClass("active");//coloca activo el submenu usuario
     $('#unidad_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var unidad_id = button.data('id'); // Extraer el valor del atributo data-id
@@ -79,5 +82,6 @@
         modal.find('#unidad_id').text(descripcion); // Insertar el valor en el modal
         $('#id_unidad').val(unidad_id); // Insertar el valor en el modal        
     });
+  });
 </script>
 @endsection

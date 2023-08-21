@@ -73,6 +73,9 @@
 @endsection
 @section('script')
 <script>
+  $(document).ready(function() {
+    $('#referenciales-nav').addClass("show");//coloca el menu en show
+    $('#timbrados-menu').addClass("active");//coloca activo el submenu usuario
     $('#timbrado_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var timbrado_id = button.data('id'); // Extraer el valor del atributo data-id
@@ -81,5 +84,6 @@
         modal.find('#timbrado_id').text(numero); // Insertar el valor en el modal
         $('#id_timbrado').val(timbrado_id); // Insertar el valor en el modal        
     });
+  });
 </script>
 @endsection

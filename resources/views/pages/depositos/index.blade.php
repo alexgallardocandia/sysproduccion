@@ -70,6 +70,9 @@
 @endsection
 @section('script')
 <script>
+  $(document).ready(function(){
+    $('#referenciales-nav').addClass('show');
+    $('#depositos-menu').addClass('active');
     $('#deposito_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var deposito_id = button.data('id'); // Extraer el valor del atributo data-id
@@ -78,5 +81,6 @@
         modal.find('#deposito_id').text(descripcion); // Insertar el valor en el modal
         $('#id_deposito').val(deposito_id); // Insertar el valor en el modal        
     });
+  });
 </script>
 @endsection

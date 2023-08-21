@@ -42,5 +42,12 @@
       </section>
   </div>
 </div>
-
+@endsection
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('#referenciales-nav').addClass("show");//coloca el menu en show
+        $('#personas-menu').addClass("active");//coloca activo el submenu usuario
+    });
+</script>
 @endsection

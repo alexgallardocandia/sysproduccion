@@ -69,6 +69,9 @@
 @endsection
 @section('script')
 <script>
+  $(document).ready(function(){
+    $('#referenciales-nav').addClass('show');
+    $('#cargos-menu').addClass('active');
     $('#cargo_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var cargo_id = button.data('id'); // Extraer el valor del atributo data-id
@@ -77,5 +80,6 @@
         modal.find('#cargo_id').text(descripcion); // Insertar el valor en el modal
         $('#id_cargo').val(cargo_id); // Insertar el valor en el modal        
     });
+  });
 </script>
 @endsection

@@ -27,5 +27,12 @@
       </section>
   </div>
 </div>
-
+@endsection
+@section('script')
+<script>
+  $(document).ready(function() {
+    $('#referenciales-nav').addClass("show");
+    $('#users-menu').addClass("active");    
+  });
+</script>
 @endsection

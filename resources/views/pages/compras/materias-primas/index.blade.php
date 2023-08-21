@@ -7,8 +7,8 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h5>Estados  Civiles</h5>
-              <a href="{{url('estados-civiles/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              <h5>Materias Primas</h5>
+              <a href="{{url('materias-primas/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
               <!-- Table with stripped rows -->
@@ -17,19 +17,24 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Descripcion</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Fecha Vencimiento</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($estados as $estado)
-                  
+                  @foreach ($materias as $materia)                  
                       <tr>
-                        <td>{{$estado->id}}</td>
-                        <td>{{$estado->descripcion}}</td>                                                
+                        <td>{{$materia->id}}</td>
+                        <td>{{$materia->descripcion}}</td>                                               
+                        <td>{{$materia->cantidad}}  <b>{{$materia->umedida->signo}}</b></td>
+                        <td>{{$materia->precio}}</td>                                               
+                        <td>{{$materia->fecha_vencimiento}}</td>                                               
                         <td>                        
-                          <a href="{{url('estados-civiles/' . $estado->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('estados-civiles/' . $estado->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#estado_delete" data-name="{{$estado->descripcion}}" data-id="{{ $estado->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          <a href="{{url('materias-primas/' . $materia->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                            <a href="{{url('materias-primas/' . $materia->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                            <a data-bs-toggle="modal" data-bs-target="#materia_delete" data-name="{{$materia->descripcion}}" data-id="{{ $materia->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                         </td>
                       </tr>
                   @endforeach
@@ -39,19 +44,19 @@
               <!-- End Table with stripped rows -->
           </div>  
                    
-              <div class="modal fade" id="estado_delete" tabindex="-1">
+              <div class="modal fade" id="materia_delete" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Eliminar Estado Civil</h5>
+                      <h5 class="modal-title">Eliminar materia </h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="POST" action="{{route('estados-civiles.delete')}}">
+                    <form method="POST" action="{{route('materias-primas.delete')}}">
                       @csrf
                       @method('DELETE')
                       <div class="modal-body">
-                        <p>Deseas eliminar el estado civil <b><span id="estado_id"></span></b>?</p>
-                        <input name="estado_id" type="hidden" id="id_estado"/>
+                        <p>Deseas eliminar la materia <b><span id="materia_id"></span></b>?</p>
+                        <input name="materia_id" type="hidden" id="id_materia"/>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
@@ -70,15 +75,15 @@
 @section('script')
 <script>
   $(document).ready(function(){
-    $('#referenciales-nav').addClass('show');
-    $('#estados-menu').addClass('active');
-    $('#estado_delete').on('show.bs.modal', function(event) {
+    $('#compras-nav').addClass('show');
+    $('#materias-menu').addClass('active');
+    $('#materia_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
-        var estado_id = button.data('id'); // Extraer el valor del atributo data-id
+        var materia_id = button.data('id'); // Extraer el valor del atributo data-id
         var descripcion = button.data('name'); // Extraer el valor del atributo data-id
         var modal = $(this);
-        modal.find('#estado_id').text(descripcion); // Insertar el valor en el modal
-        $('#id_estado').val(estado_id); // Insertar el valor en el modal        
+        modal.find('#materia_id').text(descripcion); // Insertar el valor en el modal
+        $('#id_materia').val(materia_id); // Insertar el valor en el modal        
     });
   });
 </script>

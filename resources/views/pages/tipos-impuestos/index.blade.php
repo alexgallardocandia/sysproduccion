@@ -73,13 +73,17 @@
 @endsection
 @section('script')
 <script>
-    $('#tipo_delete').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget); // Botón que disparó el modal
-        var tipo_id = button.data('id'); // Extraer el valor del atributo data-id
-        var descripcion = button.data('name'); // Extraer el valor del atributo data-id
-        var modal = $(this);
-        modal.find('#tipo_id').text(descripcion); // Insertar el valor en el modal
-        $('#id_tipo').val(tipo_id); // Insertar el valor en el modal        
+    $(document).ready(function() {
+      $('#referenciales-nav').addClass("show");//coloca el menu en show
+      $('#tipos-menu').addClass("active");//coloca activo el submenu usuario
+      $('#tipo_delete').on('show.bs.modal', function(event) {
+          var button = $(event.relatedTarget); // Botón que disparó el modal
+          var tipo_id = button.data('id'); // Extraer el valor del atributo data-id
+          var descripcion = button.data('name'); // Extraer el valor del atributo data-id
+          var modal = $(this);
+          modal.find('#tipo_id').text(descripcion); // Insertar el valor en el modal
+          $('#id_tipo').val(tipo_id); // Insertar el valor en el modal        
+      });
     });
 </script>
 @endsection

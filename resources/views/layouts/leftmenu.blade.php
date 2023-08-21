@@ -11,65 +11,77 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>REFERENCIALES</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#referenciales-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gear"></i><span>REFERENCIALES</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+        <ul id="referenciales-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{route('users.index')}}" class="active">
+            <a id="users-menu" href="{{route('users.index')}}">
               <i class="bi bi-circle"></i><span>Usuarios</span>
             </a>
           </li>
           <li>
-            <a href="{{route('estados-civiles.index')}}" class="">
+            <a id="estados-menu" href="{{route('estados-civiles.index')}}" >
               <i class="bi bi-circle"></i><span>Estados Civiles</span>
             </a>
           </li>
           <li>
-            <a href="{{route('cargos.index')}}" class="">
+            <a id="cargos-menu" href="{{route('cargos.index')}}" >
               <i class="bi bi-circle"></i><span>Cargos</span>
             </a>
           </li>
           <li>
-            <a href="{{route('sucursales.index')}}" class="">
+            <a id="sucursales-menu" href="{{route('sucursales.index')}}" >
               <i class="bi bi-circle"></i><span>Sucursales</span>
             </a>
           </li>
           <li>
-            <a href="{{route('ciudades.index')}}" class="">
+            <a id="ciudades-menu" href="{{route('ciudades.index')}}" >
               <i class="bi bi-circle"></i><span>Ciudades</span>
             </a>
           </li>
           <li>
-            <a href="{{route('personas.index')}}" class="">
+            <a id="personas-menu" href="{{route('personas.index')}}" >
               <i class="bi bi-circle"></i><span>Personas</span>
             </a>
           </li>
           <li>
-            <a href="{{route('depositos.index')}}" class="">
+            <a id="depositos-menu" href="{{route('depositos.index')}}" >
               <i class="bi bi-circle"></i><span>Depositos</span>
             </a>
           </li>
           <li>
-            <a href="{{route('unidades-medidas.index')}}" class="">
+            <a id="unidades-menu" href="{{route('unidades-medidas.index')}}" >
               <i class="bi bi-circle"></i><span>Unidades de Medida</span>
             </a>
           </li> 
           <li>
-            <a href="{{route('tipos-impuestos.index')}}" class="">
+            <a id="tipos-menu" href="{{route('tipos-impuestos.index')}}" >
               <i class="bi bi-circle"></i><span>Tipos de Impuestos</span>
             </a>
           </li> 
           <li>
-            <a href="{{route('timbrados.index')}}" class="">
+            <a id="timbrados-menu" href="{{route('timbrados.index')}}" >
               <i class="bi bi-circle"></i><span>Timbrados</span>
             </a>
           </li> 
           <li>
-            <a href="{{route('proveedores.index')}}" class="">
+            <a id="proveedores-menu" href="{{route('proveedores.index')}}" >
               <i class="bi bi-circle"></i><span>Proveedores</span>
             </a>
-          </li>          
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#compras-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bag-fill"></i><span>COMPRAS</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="compras-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a id="materias-menu" href="{{route('materias-primas.index')}}" >
+              <i class="bi bi-circle"></i><span>Materias Primas</span>
+            </a>
+          </li>
         </ul>
       </li>
     </ul>

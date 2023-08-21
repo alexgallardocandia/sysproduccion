@@ -75,6 +75,9 @@
 @endsection
 @section('script')
 <script>
+  $(document).ready(function() {
+    $('#referenciales-nav').addClass("show");
+    $('#users-menu').addClass("active");
     $('#user_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var userId = button.data('id'); // Extraer el valor del atributo data-id
@@ -84,5 +87,6 @@
         $('#id_usuario').val(userId); // Insertar el valor en el modal
         console.log(userId);
     });
+  });
 </script>
 @endsection

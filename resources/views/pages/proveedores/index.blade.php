@@ -74,6 +74,9 @@
 @endsection
 @section('script')
 <script>
+  $(document).ready(function(){
+    $('#referenciales-nav').addClass('show');
+    $('#proveedores-menu').addClass('active');
     $('#proveedor_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var proveedor_id = button.data('id'); // Extraer el valor del atributo data-id
@@ -82,5 +85,6 @@
         modal.find('#proveedor_id').text(descripcion); // Insertar el valor en el modal
         $('#id_proveedor').val(proveedor_id); // Insertar el valor en el modal        
     });
+  });
 </script>
 @endsection
