@@ -16,14 +16,10 @@
                  <div class="form-group">
                     <div class="row mb-3">
                       <label for="inputEmail3" class="col-sm-2 col-form-label">Descripcion</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-10">
                         <input name="descripcion" type="text" class="form-control" value="{{$materia->descripcion}}" required>
                         <input name="materia_id" type="hidden" class="form-control" value="{{$materia->id}}" required>
-                      </div>
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Cantidad</label>
-                      <div class="col-sm-4">
-                        <input name="cantidad" type="number" class="form-control" value="{{$materia->cantidad}}" required>
-                      </div>                      
+                      </div>                
                     </div>                    
                     <div class="row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Precio</label>

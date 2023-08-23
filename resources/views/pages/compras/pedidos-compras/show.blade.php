@@ -15,6 +15,7 @@
                             <div class="card-body col-6">
                               <!-- List group With Icons -->
                               <ul class="list-group">                                                                                                      
+                                  <li class="list-group-item"><i class="ri-knife-fill me-1 text-success"></i><b>Cantidad: </b>{{$materia->cantidad.' '.$materia->umedida->signo}}</li>
                                   <li class="list-group-item"><i class="ri-money-dollar-circle-fill me-1 text-success"></i><b>Precio: </b>{{number_format($materia->precio,0,",",".")}}</li>
                                   <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Fecha Lote: </b>{{$materia->fecha_lote}}</li>
                                   <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Fecha Vencimiento: </b>{{$materia->fecha_vencimiento}}</li>

@@ -24,7 +24,7 @@ class DepositoController extends Controller
     public function store(Request $request)
     {
         Deposito::create([
-            'descripcion'   => $request->descripcion,
+            'descripcion'   => strtoupper($request->descripcion),
             'sucursal_id'   => $request->sucursal_id
         ]);
 
@@ -48,7 +48,7 @@ class DepositoController extends Controller
     {
         $deposito = Deposito::find($request->deposito_id);
         $deposito->update([
-            'descripcion' => $request->descripcion,
+            'descripcion' => strtoupper($request->descripcion),
             'sucursal_id' => $request->sucursal_id
         ]);
 

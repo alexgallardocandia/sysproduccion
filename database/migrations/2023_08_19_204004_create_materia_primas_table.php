@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('materia_primas', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion');
-            $table->decimal('cantidad');
             $table->decimal('precio');
             $table->date('fecha_lote');
             $table->date('fecha_vencimiento');

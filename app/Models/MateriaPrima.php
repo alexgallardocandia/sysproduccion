@@ -13,7 +13,6 @@ class MateriaPrima extends Model
     protected $fillable = [
         
         'descripcion',
-        'cantidad',
         'precio',
         'fecha_lote',
         'fecha_vencimiento',

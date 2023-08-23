@@ -82,6 +82,11 @@
               <i class="bi bi-circle"></i><span>Materias Primas</span>
             </a>
           </li>
+          <li>
+            <a id="pedidos-compras-menu" href="{{route('pedidos-compras.index')}}" >
+              <i class="bi bi-circle"></i><span>Pedidos de Compra</span>
+            </a>
+          </li>
         </ul>
       </li>
     </ul>

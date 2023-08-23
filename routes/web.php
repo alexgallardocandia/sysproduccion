@@ -118,6 +118,14 @@ Route::get('materias-primas/{materia_id}', 'App\Http\Controllers\MateriaPrimaCon
 Route::get('materias-primas/{materia_id}/edit', 'App\Http\Controllers\MateriaPrimaController@edit')->name('materias-primas.edit');
 Route::put('materias-primas', 'App\Http\Controllers\MateriaPrimaController@update')->name('materias-primas.update');
 Route::delete('materias-primas', 'App\Http\Controllers\MateriaPrimaController@destroy')->name('materias-primas.delete');
+//pedidos-compras routes
+Route::get('pedidos-compras','App\Http\Controllers\PedidoCompraController@index')->name('pedidos-compras.index');
+Route::get('pedidos-compras/create','App\Http\Controllers\PedidoCompraController@create')->name('pedidos-compras.create');
+Route::post('pedidos-compras','App\Http\Controllers\PedidoCompraController@store')->name('pedidos-compras.store');
+Route::get('pedidos-compras/{pedido_id}', 'App\Http\Controllers\PedidoCompraController@show')->name('pedidos-compras.show');
+Route::get('pedidos-compras/{pedido_id}/edit', 'App\Http\Controllers\PedidoCompraController@edit')->name('pedidos-compras.edit');
+Route::put('pedidos-compras', 'App\Http\Controllers\PedidoCompraController@update')->name('pedidos-compras.update');
+Route::delete('pedidos-compras', 'App\Http\Controllers\PedidoCompraController@destroy')->name('pedidos-compras.delete');
 
 Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
 

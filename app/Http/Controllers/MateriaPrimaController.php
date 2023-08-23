@@ -27,7 +27,6 @@ class MateriaPrimaController extends Controller
     {
         MateriaPrima::create([
             'descripcion' => strtoupper($request->descripcion),
-            'cantidad' => $request->cantidad,
             'precio' => $request->precio,
             'fecha_lote' => $request->fecha_lote,
             'fecha_vencimiento' => $request->fecha_vencimiento,
@@ -57,7 +56,6 @@ class MateriaPrimaController extends Controller
 
         $materia->update([
             'descripcion' => strtoupper($request->descripcion),
-            'cantidad' => $request->cantidad,
             'precio' => $request->precio,
             'fecha_lote' => $request->fecha_lote,
             'fecha_vencimiento' => $request->fecha_vencimiento,
