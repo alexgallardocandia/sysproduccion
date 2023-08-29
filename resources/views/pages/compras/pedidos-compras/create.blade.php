@@ -155,9 +155,13 @@
           '<td name="materias[]">'+mat+'</td>'+
           '<td name="cantidades[]">'+ume+'</td>'+
           '<td name="cantidades[]">'+cant+'</td>'+          
-          '<td><i class="ri-close-line"></i></td>'
+          '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
         +'</tr>'        
-      );
+      );        
     };
+    function removeRow(t)
+    {
+        $(t).parent().parent().remove();            
+    }
 </script>
 @endsection
