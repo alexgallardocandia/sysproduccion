@@ -7,12 +7,12 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h5>Estados  Civiles</h5>
-              <a href="{{url('estados-civiles/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+                <h5>Estados  Civiles</h5>                              
+                <a href="{{url('estados-civiles/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>              
             </div>
-            <div class="card-body">                                     
+            <div class="card-body">              
               <!-- Table with stripped rows -->
-              <table class="table ">
+              <table class="table table-striped datatable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>

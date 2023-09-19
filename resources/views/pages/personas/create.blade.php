@@ -26,7 +26,7 @@
                     <div class="row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Nro de CI</label>
                         <div class="col-sm-4">
-                          <input name="ci" type="number" class="form-control" required>
+                          <input name="ci" type="text" class="form-control" format-number required>
                         </div>
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Direccion</label>
                         <div class="col-sm-4">
@@ -36,7 +36,7 @@
                     <div class="row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Telefono</label>
                         <div class="col-sm-4">
-                          <input name="telefono" type="text" class="form-control" required>
+                          <input name="telefono" type="text" class="form-control" format-number required>
                         </div>
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-4">

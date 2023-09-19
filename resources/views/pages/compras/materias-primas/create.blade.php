@@ -21,32 +21,31 @@
                     </div>                    
                     <div class="row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Precio</label>
-                        <div class="col-sm-4">
-                          <input name="precio" type="number" class="form-control" required>
+                        <div class="col-sm-4">                        
+                          <input id="precio" name="precio" type="text" class="form-control" format-number required>
                         </div>
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Fecha de Lote</label>
                         <div class="col-sm-4">
                           <input name="fecha_lote" type="date" class="form-control" required>
-                        </div>                                                                 
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Fecha de Vencimiento</label>
                         <div class="col-sm-4">
                           <input name="fecha_vencimiento" type="date" class="form-control" required>
-                        </div>                                             
+                        </div>
                     
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Unidad de Medida</label>
                         <div class="col-sm-4">
-                          <div class="form-group">                                              
+                          <div class="form-group">
                             <select class="form-control select2" name="umedida_id" id="umedida_id">
-                              @foreach($unidades as $unidad)                              
+                              @foreach($unidades as $unidad)
                                 <option value='{{$unidad->id}}'>{{$unidad->descripcion}}</option>
-                              @endforeach()                            
+                              @endforeach()
                             </select>
-                          </div>                          
-                        </div>                                             
+                          </div>
+                        </div>
                     </div>
-                       
                   <div class="card-footer">                        
                       <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
                       <a href="{{url('materias-primas')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
@@ -62,9 +61,11 @@
 @endsection
 @section('script')
 <script>
-    $(document).ready(function() {
+    $(document).ready(function() {      
+
         $('#compras-nav').addClass("show");//coloca el menu en show
         $('#materias-menu').addClass("active");//coloca activo el submenu usuario
+                
     });
 </script>
 @endsection

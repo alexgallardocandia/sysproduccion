@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">                                     
               <!-- Table with stripped rows -->
-              <table class="table ">
+              <table class="table table-striped datatable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>

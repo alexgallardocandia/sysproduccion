@@ -5,6 +5,20 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+$(document).ready(function(){
+
+  $("[format-number]").inputmask({
+    alias: 'decimal',
+    groupSeparator: '.',
+    radixPoint: ',',
+    autoGroup: true,
+    allowMinus: false,
+    rightAlign: false,
+    digits: 0,
+    removeMaskOnSubmit: true,
+  });
+
+});
 (function() {
   "use strict";
 

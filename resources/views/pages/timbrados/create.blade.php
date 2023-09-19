@@ -15,7 +15,7 @@
                     <div class="row mb-2">
                         <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Numero</b></label>
                         <div class="col-sm-3">
-                        <input name="numero" type="number" min="100" class="form-control" required>
+                        <input name="numero" type="text" class="form-control" format-number required>
                         </div>
                         <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Tipo</b></label>
                         <div class="col-sm-3">
