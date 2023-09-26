@@ -12,9 +12,9 @@ class PedidoCompraDetalle extends Model
 
     protected $fillable = [
         'pedido_compra_id',
-        'materia_id',
+        'materia_prima_id',
         'cantidad',
-        'umedida_id',
+        'umedid_id',
     ];
 
     public function pedido_compra(){
@@ -27,3 +27,4 @@ class PedidoCompraDetalle extends Model
         return $this->belongsTo('App\Models\UnidadMedida');
     }
 }
+        

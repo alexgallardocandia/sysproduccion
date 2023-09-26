@@ -29,7 +29,7 @@
                         <td>{{$usuario->id}}</td>
                         <td>{{$usuario->name}}</td>
                         <td>{{$usuario->email}}</td>
-                        <td><span class="badge bg-{{ config('constants.users-status-label.' . intval($usuario->status)) }}">{{ config('constants.users-status.'. intval($usuario->status)) }}</span></td>                        
+                        <td><span class="badge bg-{{ config('constants.users-status-label.' . intval($usuario->status)) }}">{{ config('constants.users-status.'. intval($usuario->status)) }}</span></td>
                         <td>                        
                           <a href="{{url('users/' . $usuario->id)}}"><i class="bi bi-info-circle-fill"></i></a>
                           @if($usuario->status == 1)

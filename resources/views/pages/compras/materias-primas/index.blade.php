@@ -12,12 +12,12 @@
             </div>
             <div class="card-body">                                     
               <!-- Table with stripped rows -->
-              <table class="table ">
+              <table class="table table-striped datatable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Descripcion</th>
-                    <th scope="col">Cantidad</th>
+                    <th scope="col">Unidad de Medida</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Fecha Vencimiento</th>
                     <th scope="col">Acciones</th>
@@ -28,9 +28,9 @@
                       <tr>
                         <td>{{$materia->id}}</td>
                         <td>{{$materia->descripcion}}</td>                                               
-                        <td>{{$materia->cantidad}}  <b>{{$materia->umedida->signo}}</b></td>
-                        <td>{{$materia->precio}}</td>                                               
-                        <td>{{$materia->fecha_vencimiento}}</td>                                               
+                        <td><b>{{$materia->umedida->signo}}</b></td>
+                        <td>{{number_format($materia->precio, 0, ',','.')}}</td>                                               
+                        <td>{{Carbon\Carbon::createFromFormat('Y-m-d',$materia->fecha_vencimiento)->format('d/m/Y')}}</td>                                               
                         <td>                        
                           <a href="{{url('materias-primas/' . $materia->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                             <a href="{{url('materias-primas/' . $materia->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>

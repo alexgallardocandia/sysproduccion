@@ -32,9 +32,9 @@ return [
         3 => 'Baja',
     ],
     'pedidos-compras-prioridad-label' => [
-        1 => 'primary',
+        1 => 'danger',
         2 => 'warning',
-        3 => 'danger',
+        3 => 'primary',
     ],
     'pedidos-compras-status' => [
         1 => 'Pendiente',

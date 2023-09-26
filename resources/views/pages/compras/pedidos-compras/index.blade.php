@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">                                     
               <!-- Table with stripped rows -->
-              <table class="table ">
+              <table class="table table-striped datatable">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -27,10 +27,10 @@
                   @foreach ($pedidosc as $pedidoc)                  
                       <tr>
                         <td>{{$pedidoc->id}}</td>
-                        <td>{{$pedidoc->fecha}}</td>                                               
-                        <td>{{$pedidoc->prioridad}}</b></td>
-                        <td>{{$pedidoc->user_id}}</td>                                               
-                        <td>{{$pedidoc->estado}}</td>                                               
+                        <td>{{Carbon\Carbon::createFromFormat('Y-m-d', $pedidoc->fecha_pedido)->format('d/m/Y')}}</td>                                               
+                        <td><span class="badge bg-{{ config('constants.pedidos-compras-prioridad-label.' . intval($pedidoc->prioridad)) }}">{{ config('constants.pedidos-compras-prioridad.'. intval($pedidoc->prioridad)) }}</span></td>
+                        <td>{{$pedidoc->user->name}}</td>                                               
+                        <td><span class="badge bg-{{ config('constants.pedidos-compras-status-label.' . intval($pedidoc->estado)) }}">{{ config('constants.pedidos-compras-status.'. intval($pedidoc->estado)) }}</span></td>
                         <td>                        
                           <a href="{{url('pedidos-compras/' . $pedidoc->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                             <a href="{{url('pedidos-compras/' . $pedidoc->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>

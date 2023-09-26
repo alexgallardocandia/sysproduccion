@@ -17,8 +17,36 @@ $(document).ready(function(){
     digits: 0,
     removeMaskOnSubmit: true,
   });
-
+  
 });
+function laravelErrorMessages(data) {
+  
+  var response = JSON.parse(data.responseText);
+
+  var printError = '';  
+
+  $.each(response.errors, function (key, value) {      
+      $.each(value, function (key1, value1) {          
+          printError += value1.capitalize() + "\n";
+      });
+  });
+  if (printError) {
+      title = "SISTEMA";
+      text = printError;
+      icon = "info";
+  }
+  else {
+      title = "PAGINA NO DISPONIBLE";
+      text = "Favor contacte al área de Sistemas";
+      icon = "warning";
+  }
+  swal.fire({
+      title: title,
+      text: text,
+      icon: icon,      
+  });  
+}
+
 (function() {
   "use strict";
 
@@ -33,7 +61,9 @@ $(document).ready(function(){
       return document.querySelector(el)
     }
   }
-
+  String.prototype.capitalize = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+  }
   /**
    * Easy event listener function
    */
