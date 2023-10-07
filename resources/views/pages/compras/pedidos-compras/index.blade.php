@@ -29,7 +29,7 @@
                         <td>{{$pedidoc->id}}</td>
                         <td>{{Carbon\Carbon::createFromFormat('Y-m-d', $pedidoc->fecha_pedido)->format('d/m/Y')}}</td>                                               
                         <td><span class="badge bg-{{ config('constants.pedidos-compras-prioridad-label.' . intval($pedidoc->prioridad)) }}">{{ config('constants.pedidos-compras-prioridad.'. intval($pedidoc->prioridad)) }}</span></td>
-                        <td>{{$pedidoc->user->name}}</td>                                               
+                        <td>{{$pedidoc->user ? $pedidoc->user->name : ''}}</td>                                               
                         <td><span class="badge bg-{{ config('constants.pedidos-compras-status-label.' . intval($pedidoc->estado)) }}">{{ config('constants.pedidos-compras-status.'. intval($pedidoc->estado)) }}</span></td>
                         <td>                        
                           <a href="{{url('pedidos-compras/' . $pedidoc->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
@@ -37,7 +37,7 @@
                             <a data-bs-toggle="modal" data-bs-target="#pedidoc_delete" data-name="{{$pedidoc->descripcion}}" data-id="{{ $pedidoc->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                         </td>
                       </tr>
-                  @endforeach
+                  @endforeach 
                 </tbody>
               </table>
             </div>

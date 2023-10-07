@@ -126,7 +126,14 @@ Route::get('pedidos-compras/{pedido_id}', 'App\Http\Controllers\PedidoCompraCont
 Route::get('pedidos-compras/{pedido_id}/edit', 'App\Http\Controllers\PedidoCompraController@edit')->name('pedidos-compras.edit');
 Route::put('pedidos-compras', 'App\Http\Controllers\PedidoCompraController@update')->name('pedidos-compras.update');
 Route::delete('pedidos-compras', 'App\Http\Controllers\PedidoCompraController@destroy')->name('pedidos-compras.delete');
-
+//presupuestos-compras routes
+Route::get('presupuestos-compras','App\Http\Controllers\PresupuestoCompraController@index')->name('presupuestos-compras.index');
+Route::get('presupuestos-compras/create','App\Http\Controllers\PresupuestoCompraController@create')->name('presupuestos-compras.create');
+Route::post('presupuestos-compras','App\Http\Controllers\PresupuestoCompraController@store')->name('presupuestos-compras.store');
+Route::get('presupuestos-compras/{pedido_id}', 'App\Http\Controllers\PresupuestoCompraController@show')->name('presupuestos-compras.show');
+Route::get('presupuestos-compras/{pedido_id}/edit', 'App\Http\Controllers\PresupuestoCompraController@edit')->name('presupuestos-compras.edit');
+Route::put('presupuestos-compras', 'App\Http\Controllers\PresupuestoCompraController@update')->name('presupuestos-compras.update');
+Route::delete('presupuestos-compras', 'App\Http\Controllers\PresupuestoCompraController@destroy')->name('presupuestos-compras.delete');
 Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
 
 //Route::get('/index')->name('logados');

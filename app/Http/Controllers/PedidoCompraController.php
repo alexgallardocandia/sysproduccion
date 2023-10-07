@@ -14,7 +14,7 @@ class PedidoCompraController extends Controller
 {
     public function index()
     {
-        $pedidosc = PedidoCompra::get();
+        $pedidosc = PedidoCompra::orderby('id', 'DESC')->get();
         
         return view('pages.compras.pedidos-compras.index',compact('pedidosc'));
     }
@@ -45,7 +45,7 @@ class PedidoCompraController extends Controller
                 ]);
             }
 
-            toastr()->success('Pedido creado');
+            toastr()->success('Pedido Creado Exitosamente ','Pedido #'.$pedidocompra->id);
 
             return response()->json([
                 'success' => true
@@ -56,9 +56,10 @@ class PedidoCompraController extends Controller
 
     public function show($pedido_id)
     {
-        $pedido = PedidoCompra::find($pedido_id);
+        $pedido     = PedidoCompra::find($pedido_id);
+        $details    = PedidoCompraDetalle::where('pedido_compra_id', $pedido_id)->get();
 
-        return view('pages.compras.pedidos-compras.show', compact('pedido'));
+        return view('pages.compras.pedidos-compras.show', compact('pedido', 'details'));
     }
 
     public function edit(){

@@ -87,6 +87,11 @@
               <i class="bi bi-circle"></i><span>Pedidos de Compra</span>
             </a>
           </li>
+          <li>
+            <a id="presupuestos-compras-menu" href="{{route('presupuestos-compras.index')}}" >
+              <i class="bi bi-circle"></i><span>Presupuestos de Compra</span>
+            </a>
+          </li>
         </ul>
       </li>
     </ul>

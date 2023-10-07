@@ -7,45 +7,46 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
-                <h5>Crear Pedido de Compra</h5>              
+                <h5>Crear Presupuesto de Compra</h5>              
               </div>
               <div class="card-body">
                 <form id="form">
                   @csrf
                   <div class="form-group">
-                    <div class="row mb-3">
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Prioridad</label>
-                      <div class="col-sm-4">
-                        <select class="form-select" name="prioridad" id="prioridad">                              
-                          <option value='3'>Baja</option>
-                          <option value='2'>Media</option>
-                          <option value='1'>Alta</option>
-                        </select>
-                      </div>
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Fecha</label>
-                      <div class="col-sm-4">
+                    <div class="row mb-1">                      
+                      <label for="inputEmail3" class="col-sm-1 col-form-label">Fecha</label>
+                      <div class="col-sm-2">
                         <input name="fecha" type="text" class="form-control" value="{{now()->format('d/m/Y')}}" readonly>
-                      </div>                      
-                    </div>              
-                    <div class="row mb-3">                                                              
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Solicitante</label>
-                        <div class="col-sm-4">
-                          <div class="form-group">                                              
-                            <select class="form-select" name="user_id" id="user_id">
-                              <option>Seleccione...</option>
-                              @foreach($personas as $persona)
-                                <option value='{{$persona->id}}'>{{$persona->nombres. ' '.$persona->apellidos}}</option>
-                              @endforeach()                            
-                            </select>
-                          </div>                          
-                        </div>                                             
+                      </div>                                                            
+                      <label for="inputEmail3" class="col-sm-1 col-form-label">Proveedor</label>
+                      <div class="col-sm-3">
+                        <div class="form-group">                                              
+                          <select class="form-select" name="user_id" id="user_id">
+                            <option>Seleccione...</option>
+                            @foreach($proveedores as $proveedor)
+                              <option value='{{$proveedor->id}}'>{{$proveedor->razon_social}}</option>
+                            @endforeach()                            
+                          </select>
+                        </div>                          
+                      </div> 
+                      <label for="inputEmail3" class="col-sm-1 col-form-label">Pedido Nro.</label>
+                      <div class="col-sm-3">
+                        <div class="form-group">                                              
+                          <select class="form-select" name="pedido_id" id="pedido_id">
+                            <option>Seleccione...</option>
+                            @foreach($pedidos_compras as $pedido)
+                              <option value='{{$pedido->id}}'>{{$pedido->id. '   | '.Carbon\Carbon::createFromFormat('Y-m-d',$pedido->fecha_pedido)->format('d/m/Y')}}</option>
+                            @endforeach()                            
+                          </select>
+                        </div>                          
+                      </div>                                             
                     </div>
                   </div>
                   <div class="card-footer">
                       <div class="form-group">
                         <div class="row mb-1">
-                            <label for="materia_id" class="col-sm-1 col-form-label">Materia Prima</label>
-                            <div class="col-sm-2">
+                            <label for="materia_id" class="col-sm-2 col-form-label">Materia Prima</label>
+                            <div class="col-sm-3">
                               <div class="form-group">                                              
                                 <select class="form-select" name="materia_id" id="materia_id">
                                   <option value="">Seleccione...</option>
@@ -55,12 +56,18 @@
                                 </select>
                               </div>
                             </div>
-                            <label for="cantidad" class="col-sm-1 col-form-label">Cantidad</label>
-                            <div class="col-sm-2">
+                            <label for="cantidad" class="col-sm-2 col-form-label">Cantidad</label>
+                            <div class="col-sm-3">
                               <input name="cantidad" id="cantidad" type="number" min="1" class="form-control">
                             </div> 
+                        </div>
+                        <div class="row mb-1">
+                            <label for="cantidad" class="col-sm-2 col-form-label">Precio Unitario</label>
+                            <div class="col-sm-3">
+                              <input name="cantidad" id="cantidad" type="text" class="form-control" number-format>
+                            </div> 
                             <label for="umedida_id" class="col-sm-2 col-form-label">Unidad de medida</label>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                               <div class="form-group">                                              
                                 <select class="form-select" name="umedida_id" id="umedida_id">
                                   <option selected>Seleccione una unidad</option>
@@ -85,7 +92,9 @@
                           <th scope="col">#</th>
                           <th scope="col">Materia Prima</th>
                           <th scope="col">Unidad Medida</th>
+                          <th scope="col">Precio Unitario</th>
                           <th scope="col">Cantidad</th>
+                          <th scope="col">Total</th>
                           <th scope="col"></th>
                         </tr>
                       </thead>
@@ -133,8 +142,12 @@
           });
         });
 
+        $('#pedido_id').on('change', function(){
+          console.log($('#pedido_id').val());
+          addDetail();
+        });
         $('#compras-nav').addClass("show");//coloca el menu en show
-        $('#pedidos-compras-menu').addClass("active");//coloca activo el submenu usuario
+        $('#presupuestos-compras-menu').addClass("active");//coloca activo el submenu usuario
         $('#btn_agregar').click(function(){
           var materianame = $('#materia_id option:selected').text();
           var materia     = $('#materia_id').val();
@@ -156,6 +169,9 @@
         });        
     });
     
+    function addDetail(){
+      
+    }
     function add_detail(mat, cant,ume, mat_id, ume_id){
       count++;
       $('#ped_det').append(
