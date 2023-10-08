@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\LogController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,8 +19,8 @@ use App\Http\Controllers\LogController;
 // Route::get('/', function () {
 //     return view('login');
 // });
-
 Route::get('/',[App\Http\Controllers\LogController::class, 'index']);
+Route::post('/acceso','App\Http\Controllers\LogController@login')->name('acceso');
 Route::get('/home',[App\Http\Controllers\PrincipalController::class, 'index'])->name('home');
 //users routes
 Route::get('users','App\Http\Controllers\UserController@index')->name('users.index');
@@ -77,7 +78,6 @@ Route::get('depositos/{deposito_id}', 'App\Http\Controllers\DepositoController@s
 Route::get('depositos/{deposito_id}/edit', 'App\Http\Controllers\DepositoController@edit')->name('depositos.edit');
 Route::put('depositos', 'App\Http\Controllers\DepositoController@update')->name('depositos.update');
 Route::delete('depositos', 'App\Http\Controllers\DepositoController@destroy')->name('depositos.delete');
-Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
 //unidades-medidas routes
 Route::get('unidades-medidas','App\Http\Controllers\UnidadMedidaController@index')->name('unidades-medidas.index');
 Route::get('unidades-medidas/create','App\Http\Controllers\UnidadMedidaController@create')->name('unidades-medidas.create');
@@ -134,7 +134,6 @@ Route::get('presupuestos-compras/{pedido_id}', 'App\Http\Controllers\Presupuesto
 Route::get('presupuestos-compras/{pedido_id}/edit', 'App\Http\Controllers\PresupuestoCompraController@edit')->name('presupuestos-compras.edit');
 Route::put('presupuestos-compras', 'App\Http\Controllers\PresupuestoCompraController@update')->name('presupuestos-compras.update');
 Route::delete('presupuestos-compras', 'App\Http\Controllers\PresupuestoCompraController@destroy')->name('presupuestos-compras.delete');
-Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('login.post');
 
 //Route::get('/index')->name('logados');
 
@@ -142,3 +141,5 @@ Route::post('/',[App\Http\Controllers\LogController::class, 'login'])->name('log
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//logs
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);

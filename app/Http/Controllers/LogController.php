@@ -21,12 +21,13 @@ class LogController extends Controller
     }
 
     public function login(Request $request) {
+        dd(request()->all());
 
-        if ($request->username == auth()->guard()->user()->email && bcrypt($request->password) == auth()->guard()->user()->password) {
-            return redirect()->intended('home')
-	            ->withSuccess('Logado Correctamente');
-        }
-        return redirect()->route('login')->with('success', 'User Deleted successfully.');
+        // if ($request->username == auth()->guard()->user()->email && bcrypt($request->password) == auth()->guard()->user()->password) {
+        //     return redirect()->intended('home')
+	    //         ->withSuccess('Logado Correctamente');
+        // }
+        // return redirect()->route('login')->with('success', 'User Deleted successfully.');
     }
     /**
      * Show the form for creating a new resource.
