@@ -3,95 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 class LogController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('auth.login');
     }
 
-    public function login(Request $request) {
-        dd(request()->all());
-
-        // if ($request->username == auth()->guard()->user()->email && bcrypt($request->password) == auth()->guard()->user()->password) {
-        //     return redirect()->intended('home')
-	    //         ->withSuccess('Logado Correctamente');
-        // }
-        // return redirect()->route('login')->with('success', 'User Deleted successfully.');
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function login(Request $request)
     {
-        //
+        if (auth()->attempt(['name' => $request->username, 'password' => $request->password, 'status' => 1], $request->remember)) {
+            $api_token = Str::random(40);
+            auth()->user()->update(['api_token' => $api_token]);
+            return redirect('/home')
+	            ->withSuccess('Logado Correctamente');
+        }
+
+        return redirect()->route('login')->with('success', 'User Deleted successfully.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function logout()
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        auth()->logout();
+        return redirect('login');
     }
 }
