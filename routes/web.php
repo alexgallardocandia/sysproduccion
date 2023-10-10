@@ -22,6 +22,7 @@ use App\Http\Controllers\LogController;
 Route::get('/home',[App\Http\Controllers\PrincipalController::class, 'index'])->name('home');
 
 Route::middleware(['guest'])->group(function () {
+    Route::get('/','LogController@index');
     Route::get('login','LogController@index');
     Route::post('acceso','LogController@login')->name('acceso');
     Route::get('/home','PrincipalController@index')->name('home');
