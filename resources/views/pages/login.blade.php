@@ -66,27 +66,17 @@
                     {{-- @include('common.alert') --}}
                   </div>
 
-                  <form class="row g-3 needs-validation" method="POST" action="{{route('acceso')}}">
-                    @csrf
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Usuario</label>
-                      <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="username" placeholder="Juan Peralta" required>
-                        <div class="invalid-feedback">El nombre de usuario es obligatorio</div>
-                      </div>
+                  <form class="m-t" method="POST" action="{{ route('acceso') }}">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <input class="form-control" name="username" type="text" placeholder="Usuario" value="{{ old('username') }}" autofocus>
                     </div>
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="password" placeholder="*******" required>
-                      <div class="invalid-feedback">El campo password es obligatorio!</div>
+                    <div class="form-group">
+                        <input class="form-control" name="password" type="password" placeholder="Contraseña">
                     </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Ingresar</button>
-                    </div>
-                    {{-- <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
-                    </div> --}}
-                  </form>
+                    <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                    <a href="{{ route('/') }}">Olvidé mi contraseña</a>
+                </form>
 
                 </div>
               </div>

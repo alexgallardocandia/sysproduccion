@@ -7,27 +7,24 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to the "home" route for your application.
+     * This namespace is applied to your controller routes.
      *
-     * Typically, users are redirected here after authentication.
+     * In addition, it is set as the URL generator's root namespace.
      *
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * Define your route model bindings, pattern filters, and other route configuration.
+     * Define your route model bindings, pattern filters, etc.
      *
      * @return void
      */
     public function boot()
     {
-        parent::boot();
+        //
 
-    }
-    public function map(){
-        $this->mapApiRoutes();
-        $this->mapWebRoutes();
+        parent::boot();
     }
 
     protected function mapWebRoutes(){
@@ -42,14 +39,16 @@ class RouteServiceProvider extends ServiceProvider
          ->group(base_path('routes/api.php'));
     }
     /**
-     * Configure the rate limiters for the application.
+     * Define the routes for the application.
      *
      * @return void
      */
-    protected function configureRateLimiting()
+    public function map()
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-        });
+        $this->mapApiRoutes();
+
+        $this->mapWebRoutes();
+
+        //
     }
 }

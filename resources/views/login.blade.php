@@ -67,13 +67,13 @@
                     @include('common.alert')
                   </div>
 
-                  <form class="row g-3 needs-validation" method="POST" action="{{url('/acceso')}}">
+                  <form class="row g-3 needs-validation" method="POST" action="{{route('acceso')}}">
                     @csrf
                     @method('POST')
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Usuario</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="username" placeholder="Juan Peralta" required>
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Juan Peralta1" required>
                         <div class="invalid-feedback">El nombre de usuario es obligatorio</div>
                       </div>
                     </div>
@@ -123,10 +123,10 @@
   <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
   <script src="{{ asset('vendor/flasher/jquery.min.js') }}"></script>
   {{-- inputmask para formatear numeros en inputs --}}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.min.js"></script> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.numeric.extensions.min.js"></script> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.date.extensions.min.js"></script> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/jquery.inputmask.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.numeric.extensions.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.date.extensions.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/jquery.inputmask.min.js"></script>
   {{-- cdn jquery.number $.number()--}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js"></script>
   <!-- Template Main JS File -->
