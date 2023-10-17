@@ -11,8 +11,10 @@ class PresupuestoCompra extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'numero',
         'estado',
         'fecha',
+        'validez',
         'proveedor_id',
         'pedido_compra_id',
     ];

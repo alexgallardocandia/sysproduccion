@@ -28,11 +28,11 @@
                     <div class="row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Fecha de Emision</b></label>
                         <div class="col-sm-3">
-                        <input name="fecha_emision" type="date" id="fecha_mision" class="form-control" required>
+                        <input name="fecha_emision" type="date" id="fecha_mision" max="{{date('Y-m-d')}}" class="form-control" required>
                         </div>
                         <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Fecha de Vencimiento</b></label>
                         <div class="col-sm-3">
-                        <input name="fecha_vencimiento" type="date" id="fecha_venimiento" class="form-control" required>
+                        <input name="fecha_vencimiento" type="date" id="fecha_venimiento" min="{{date('Y-m-d')}}" class="form-control" required>
                         </div>
                     </div>                                     
                     <div class="card-footer">                        

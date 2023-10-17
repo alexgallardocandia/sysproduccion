@@ -11,35 +11,37 @@
               <a href="{{url('pedidos-compras/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Prioridad</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($pedidosc as $pedidoc)                  
-                      <tr>
-                        <td>{{$pedidoc->id}}</td>
-                        <td>{{Carbon\Carbon::createFromFormat('Y-m-d', $pedidoc->fecha_pedido)->format('d/m/Y')}}</td>                                               
-                        <td><span class="badge bg-{{ config('constants.pedidos-compras-prioridad-label.' . intval($pedidoc->prioridad)) }}">{{ config('constants.pedidos-compras-prioridad.'. intval($pedidoc->prioridad)) }}</span></td>
-                        <td>{{$pedidoc->user ? $pedidoc->user->name : ''}}</td>                                               
-                        <td><span class="badge bg-{{ config('constants.pedidos-compras-status-label.' . intval($pedidoc->estado)) }}">{{ config('constants.pedidos-compras-status.'. intval($pedidoc->estado)) }}</span></td>
-                        <td>                        
-                          <a href="{{url('pedidos-compras/' . $pedidoc->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('pedidos-compras/' . $pedidoc->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#pedidoc_delete" data-name="{{$pedidoc->descripcion}}" data-id="{{ $pedidoc->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                        </td>
-                      </tr>
-                  @endforeach 
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Prioridad</th>
+                      <th scope="col">Usuario</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($pedidosc as $pedidoc)                  
+                        <tr>
+                          <td>{{$pedidoc->id}}</td>
+                          <td>{{Carbon\Carbon::createFromFormat('Y-m-d', $pedidoc->fecha_pedido)->format('d/m/Y')}}</td>                                               
+                          <td><span class="badge bg-{{ config('constants.pedidos-compras-prioridad-label.' . intval($pedidoc->prioridad)) }}">{{ config('constants.pedidos-compras-prioridad.'. intval($pedidoc->prioridad)) }}</span></td>
+                          <td>{{$pedidoc->user ? $pedidoc->user->name : ''}}</td>                                               
+                          <td><span class="badge bg-{{ config('constants.pedidos-compras-status-label.' . intval($pedidoc->estado)) }}">{{ config('constants.pedidos-compras-status.'. intval($pedidoc->estado)) }}</span></td>
+                          <td>                        
+                            <a href="{{url('pedidos-compras/' . $pedidoc->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('pedidos-compras/' . $pedidoc->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#pedidoc_delete" data-name="{{$pedidoc->descripcion}}" data-id="{{ $pedidoc->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          </td>
+                        </tr>
+                    @endforeach 
+                  </tbody>
+                </table>
+              </div>
             </div>
               <!-- End Table with stripped rows -->
           </div>  

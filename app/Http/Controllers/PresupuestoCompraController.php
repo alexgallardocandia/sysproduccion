@@ -21,7 +21,7 @@ class PresupuestoCompraController extends Controller
     
     public function create()
     {
-        $pedidos_compras    = PedidoCompra::where('estado',1)->get();
+        $pedidos_compras    = PedidoCompra::where('estado',true)->get();
         $proveedores        = Proveedor::get();
         $materias           = MateriaPrima::get();
         $umedidas           = UnidadMedida::get();

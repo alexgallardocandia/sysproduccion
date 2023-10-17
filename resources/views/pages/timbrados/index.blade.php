@@ -11,34 +11,36 @@
               <a href="{{url('timbrados/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Numero</th>
-                    <th scope="col">Fecha Emision</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($timbrados as $timbrado)
-                  
-                      <tr>
-                        <td>{{$timbrado->id}}</td>
-                        <td>{{$timbrado->numero}}</td>                                                
-                        <td>{{$timbrado->fecha_emision}}</td>                                                
-                        <td><span class="badge bg-{{config('constants.timbrado-status-label.'.$timbrado->estado)}}">{{config('constants.timbrado-status.'.$timbrado->estado)}}</span></td>                                                
-                        <td>                        
-                          <a href="{{url('timbrados/' . $timbrado->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('timbrados/' . $timbrado->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#timbrado_delete" data-name="{{$timbrado->numero}}" data-id="{{ $timbrado->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                        </td>
-                      </tr>
-                  @endforeach
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Numero</th>
+                      <th scope="col">Fecha Emision</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($timbrados as $timbrado)
+                    
+                        <tr>
+                          <td>{{$timbrado->id}}</td>
+                          <td>{{$timbrado->numero}}</td>                                                
+                          <td>{{$timbrado->fecha_emision}}</td>                                                
+                          <td><span class="badge bg-{{config('constants.timbrado-status-label.'.$timbrado->estado)}}">{{config('constants.timbrado-status.'.$timbrado->estado)}}</span></td>                                                
+                          <td>                        
+                            <a href="{{url('timbrados/' . $timbrado->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('timbrados/' . $timbrado->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#timbrado_delete" data-name="{{$timbrado->numero}}" data-id="{{ $timbrado->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
               <!-- End Table with stripped rows -->
           </div>  

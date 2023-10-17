@@ -10,37 +10,41 @@
               <h5>Usuarios</h5>
               <a href="{{url('users/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
-            <div class="card-body">                                     
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($usuarios as $usuario)
-                  
-                      <tr>
-                        <td>{{$usuario->id}}</td>
-                        <td>{{$usuario->name}}</td>
-                        <td>{{$usuario->email}}</td>
-                        <td><span class="badge bg-{{ config('constants.users-status-label.' . intval($usuario->status)) }}">{{ config('constants.users-status.'. intval($usuario->status)) }}</span></td>
-                        <td>                        
-                          <a href="{{url('users/' . $usuario->id)}}"><i class="bi bi-info-circle-fill"></i></a>
-                          @if($usuario->status == 1)
-                            <a href="{{url('users/' . $usuario->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#user_delete" data-name="{{$usuario->name}}" data-id="{{ $usuario->id }}"><i class="bi bi-trash-fill"></i></a>                          
-                          @endif
-                        </td>
-                      </tr>
-                  @endforeach
-                </tbody>
-              </table>
+            <div class="card-body">    
+              <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Persona</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($usuarios as $usuario)
+                    
+                        <tr>
+                          <td>{{$usuario->id}}</td>
+                          <td>{{$usuario->name}}</td>
+                          <td>{{$usuario->email}}</td>
+                          <td>{{$usuario->persona->fullname}}</td>
+                          <td><span class="badge bg-{{ config('constants.users-status-label.' . intval($usuario->status)) }}">{{ config('constants.users-status.'. intval($usuario->status)) }}</span></td>
+                          <td>                        
+                            <a href="{{url('users/' . $usuario->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                            @if($usuario->status == 1)
+                              <a href="{{url('users/' . $usuario->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#user_delete" data-name="{{$usuario->name}}" data-id="{{ $usuario->id }}"><i class="bi bi-trash-fill"></i></a>                          
+                            @endif
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>                                 
             </div>
               <!-- End Table with stripped rows -->
           </div>  

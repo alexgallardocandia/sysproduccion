@@ -35,7 +35,7 @@
                           <input name="fecha_vencimiento" type="date" class="form-control" required>
                         </div>
                     
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Unidad de Medida</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Presentacion</label>
                         <div class="col-sm-4">
                           <div class="form-group">
                             <select class="form-control select2" name="umedida_id" id="umedida_id">

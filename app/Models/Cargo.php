@@ -11,10 +11,14 @@ class Cargo extends Model
     use HasFactory, SoftDeletes;
     
     protected $fillable = [
-        'descripcion'
+        'descripcion',
+        'departamento_id'
     ];
     
     public function persona(){
         return $this->hasMany('App\Models\Persona');
+    }
+    public function departamento() {
+        return $this->belongsTo('App\Models\Departamento');
     }
 }

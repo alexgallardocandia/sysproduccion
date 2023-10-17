@@ -184,6 +184,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'descripcion'       => 'Descripcion',
+        'departamento_id'   => 'Departamento',
+        'persona_id'        => 'Persona'
+
+    ],
 
 ];

@@ -9,8 +9,7 @@ return new class extends Migration
     
     public function up()
     {
-        Schema::create('personas', function (Blueprint $table) {
-            $table->id();
+        Schema::table('personas', function (Blueprint $table) {
             $table->integer('ci');
             $table->string('nombres');
             $table->string('apellidos');
@@ -24,12 +23,28 @@ return new class extends Migration
             $table->foreignId('sucursal_id')->nullable()->constrained('sucursales');
             $table->foreignId('ciudad_id')->nullable()->constrained('ciudades');
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('personas');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('ci');
+            $table->dropColumn('nombres');
+            $table->dropColumn('apellidos');
+            $table->dropColumn('direccion');
+            $table->dropColumn('telefono');
+            $table->dropColumn('email');
+            $table->dropColumn('fecha_nacimiento');
+            //foraneas
+            $table->dropForeign(['civil_id']);
+            $table->dropColumn('civil_id');
+            $table->dropForeign(['cargo_id']);
+            $table->dropColumn('cargo_id');
+            $table->dropForeign(['sucursal_id']);
+            $table->dropColumn('sucursal_id');
+            $table->dropForeign(['ciudad_id']);
+            $table->dropColumn('ciudad_id');
+        });
     }
 };

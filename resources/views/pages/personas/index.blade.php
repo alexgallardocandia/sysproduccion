@@ -11,37 +11,39 @@
               <a href="{{url('personas/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombres y Apellidos</th>
-                    <th scope="col">Direccion</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Fecha Nacimiento</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($personas as $persona)                  
-                      <tr>
-                        <td>{{$persona->id}}</td>
-                        <td>{{$persona->nombres.' '.$persona->apellidos}}</td>                                               
-                        <td>{{$persona->direccion}}</td>                                               
-                        <td>{{$persona->telefono}}</td>                                               
-                        <td>{{$persona->email}}</td>                                             
-                        <td>{{$persona->fecha_nacimiento}}</td>                                               
-                        <td>                        
-                          <a href="{{url('personas/' . $persona->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('personas/' . $persona->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#persona_delete" data-name="{{$persona->nombres}}" data-id="{{ $persona->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                        </td>
-                      </tr>
-                  @endforeach
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Nombres y Apellidos</th>
+                      <th scope="col">Direccion</th>
+                      <th scope="col">Telefono</th>
+                      <th scope="col">E-mail</th>
+                      <th scope="col">Fecha Nacimiento</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($personas as $persona)                  
+                        <tr>
+                          <td>{{$persona->id}}</td>
+                          <td>{{$persona->nombres.' '.$persona->apellidos}}</td>                                               
+                          <td>{{$persona->direccion}}</td>                                               
+                          <td>{{$persona->telefono}}</td>                                               
+                          <td>{{$persona->email}}</td>                                             
+                          <td>{{$persona->fecha_nacimiento}}</td>                                               
+                          <td>                        
+                            <a href="{{url('personas/' . $persona->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('personas/' . $persona->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#persona_delete" data-name="{{$persona->nombres}}" data-id="{{ $persona->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
               <!-- End Table with stripped rows -->
           </div>  

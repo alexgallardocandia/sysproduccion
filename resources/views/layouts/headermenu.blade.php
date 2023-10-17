@@ -2,7 +2,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{{route('home')}}" class="logo d-flex align-items-center">
+      <a href="{{url('/home')}}" class="logo d-flex align-items-center">
         <img src="{{ asset('assets/img/pizza.png') }}" alt="">
         <span class="d-none d-lg-block">PiPSys</span>
       </a>
@@ -16,13 +16,13 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{asset('assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Alexander Gallardo</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth()->user()->name}}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Alexander Gallardo</h6>
-              <span>DESARROLLADOR WEB</span>
+              <h6>{{auth()->user()->name}}</h6>
+              <span>{{auth()->user()->persona->cargo->descripcion}}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -53,7 +53,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="{{url('/logout')}}">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>SALIR</span>
               </a>

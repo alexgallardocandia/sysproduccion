@@ -17,16 +17,15 @@ class LogController extends Controller
         if (auth()->attempt(['name' => $request->username, 'password' => $request->password, 'status' => 1], $request->remember)) {
             $api_token = Str::random(40);
             auth()->user()->update(['api_token' => $api_token]);
-            return redirect('/home')
-	            ->withSuccess('Logado Correctamente');
+            return redirect('/home')->with('success','Acceso al Sistema');
         }
 
-        return redirect()->route('login')->with('success', 'User Deleted successfully.');
+        return redirect()->route('login')->with('error', 'Nombre de Usuario o Password no valido');
     }
 
     public function logout()
     {
         auth()->logout();
-        return redirect('login');
+        return redirect('/');
     }
 }

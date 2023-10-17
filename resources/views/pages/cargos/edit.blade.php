@@ -20,6 +20,17 @@
                         <input name="cargo_id" type="hidden" class="form-control" id="inputText" value="{{$cargos->id}}" required>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Departamento</label>
+                      <div class="col-sm-10">
+                        <select class="form-control select2" name="departamento_id" id="departamento_id">
+                          <option value="@json($cargos->departamento_id)">{{ $cargos->departamento->nombre }}</option>
+                          @foreach ($departamentos as $dep )
+                            <option value="{{$dep->id}}">{{$dep->nombre}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>    
                     <div class="">                        
                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Modificar</button>
                         <a href="{{url('cargos')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>

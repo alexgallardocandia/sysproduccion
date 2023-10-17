@@ -4,107 +4,153 @@
     <div class="row">
       <section class="section">
         <div class="row">
+          {{-- <div class="col-lg-12">
+
+            <div class="card">
+              <div class="card-body">
+                <form class="row g-3">
+                  <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">First name</label>
+                    <input type="text" class="form-control" id="validationDefault01" value="John" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="validationDefault02" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="validationDefault02" value="Doe" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="validationDefaultUsername" class="form-label">Username</label>
+                    <div class="input-group">
+                      <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                      <input type="text" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="validationDefault03" class="form-label">City</label>
+                    <input type="text" class="form-control" id="validationDefault03" required>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="validationDefault04" class="form-label">State</label>
+                    <select class="form-select" id="validationDefault04" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="validationDefault05" class="form-label">Zip</label>
+                    <input type="text" class="form-control" id="validationDefault05" required>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                      <label class="form-check-label" for="invalidCheck2">
+                        Agree to terms and conditions
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-primary" type="submit">Submit form</button>
+                  </div>
+                </form>
+                <!-- End Browser Default Validation -->
+  
+              </div>
+            </div>
+  
+          </div> --}}
+
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
                 <h5>Crear Pedido de Compra</h5>              
               </div>
               <div class="card-body">
-                <form id="form">
+                <div class="mb-3"></div>
+                <form class="row g-3" id="form">
                   @csrf
-                  <div class="form-group">
-                    <div class="row mb-3">
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Prioridad</label>
-                      <div class="col-sm-4">
-                        <select class="form-select" name="prioridad" id="prioridad">                              
-                          <option value='3'>Baja</option>
-                          <option value='2'>Media</option>
-                          <option value='1'>Alta</option>
-                        </select>
-                      </div>
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Fecha</label>
-                      <div class="col-sm-4">
-                        <input name="fecha" type="text" class="form-control" value="{{now()->format('d/m/Y')}}" readonly>
-                      </div>                      
-                    </div>              
-                    <div class="row mb-3">                                                              
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Solicitante</label>
-                        <div class="col-sm-4">
-                          <div class="form-group">                                              
-                            <select class="form-select" name="user_id" id="user_id">
-                              <option>Seleccione...</option>
-                              @foreach($personas as $persona)
-                                <option value='{{$persona->id}}'>{{$persona->nombres. ' '.$persona->apellidos}}</option>
-                              @endforeach()                            
-                            </select>
-                          </div>                          
-                        </div>                                             
+                  <div class="col-md-3">
+                    <label for="persona_id" class="form-label">Solicitante</label>
+                    <input name="user" id="user" class="form-control" value="{{auth()->user()->persona->fullname}}" readonly/>
+                    <input name="user_id" id="user_id" type="hidden" value="{{auth()->user()->id}}"/>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="departamento_id" class="form-label">Departamento</label>
+                    <input name="departamento" id="departamento" class="form-control" value="{{auth()->user()->persona->cargo->departamento->nombre}}" readonly>
+                    <input name="departamento_id" id="departamento_id" type="hidden" value="{{auth()->user()->persona->cargo->departamento->id}}" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="sucursal_id" class="form-label">Sucursal</label>
+                    <input name="sucursal" id="sucursal" class="form-control" value="{{auth()->user()->persona->sucursal->descripcion}}" readonly>
+                    <input name="sucursal_id" id="sucursal_id" type="hidden" value="{{auth()->user()->persona->sucursal->id}}" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input name="fecha" id="fecha" class="form-control" value="{{ date('d/m/Y') }}" readonly>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="fecha" class="form-label">Prioridad</label>
+                    <select class="form-select" name="prioridad" id="prioridad">
+                      <option value='3'>Baja</option>
+                      <option value='2'>Media</option>
+                      <option value='1'>Alta</option>
+                    </select>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-md-3">
+                      <label for="materia_id" class="col-sm-4 col-form-label">Materia Prima</label>
+                      <select class="form-select" name="materia_id" id="materia_id">
+                        <option value="">Seleccione...</option>
+                        @foreach($materias as $materia)                              
+                          <option value='{{$materia->id}}'>{{$materia->descripcion}}</option>
+                        @endforeach()                            
+                      </select>
                     </div>
-                  </div>
-                  <div class="card-footer">
-                      <div class="form-group">
-                        <div class="row mb-1">
-                            <label for="materia_id" class="col-sm-1 col-form-label">Materia Prima</label>
-                            <div class="col-sm-2">
-                              <div class="form-group">                                              
-                                <select class="form-select" name="materia_id" id="materia_id">
-                                  <option value="">Seleccione...</option>
-                                  @foreach($materias as $materia)                              
-                                    <option value='{{$materia->id}}'>{{$materia->descripcion}}</option>
-                                  @endforeach()                            
-                                </select>
-                              </div>
-                            </div>
-                            <label for="cantidad" class="col-sm-1 col-form-label">Cantidad</label>
-                            <div class="col-sm-2">
-                              <input name="cantidad" id="cantidad" type="number" min="1" class="form-control">
-                            </div> 
-                            <label for="umedida_id" class="col-sm-2 col-form-label">Unidad de medida</label>
-                            <div class="col-sm-2">
-                              <div class="form-group">                                              
-                                <select class="form-select" name="umedida_id" id="umedida_id">
-                                  <option selected>Seleccione una unidad</option>
-                                  @foreach($umedidas as $umedida)                              
-                                    <option value='{{$umedida->id}}'>{{$umedida->descripcion}}</option>
-                                  @endforeach()                            
-                                </select>
-                              </div>
-                            </div> 
-                            <div class="col-2">
-                              <button id="btn_agregar" type="button" class="btn btn-primary"><b><i class="bi-plus-lg"></i></b></button>
-                            </div>
-                        </div>
-                      </div>
-                  </div>              
-                  <div id="oculto" class="card-body" hidden>
-                    <h5 class="card-title">Detalle</h5>
-                    <!-- Table with stripped rows -->
-                    <table class="table table-striped">
-                      <thead>
+                    <div class="col-md-3">
+                      <label for="cantidad" class="col-sm-4 col-form-label">Cantidad</label>
+                      <input name="cantidad" id="cantidad" type="number" min="1" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="umedida_id" class="col-sm-8 col-form-label">Presentacion</label>
+                      <select class="form-select" name="umedida_id" id="umedida_id">
+                        <option selected>Seleccione una unidad</option>
+                        @foreach($umedidas as $umedida)                              
+                          <option value='{{$umedida->id}}'>{{$umedida->descripcion}}</option>
+                        @endforeach()                            
+                      </select>
+                    </div>
+                    <div class="col-md-3" style="margin-top:3.5%;">
+                      <button id="btn_agregar" type="button" class="btn btn-primary"><b><i class="bi-plus-lg"></i></b></button>
+                    </div>
+                </div>              
+                <div id="oculto" class="card-body" hidden>
+                  <h5 class="card-title">Detalle</h5>
+                  <!-- Table with stripped rows -->
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Materia Prima</th>
+                        <th scope="col">Unidad Medida</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="ped_det"></tbody>
+                    <tfoot class="bold">
                         <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Materia Prima</th>
-                          <th scope="col">Unidad Medida</th>
-                          <th scope="col">Cantidad</th>
-                          <th scope="col"></th>
+                            <td colspan="3"></td>
+                            <td id="td_total" class="text-right"></td>                                            
                         </tr>
-                      </thead>
-                      <tbody id="ped_det"></tbody>
-                      <tfoot class="bold">
-                          <tr>
-                              <td colspan="3"></td>
-                              <td id="td_total" class="text-right"></td>                                            
-                          </tr>
-                      </tfoot>
-                    </table>
-                    <input type="hidden" name="detail_total" id="detail_total" value="0">
-                    <!-- End Table with stripped rows -->            
-                  </div>
-                  <div class="card-footer">                        
-                      <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
-                      <a href="{{url('pedidos-compras')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
-                  </div>
-                </form><!-- End Horizontal Form -->
+                    </tfoot>
+                  </table>
+                  <input type="hidden" name="detail_total" id="detail_total" value="0">
+                  <!-- End Table with stripped rows -->            
+                </div>
+                <div class="card-footer">                        
+                    <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
+                    <a href="{{url('pedidos-compras')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
+                </div>
+                </form>
+                <div class="mb-3"></div>
               </div>
             </div>    
           </div>
@@ -117,12 +163,14 @@
 <script>
     var count = 0;
     $(document).ready(function() {      
+        $('#compras-nav').addClass("show");//coloca el menu en show
+        $('#pedidos-compras-menu').addClass("active");//coloca activo el submenu usuario
 
         $('#form').on('submit', function(e){
           e.preventDefault();
           $.ajax({
             type: "POST",
-            url: "{{url('pedidos-compras')}}",
+            url: "{{route('pedidos-compras.store')}}",
             data: $(this).serialize(),            
             success: function (response) {
               window.location.href = "{{ route('pedidos-compras.index') }}";
@@ -133,9 +181,8 @@
           });
         });
 
-        $('#compras-nav').addClass("show");//coloca el menu en show
-        $('#pedidos-compras-menu').addClass("active");//coloca activo el submenu usuario
-        $('#btn_agregar').click(function(){
+        
+        $('#btn_agregar').click(function() {
           var materianame = $('#materia_id option:selected').text();
           var materia     = $('#materia_id').val();
           var cantidad    = $('#cantidad').val();
@@ -153,7 +200,11 @@
             $('#cantidad').val('');
             $('#umedida_id').val('Seleccione una unidad');
           }
-        });        
+        }); 
+        
+        $('#persona_id').on('change', function(){
+          
+        });
     });
     
     function add_detail(mat, cant,ume, mat_id, ume_id){

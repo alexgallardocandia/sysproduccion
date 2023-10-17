@@ -7,10 +7,10 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h5>Cargos</h5>
-              <a href="{{url('cargos/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              <h5>Departamentos</h5>
+              <a href="{{url('departamentos/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
-            <div class="card-body">            
+            <div class="card-body">
               <div class="table-responsive">
                 <!-- Table with stripped rows -->
                 <table class="table table-striped datatable">
@@ -18,21 +18,19 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Descripcion</th>
-                      <th scope="col">Departamento</th>
                       <th scope="col">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($cargos as $cargo)
+                    @foreach ($departamentos as $departamento)
                     
                         <tr>
-                          <td>{{$cargo->id}}</td>
-                          <td>{{$cargo->descripcion}}</td>                                                
-                          <td>{{$cargo->departamento->nombre}}</td>                                                
+                          <td>{{$departamento->id}}</td>
+                          <td>{{$departamento->nombre}}</td>                                                
                           <td>                        
-                            <a href="{{url('cargos/' . $cargo->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                              <a href="{{url('cargos/' . $cargo->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                              <a data-bs-toggle="modal" data-bs-target="#cargo_delete" data-name="{{$cargo->descripcion}}" data-id="{{ $cargo->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                            <a href="{{url('departamentos/' . $departamento->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('departamentos/' . $departamento->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#departamento_delete" data-name="{{$departamento->nombre}}" data-id="{{ $departamento->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                           </td>
                         </tr>
                     @endforeach
@@ -41,20 +39,20 @@
               </div>
             </div>
               <!-- End Table with stripped rows -->
-          </div>               
-          <div class="modal fade" id="cargo_delete" tabindex="-1">
+          </div>                     
+          <div class="modal fade" id="departamento_delete" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Eliminar cargo </h5>
+                  <h5 class="modal-title">Eliminar departamento </h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="{{route('cargos.delete')}}">
+                <form method="POST" action="{{route('departamentos.delete')}}">
                   @csrf
                   @method('DELETE')
                   <div class="modal-body">
-                    <p>Deseas eliminar el cargo <b><span id="cargo_id"></span></b>?</p>
-                    <input name="cargo_id" type="hidden" id="id_cargo"/>
+                    <p>Deseas eliminar el departamento <b><span id="departamento_id"></span></b>?</p>
+                    <input name="departamento_id" type="hidden" id="id_departamento"/>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
@@ -74,14 +72,14 @@
 <script>
   $(document).ready(function(){
     $('#referenciales-nav').addClass('show');
-    $('#cargos-menu').addClass('active');
-    $('#cargo_delete').on('show.bs.modal', function(event) {
+    $('#departamentos-menu').addClass('active');
+    $('#departamento_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
-        var cargo_id = button.data('id'); // Extraer el valor del atributo data-id
+        var departamento_id = button.data('id'); // Extraer el valor del atributo data-id
         var descripcion = button.data('name'); // Extraer el valor del atributo data-id
         var modal = $(this);
-        modal.find('#cargo_id').text(descripcion); // Insertar el valor en el modal
-        $('#id_cargo').val(cargo_id); // Insertar el valor en el modal        
+        modal.find('#departamento_id').text(descripcion); // Insertar el valor en el modal
+        $('#id_departamento').val(departamento_id); // Insertar el valor en el modal        
     });
   });
 </script>

@@ -10,31 +10,33 @@
                 <h5>Estados  Civiles</h5>                              
                 <a href="{{url('estados-civiles/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>              
             </div>
-            <div class="card-body">              
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($estados as $estado)
-                  
-                      <tr>
-                        <td>{{$estado->id}}</td>
-                        <td>{{$estado->descripcion}}</td>                                                
-                        <td>                        
-                          <a href="{{url('estados-civiles/' . $estado->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('estados-civiles/' . $estado->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#estado_delete" data-name="{{$estado->descripcion}}" data-id="{{ $estado->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                        </td>
-                      </tr>
-                  @endforeach
-                </tbody>
-              </table>
+            <div class="card-body">            
+              <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Descripcion</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($estados as $estado)
+                    
+                        <tr>
+                          <td>{{$estado->id}}</td>
+                          <td>{{$estado->descripcion}}</td>                                                
+                          <td>                        
+                            <a href="{{url('estados-civiles/' . $estado->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('estados-civiles/' . $estado->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#estado_delete" data-name="{{$estado->descripcion}}" data-id="{{ $estado->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
               <!-- End Table with stripped rows -->
           </div>  

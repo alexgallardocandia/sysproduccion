@@ -11,35 +11,37 @@
               <a href="{{url('presupuestos-compras/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Prioridad</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($presupuestos as $presupuesto)                  
-                      <tr>
-                        <td>{{$presupuesto->id}}</td>
-                        <td>{{Carbon\Carbon::createFromFormat('Y-m-d', $presupuesto->fecha_pedido)->format('d/m/Y')}}</td>                                               
-                        <td><span class="badge bg-{{ config('constants.presupuestos-compras-prioridad-label.' . intval($presupuesto->prioridad)) }}">{{ config('constants.presupuestos-compras-prioridad.'. intval($presupuesto->prioridad)) }}</span></td>
-                        <td>{{$presupuesto->user->name}}</td>                                               
-                        <td><span class="badge bg-{{ config('constants.presupuestos-compras-status-label.' . intval($presupuesto->estado)) }}">{{ config('constants.presupuestos-compras-status.'. intval($presupuesto->estado)) }}</span></td>
-                        <td>                        
-                          <a href="{{url('presupuestos-compras/' . $presupuesto->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('presupuestos-compras/' . $presupuesto->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#presupuesto_delete" data-name="{{$presupuesto->descripcion}}" data-id="{{ $presupuesto->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                        </td>
-                      </tr>
-                  @endforeach
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Validez</th>
+                      <th scope="col">Proveedor</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($presupuestos as $presupuesto)                  
+                        <tr>
+                          <td>{{$presupuesto->id}}</td>
+                          <td>{{Carbon\Carbon::createFromFormat('Y-m-d', $presupuesto->fecha_pedido)->format('d/m/Y')}}</td>                                               
+                          <td><span class="badge bg-{{ config('constants.presupuestos-compras-prioridad-label.' . intval($presupuesto->prioridad)) }}">{{ config('constants.presupuestos-compras-prioridad.'. intval($presupuesto->prioridad)) }}</span></td>
+                          <td>{{$presupuesto->user->name}}</td>                                               
+                          <td><span class="badge bg-{{ config('constants.presupuestos-compras-status-label.' . intval($presupuesto->estado)) }}">{{ config('constants.presupuestos-compras-status.'. intval($presupuesto->estado)) }}</span></td>
+                          <td>                        
+                            <a href="{{url('presupuestos-compras/' . $presupuesto->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('presupuestos-compras/' . $presupuesto->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#presupuesto_delete" data-name="{{$presupuesto->descripcion}}" data-id="{{ $presupuesto->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
               <!-- End Table with stripped rows -->
           </div>  

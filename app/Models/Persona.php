@@ -26,6 +26,14 @@ class Persona extends Model
         'ci'
     ];
 
+    protected $append   = [
+        'fullname'
+    ];
+
+    public function getFullnameAttribute() {
+        return $this->attributes['nombres'] . ' ' .  $this->attributes['apellidos'];
+    }
+
     public function civil(){
         return $this->belongsTo('App\Models\EstadoCivil');
     }

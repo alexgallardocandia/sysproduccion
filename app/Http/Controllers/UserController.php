@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 // use {{ namespacedModel }};
+
+use App\Http\Requests\CreateUserRequest;
 use App\Models\lain;
+use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Toastr;
@@ -19,16 +22,20 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('pages.users.create');
+        $personas   = Persona::get();
+
+        return view('pages.users.create', compact('personas'));
     }
 
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
+        dd($request->all());
         User::create([
-            'name'      => $request->nombre,
-            'email'     => $request->email,
-            'status'     => 1,
-            'password'  => bcrypt($request->password)
+            'name'          => $request->nombre,
+            'email'         => $request->email,
+            'status'        => 1,
+            'password'      => bcrypt($request->password),
+            'persona_id'    => $request->persona_id
         ]);
 
         return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
@@ -36,14 +43,15 @@ class UserController extends Controller
 
     public function show(User $users)
     {
-        // dd($users);
         return view('pages.users.show', compact('users'));
     }
 
     
     public function edit(User $users)
     {
-        return view('pages.users.edit', compact('users'));
+        $personas   = Persona::get();
+
+        return view('pages.users.edit', compact('users', 'personas'));
     }
 
     
@@ -52,9 +60,10 @@ class UserController extends Controller
         $user = User::where('id', $request->user_id)->first();
         
         $user->update([
-            'name'      => $request->nombre,
-            'email'     => $request->email,
-            'password'  => bcrypt($request->password,)
+            'name'          => $request->nombre,
+            'email'         => $request->email,
+            'password'      => bcrypt($request->password,),
+            'persona_id'    => $request->persona_id
 
         ]);
         return redirect()->route('users.index')->with('warning', 'Usuario editado exitosamente.');
@@ -66,7 +75,7 @@ class UserController extends Controller
         $user=User::find(request()->id_usuario);              
         
         $user->update([
-            'status' => 0.00
+            'status' => 0
         ]);
         return redirect()->route('users.index')->with('danger', 'Usuario inactivado.');
 

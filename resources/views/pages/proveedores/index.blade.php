@@ -11,35 +11,37 @@
               <a href="{{url('proveedores/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Razon Social</th>
-                    <th scope="col">RUC</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">E-mail</th>                    
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($proveedores as $proveedor)                  
-                      <tr>
-                        <td>{{$proveedor->id}}</td>
-                        <td>{{$proveedor->razon_social}}</td>                                               
-                        <td>{{$proveedor->ruc}}</td>                                               
-                        <td>{{$proveedor->telefono}}</td>                                               
-                        <td>{{$proveedor->email}}</td>                                             
-                        <td>                        
-                          <a href="{{url('proveedores/' . $proveedor->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('proveedores/' . $proveedor->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#proveedor_delete" data-name="{{$proveedor->nombres}}" data-id="{{ $proveedor->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                        </td>
-                      </tr>
-                  @endforeach
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Razon Social</th>
+                      <th scope="col">RUC</th>
+                      <th scope="col">Telefono</th>
+                      <th scope="col">E-mail</th>                    
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($proveedores as $proveedor)                  
+                        <tr>
+                          <td>{{$proveedor->id}}</td>
+                          <td>{{$proveedor->razon_social}}</td>                                               
+                          <td>{{$proveedor->ruc}}</td>                                               
+                          <td>{{$proveedor->telefono}}</td>                                               
+                          <td>{{$proveedor->email}}</td>                                             
+                          <td>                        
+                            <a href="{{url('proveedores/' . $proveedor->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('proveedores/' . $proveedor->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#proveedor_delete" data-name="{{$proveedor->nombres}}" data-id="{{ $proveedor->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
               <!-- End Table with stripped rows -->
           </div>  

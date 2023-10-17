@@ -15,7 +15,9 @@ class PresupuestoCompraDetalle extends Model
         'materia_prima_id',
         'cantidad',
         'precio_unitario',
-        'umedid_id'
+        'descuento',
+        'umedid_id',
+        'estado',
     ];
 
     public function presupuesto(){

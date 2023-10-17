@@ -11,34 +11,36 @@
               <a href="{{url('tipos-impuestos/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Signo</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($tipos as $tipo)
-                  
-                      <tr>
-                        <td>{{$tipo->id}}</td>
-                        <td>{{$tipo->descripcion}}</td>                                                
-                        <td>{{$tipo->valor}}</td>                                                
-                        <td>{{$tipo->signo}}</td>                                                
-                        <td>                        
-                          <a href="{{url('tipos-impuestos/' . $tipo->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('tipos-impuestos/' . $tipo->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#tipo_delete" data-name="{{$tipo->descripcion}}" data-id="{{ $tipo->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                        </td>
-                      </tr>
-                  @endforeach
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Descripcion</th>
+                      <th scope="col">Valor</th>
+                      <th scope="col">Signo</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($tipos as $tipo)
+                    
+                        <tr>
+                          <td>{{$tipo->id}}</td>
+                          <td>{{$tipo->descripcion}}</td>                                                
+                          <td>{{$tipo->valor}}</td>                                                
+                          <td>{{$tipo->signo}}</td>                                                
+                          <td>                        
+                            <a href="{{url('tipos-impuestos/' . $tipo->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('tipos-impuestos/' . $tipo->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#tipo_delete" data-name="{{$tipo->descripcion}}" data-id="{{ $tipo->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
               <!-- End Table with stripped rows -->
           </div>  

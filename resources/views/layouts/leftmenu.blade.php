@@ -31,6 +31,11 @@
             </a>
           </li>
           <li>
+            <a id="departamentos-menu" href="{{route('departamentos.index')}}" >
+              <i class="bi bi-circle"></i><span>Departamentos</span>
+            </a>
+          </li>
+          <li>
             <a id="sucursales-menu" href="{{route('sucursales.index')}}" >
               <i class="bi bi-circle"></i><span>Sucursales</span>
             </a>

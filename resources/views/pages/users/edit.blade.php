@@ -32,6 +32,20 @@
                         <input name="password" type="password" class="form-control" id="inputPassword" required>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Persona</label>
+                        <div class="col-sm-10">
+                          <div class="form-group">                                              
+                            <select class="form-control select2" name="persona_id" id="persona_id">
+                              <option value="@json($users->persona_id)">{{$users->persona->fullname}}</option>
+                              <option value="">Seleccione...</option>
+                              @foreach($personas as $persona)                              
+                                <option value='{{$persona->id}}'>{{$persona->fullname}}</option>
+                              @endforeach()                            
+                            </select>
+                          </div>                          
+                        </div> 
+                    </div>
                     <div class="">                        
                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Modificar</button>
                         <a href="{{url('users')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>

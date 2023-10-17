@@ -11,35 +11,37 @@
               <a href="{{url('materias-primas/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Unidad de Medida</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Fecha Vencimiento</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($materias as $materia)                  
-                      <tr>
-                        <td>{{$materia->id}}</td>
-                        <td>{{$materia->descripcion}}</td>                                               
-                        <td><b>{{$materia->umedida->signo}}</b></td>
-                        <td>{{number_format($materia->precio, 0, ',','.')}}</td>                                               
-                        <td>{{Carbon\Carbon::createFromFormat('Y-m-d',$materia->fecha_vencimiento)->format('d/m/Y')}}</td>                                               
-                        <td>                        
-                          <a href="{{url('materias-primas/' . $materia->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('materias-primas/' . $materia->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#materia_delete" data-name="{{$materia->descripcion}}" data-id="{{ $materia->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                        </td>
-                      </tr>
-                  @endforeach
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Descripcion</th>
+                      <th scope="col">Presentacion</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Fecha Vencimiento</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($materias as $materia)                  
+                        <tr>
+                          <td>{{$materia->id}}</td>
+                          <td>{{$materia->descripcion}}</td>                                               
+                          <td><b>{{$materia->umedida->signo}}</b></td>
+                          <td>{{number_format($materia->precio, 0, ',','.')}}</td>                                               
+                          <td>{{Carbon\Carbon::createFromFormat('Y-m-d',$materia->fecha_vencimiento)->format('d/m/Y')}}</td>                                               
+                          <td>                        
+                            <a href="{{url('materias-primas/' . $materia->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('materias-primas/' . $materia->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#materia_delete" data-name="{{$materia->descripcion}}" data-id="{{ $materia->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
               <!-- End Table with stripped rows -->
           </div>  

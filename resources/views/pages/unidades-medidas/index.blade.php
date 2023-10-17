@@ -11,32 +11,34 @@
               <a href="{{url('unidades-medidas/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
-              <!-- Table with stripped rows -->
-              <table class="table table-striped datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Abreviatura</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($unidades as $unidad)
-                  
-                      <tr>
-                        <td>{{$unidad->id}}</td>
-                        <td>{{$unidad->descripcion}}</td>                                                
-                        <td>{{$unidad->signo}}</td>                                                
-                        <td>                        
-                          <a href="{{url('unidades-medidas/' . $unidad->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                            <a href="{{url('unidades-medidas/' . $unidad->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                            <a data-bs-toggle="modal" data-bs-target="#unidad_delete" data-name="{{$unidad->descripcion}}" data-id="{{ $unidad->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                        </td>
-                      </tr>
-                  @endforeach
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                 <!-- Table with stripped rows -->
+                <table class="table table-striped datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Descripcion</th>
+                      <th scope="col">Abreviatura</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($unidades as $unidad)
+                    
+                        <tr>
+                          <td>{{$unidad->id}}</td>
+                          <td>{{$unidad->descripcion}}</td>                                                
+                          <td>{{$unidad->signo}}</td>                                                
+                          <td>                        
+                            <a href="{{url('unidades-medidas/' . $unidad->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('unidades-medidas/' . $unidad->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#unidad_delete" data-name="{{$unidad->descripcion}}" data-id="{{ $unidad->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
               <!-- End Table with stripped rows -->
           </div>  

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,5 +23,8 @@ class PedidoCompra extends Model
     }
     public function details(){
         return $this->hasMany('App\Models\PedidoCompraDetalle');
+    }
+    public function getFechaPedidoAttribute() {
+        return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha_pedido'])->format('d/m/Y');
     }
 }
