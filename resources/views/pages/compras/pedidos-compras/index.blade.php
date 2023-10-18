@@ -28,7 +28,7 @@
                     @foreach ($pedidosc as $pedidoc)                  
                         <tr>
                           <td>{{$pedidoc->id}}</td>
-                          <td>{{Carbon\Carbon::createFromFormat('Y-m-d', $pedidoc->fecha_pedido)->format('d/m/Y')}}</td>                                               
+                          <td>{{ $pedidoc->fecha_pedido}}</td>
                           <td><span class="badge bg-{{ config('constants.pedidos-compras-prioridad-label.' . intval($pedidoc->prioridad)) }}">{{ config('constants.pedidos-compras-prioridad.'. intval($pedidoc->prioridad)) }}</span></td>
                           <td>{{$pedidoc->user ? $pedidoc->user->name : ''}}</td>                                               
                           <td><span class="badge bg-{{ config('constants.pedidos-compras-status-label.' . intval($pedidoc->estado)) }}">{{ config('constants.pedidos-compras-status.'. intval($pedidoc->estado)) }}</span></td>

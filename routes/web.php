@@ -149,8 +149,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('presupuestos-compras','PresupuestoCompraController@index')->name('presupuestos-compras.index');
     Route::get('presupuestos-compras/create','PresupuestoCompraController@create')->name('presupuestos-compras.create');
     Route::post('presupuestos-compras','PresupuestoCompraController@store')->name('presupuestos-compras.store');
-    Route::get('presupuestos-compras/{pedido_id}', 'PresupuestoCompraController@show')->name('presupuestos-compras.show');
-    Route::get('presupuestos-compras/{pedido_id}/edit', 'PresupuestoCompraController@edit')->name('presupuestos-compras.edit');
+    Route::get('presupuestos-compras/{presupuesto_id}', 'PresupuestoCompraController@show')->name('presupuestos-compras.show');
+    Route::get('presupuestos-compras/{presupuesto_id}/edit', 'PresupuestoCompraController@edit')->name('presupuestos-compras.edit');
     Route::put('presupuestos-compras', 'PresupuestoCompraController@update')->name('presupuestos-compras.update');
     Route::delete('presupuestos-compras', 'PresupuestoCompraController@destroy')->name('presupuestos-compras.delete');
 

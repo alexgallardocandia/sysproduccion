@@ -185,9 +185,11 @@ return [
     */
 
     'attributes' => [
-        'descripcion'       => 'Descripcion',
-        'departamento_id'   => 'Departamento',
-        'persona_id'        => 'Persona'
+        'descripcion'       => 'DESCRIPCION',
+        'departamento_id'   => 'DEPARTAMENTO',
+        'persona_id'        => 'PERSONA',
+        'numero'            => 'NUMERO',
+        'proveedor_id'      => 'PROVEEDOR',
 
     ],
 

@@ -11,7 +11,7 @@ class PresupuestoCompraDetalle extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'presupuesto_id',
+        'presupuesto_compra_id',
         'materia_prima_id',
         'cantidad',
         'precio_unitario',
@@ -19,7 +19,9 @@ class PresupuestoCompraDetalle extends Model
         'umedid_id',
         'estado',
     ];
-
+    protected $append   = [
+        'total'
+    ];
     public function presupuesto(){
         return $this->belongsTo('App\Models\Presupuesto');
     }
@@ -29,4 +31,8 @@ class PresupuestoCompraDetalle extends Model
     public function umedid(){
         return $this->belongsTo('App\Models\UnidadMedida');
     }
+    public function getTotalAttribute() {
+        return $this->attributes['cantidad'] * $this->attributes['precio_unitario'] - $this->attributes['descuento'];
+    }
+
 }

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('presupuesto_compra_detalles', function (Blueprint $table) {
-            $table->unsignedBigInteger('presupuesto_id');
+            $table->unsignedBigInteger('presupuesto_compra_id');
             $table->unsignedBigInteger('materia_prima_id');
             $table->decimal('cantidad');
             $table->integer('precio_unitario');
@@ -23,10 +23,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
     
-            $table->foreign('presupuesto_id')->references('id')->on('pedido_compras')->onDelete('cascade');
+            $table->foreign('presupuesto_compra_id')->references('id')->on('presupuesto_compras')->onDelete('cascade');
             $table->foreign('materia_prima_id')->references('id')->on('materia_primas')->onDelete('cascade');
     
-            $table->primary(['presupuesto_id', 'materia_prima_id']); // Establece la clave primaria en presupuesto_id y materia_prima_id
+            $table->primary(['presupuesto_compra_id', 'materia_prima_id']); // Establece la clave primaria en presupuesto_id y materia_prima_id
         });
     }
 

@@ -20,6 +20,7 @@
                       <th scope="col">Fecha</th>
                       <th scope="col">Validez</th>
                       <th scope="col">Proveedor</th>
+                      <th scope="col">Monto</th>
                       <th scope="col">Estado</th>
                       <th scope="col">Acciones</th>
                     </tr>
@@ -28,9 +29,10 @@
                     @foreach ($presupuestos as $presupuesto)                  
                         <tr>
                           <td>{{$presupuesto->id}}</td>
-                          <td>{{Carbon\Carbon::createFromFormat('Y-m-d', $presupuesto->fecha_pedido)->format('d/m/Y')}}</td>                                               
-                          <td><span class="badge bg-{{ config('constants.presupuestos-compras-prioridad-label.' . intval($presupuesto->prioridad)) }}">{{ config('constants.presupuestos-compras-prioridad.'. intval($presupuesto->prioridad)) }}</span></td>
-                          <td>{{$presupuesto->user->name}}</td>                                               
+                          <td>{{$presupuesto->fecha}}</td>
+                          <td>{{$presupuesto->validez}} <span class="badge bg-{{ $presupuesto->validez > date('d/m/Y') ? 'success' : 'danger' }}">&nbsp;</span></td>
+                          <td>{{$presupuesto->proveedor->razon_social}}</td>
+                          <td>{{number_format($presupuesto->getTotalDetalles(), 0, ',', '.')}}</td>
                           <td><span class="badge bg-{{ config('constants.presupuestos-compras-status-label.' . intval($presupuesto->estado)) }}">{{ config('constants.presupuestos-compras-status.'. intval($presupuesto->estado)) }}</span></td>
                           <td>                        
                             <a href="{{url('presupuestos-compras/' . $presupuesto->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          

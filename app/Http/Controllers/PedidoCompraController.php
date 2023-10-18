@@ -62,8 +62,18 @@ class PedidoCompraController extends Controller
         return view('pages.compras.pedidos-compras.show', compact('pedido', 'details'));
     }
 
-    public function edit(){
+    public function edit($pedido_id){
+        $pedido     = PedidoCompra::find($pedido_id);
+        $detalles   = PedidoCompraDetalle::where('pedido_compra_id', $pedido_id)->get();
+        $personas   = Persona::get();
+        $materias   = MateriaPrima::get();
+        $umedidas   = UnidadMedida::get();
 
+        foreach ($detalles as $key => $value) {
+            
+        }
+
+        return view('pages.compras.pedidos-compras.edit', compact('personas','materias','umedidas', 'pedido', 'detalles'));
     }
 
     public function update(Request $request, PedidoCompra $pedidoCompra)

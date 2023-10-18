@@ -31,7 +31,7 @@
                           <td>{{$usuario->id}}</td>
                           <td>{{$usuario->name}}</td>
                           <td>{{$usuario->email}}</td>
-                          <td>{{$usuario->persona->fullname}}</td>
+                          <td>{{$usuario->persona?$usuario->persona->fullname:''}}</td>
                           <td><span class="badge bg-{{ config('constants.users-status-label.' . intval($usuario->status)) }}">{{ config('constants.users-status.'. intval($usuario->status)) }}</span></td>
                           <td>                        
                             <a href="{{url('users/' . $usuario->id)}}"><i class="bi bi-info-circle-fill"></i></a>
@@ -47,8 +47,7 @@
               </div>                                 
             </div>
               <!-- End Table with stripped rows -->
-          </div>  
-                   
+          </div>         
               <div class="modal fade" id="user_delete" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">

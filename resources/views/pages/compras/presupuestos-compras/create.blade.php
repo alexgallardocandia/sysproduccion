@@ -91,6 +91,7 @@
                             <th scope="col">Cantidad</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Descuento</th>
+                            <th scope="col">SubTotal</th>
                             <th scope="col"></th>
                           </tr>
                         </thead>
@@ -133,10 +134,10 @@
         e.preventDefault();
         $.ajax({
           type: "POST",
-          url: "{{url('pedidos-compras')}}",
+          url: "{{route('presupuestos-compras.store')}}",
           data: $(this).serialize(),            
           success: function (response) {
-            window.location.href = "{{ route('pedidos-compras.index') }}";
+            window.location.href = "{{ route('presupuestos-compras.index') }}";
           },
           error:function(data){
             laravelErrorMessages(data);
@@ -156,27 +157,34 @@
         if ( (materia_id == '' || umedida_id == '') || (cantidad == '' || precio == '') ) {
           swal.fire("Sistema","Favor completa todos los campos.","info");
         } else {
-          $('#oculto').prop('hidden',false);
-          add_detail( materianame, materia_id, umedida, umedida_id, cantidad, precio, descuento );
+          if ( descuento == '' ) {
+            descuento = 0;
+            add_detail( materianame, materia_id, umedida, umedida_id, cantidad, precio.replace('.',''), descuento );
+          } else {
+            add_detail( materianame, materia_id, umedida, umedida_id, cantidad, precio.replace('.',''), descuento.replace('.','') );
+          }
         }
       });        
     });
 
     function add_detail(materianame, materia_id, umedida, umedida_id, cantidad, precio, descuento){
       count++;
+      var total = (parseInt(cantidad) * parseInt(precio)) - parseInt(descuento) ;
       $('#ped_det').append(
         '<tr>'+
           '<td>'+count+'</td>'+
           '<td>'+materianame+'</td>'+
           '<td>'+umedida+'</td>'+
           '<td>'+cantidad+'</td>'+
-          '<td>'+precio+'</td>'+
-          '<td>'+descuento+'</td>'+
+          '<td>'+$.number(precio, 0, ',', '.')+'</td>'+
+          '<td>'+$.number(descuento, 0, ',', '.')+'</td>'+
+          '<td>'+$.number(total, 0,',','.')+'</td>'+
           '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
           '<input type="hidden" name="umedidas[]" value="'+umedida_id+'"/>'+
           '<input type="hidden" name="cantidades[]" value="'+cantidad+'"/>'+
-          '<input type="hidden" name="precios[]" value="'+precio+'"/>'+
-          '<input type="hidden" name="descuentos[]" value="'+descuento+'"/>'+
+          '<input type="hidden" name="precios[]" value="'+precio.replace('.','')+'"/>'+
+          '<input type="hidden" name="descuentos[]" value="'+descuento.replace('.','')+'"/>'+
+          '<input type="hidden" name="total[]" value="'+total+'"/>'+
           '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
         +'</tr>'
       );
@@ -186,11 +194,13 @@
       $('#precio_unitario').val('');
       $('#descuento').val('');
       calculateTotal();
+      $('#oculto').prop('hidden',false);
     }
     function removeRow(t)
     {
         $(t).parent().parent().remove();
         count--;
+        calculateTotal();
     }
     function calculateTotal()
     {
@@ -208,11 +218,14 @@
         $('input[name^="descuentos[]"]').each(function () {          
           total_descuento += parseInt($(this).val());
         });
-
+        $('input[name^="total[]"]').each(function () {          
+          grand_total += parseInt($(this).val());
+        });
+        
         $("#td_total").html('<b>' + $.number(total_cantidad, 0, ',', '.')+'</b>');
         $("#td_total_precio").html('<b>' + $.number(total_precio, 0, ',', '.')+'</b>');
         $("#td_total_descuento").html('<b>' + $.number(total_descuento, 0, ',', '.')+'</b>');
-
+        $("#td_grand_total").html('<b>' + $.number(grand_total, 0, ',', '.')+'</b>');
 
         $("#detail_total").val('');
         $("#detail_total").val(total_cantidad);

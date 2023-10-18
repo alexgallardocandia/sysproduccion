@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    //Usuarios
     'users-status' => [
         1 => 'Activo',
         0 => 'Inactivo',
@@ -10,6 +10,7 @@ return [
         1 => 'primary',
         0 => 'danger',
     ],
+    //Timbrados
     'timbrado-status' => [
         1 => 'Activo',
         0 => 'Vencido',
@@ -26,6 +27,7 @@ return [
         1 => 'primary',
         2 => 'warning',
     ],
+    //Pedidos de Compras
     'pedidos-compras-prioridad' => [
         1 => 'Alta',
         2 => 'Media',
@@ -38,10 +40,33 @@ return [
     ],
     'pedidos-compras-status' => [
         1 => 'Pendiente',
-        2 => 'Aprobado',
-        3 => 'Anulado',
+        2 => 'Presupuestado',
+        3 => 'Rechazado',
+        4 => 'Completado',
     ],
     'pedidos-compras-status-label' => [
+        1 => 'warning',
+        2 => 'primary',
+        3 => 'danger',
+        4 => 'secondary'
+    ],
+    //Presupuestos de Compras
+    'presupuestos-compras-status' => [
+        1 => 'Pendiente',
+        2 => 'Aprobado',
+        3 => 'Rechazado',
+    ],
+    'presupuestos-compras-status-label' => [
+        1 => 'warning',
+        2 => 'primary',
+        3 => 'danger',
+    ],
+    'presupuestos-compras-detalles-status' => [
+        1 => 'Pendiente',
+        2 => 'Aprobado',
+        3 => 'Rechazado',
+    ],
+    'presupuestos-compras-detalles-status-label' => [
         1 => 'warning',
         2 => 'primary',
         3 => 'danger',
