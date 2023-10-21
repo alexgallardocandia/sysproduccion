@@ -12,9 +12,12 @@ class CreatePresupuestoComprasRequest extends FormRequest
     }
     public function rules()
     {
+        $now = date('d/m/Y');
         return [
             'numero'        => 'required',
             'proveedor_id'  => 'required',
+            'fecha'         => "required|date|before_or_equal:$now",
+            'validez'       => 'required|date|after_or_equal:today',
         ];
     }
     public function withValidator($validator)

@@ -83,6 +83,16 @@
         </a>
         <ul id="compras-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
+            <a id="categorias-menu" href="{{route('categorias.index')}}" >
+              <i class="bi bi-circle"></i><span>Categorias</span>
+            </a>
+          </li>
+          <li>
+            <a id="marcas-menu" href="{{route('marcas.index')}}" >
+              <i class="bi bi-circle"></i><span>Marcas</span>
+            </a>
+          </li>
+          <li>
             <a id="materias-menu" href="{{route('materias-primas.index')}}" >
               <i class="bi bi-circle"></i><span>Materias Primas</span>
             </a>

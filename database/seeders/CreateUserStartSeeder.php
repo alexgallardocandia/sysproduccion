@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class CreateUserStartSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         User::create([
@@ -21,7 +16,7 @@ class CreateUserStartSeeder extends Seeder
             'email_verified_at' => null,
             'password'          => Hash::make('admin'),
             'status'            => true,
-            'persona_id'         => null
+            'persona_id'        => null
         ]);
     }
 }

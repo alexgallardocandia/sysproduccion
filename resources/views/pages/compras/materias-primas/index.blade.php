@@ -17,9 +17,8 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Descripcion</th>
-                      <th scope="col">Presentacion</th>
-                      <th scope="col">Precio</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Presentacion</th>                      
                       <th scope="col">Fecha Vencimiento</th>
                       <th scope="col">Acciones</th>
                     </tr>
@@ -28,14 +27,14 @@
                     @foreach ($materias as $materia)                  
                         <tr>
                           <td>{{$materia->id}}</td>
-                          <td>{{$materia->descripcion}}</td>                                               
+                          <td>{{$materia->nombre}}</td>                                               
                           <td><b>{{$materia->umedida->signo}}</b></td>
-                          <td>{{number_format($materia->precio, 0, ',','.')}}</td>                                               
-                          <td>{{Carbon\Carbon::createFromFormat('Y-m-d',$materia->fecha_vencimiento)->format('d/m/Y')}}</td>                                               
+                          <td></td>                                               
+                          <td></td>
                           <td>                        
                             <a href="{{url('materias-primas/' . $materia->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                               <a href="{{url('materias-primas/' . $materia->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                              <a data-bs-toggle="modal" data-bs-target="#materia_delete" data-name="{{$materia->descripcion}}" data-id="{{ $materia->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                              <a data-bs-toggle="modal" data-bs-target="#materia_delete" data-name="{{$materia->nombre}}" data-id="{{ $materia->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                           </td>
                         </tr>
                     @endforeach

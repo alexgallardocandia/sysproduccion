@@ -17,7 +17,7 @@
                               <ul class="list-group">                                                                                                      
                                   <li class="list-group-item"><i class="bi bi-layers-half text-success"></i><b>Prioridad: </b><span class="badge bg-{{ config('constants.pedidos-compras-prioridad-label.' . intval($pedido->prioridad)) }}">{{ config('constants.pedidos-compras-prioridad.'. intval($pedido->prioridad)) }}</span></li>
                                   <li class="list-group-item"><i class="bi bi-question-lg text-success"></i><b>Estado: </b><span class="badge bg-{{ config('constants.pedidos-compras-status-label.' . intval($pedido->estado)) }}">{{ config('constants.pedidos-compras-status.'. intval($pedido->estado)) }}</span></li>
-                                  <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Fecha: </b>{{Carbon\Carbon::createFromFormat('Y-m-d',$pedido->fecha_pedido)->format('d/m/Y')}}</li>
+                                  <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Fecha: </b>{{$pedido->fecha_pedido}}</li>
                                   <li class="list-group-item"><i class="bi bi-person-fill text-success"></i><b>Solicitante: </b>{{$pedido->user->name}}</li>
                               </ul><!-- End List group With Icons -->                              
                             </div>

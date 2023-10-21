@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "rap2hpoutre/laravel-log-viewer": "^2.3",
+        "santigarcor/laratrust": "^7.2",
         "yoeunes/toastr": "^2.3"
     },
     "require-dev": {

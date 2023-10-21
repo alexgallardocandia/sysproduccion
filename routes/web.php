@@ -57,6 +57,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('cargos/{estado_id}/edit', 'CargoController@edit')->name('cargos.edit');
     Route::put('cargos', 'CargoController@update')->name('cargos.update');
     Route::delete('cargos', 'CargoController@destroy')->name('cargos.delete');
+    //Categorias routes
+    Route::get('categorias','CategoriaController@index')->name('categorias.index');
+    Route::get('categorias/create','CategoriaController@create')->name('categorias.create');
+    Route::post('categorias','CategoriaController@store')->name('categorias.store');
+    Route::get('categorias/{categoria_id}', 'CategoriaController@show')->name('categorias.show');
+    Route::get('categorias/{categoria_id}/edit', 'CategoriaController@edit')->name('categorias.edit');
+    Route::put('categorias', 'CategoriaController@update')->name('categorias.update');
+    Route::delete('categorias', 'CategoriaController@destroy')->name('categorias.delete');
+    //Marcas routes
+    Route::get('marcas','MarcaController@index')->name('marcas.index');
+    Route::get('marcas/create','MarcaController@create')->name('marcas.create');
+    Route::post('marcas','MarcaController@store')->name('marcas.store');
+    Route::get('marcas/{marca}', 'MarcaController@show')->name('marcas.show');
+    Route::get('marcas/{marca}/edit', 'MarcaController@edit')->name('marcas.edit');
+    Route::put('marcas', 'MarcaController@update')->name('marcas.update');
+    Route::delete('marcas', 'MarcaController@destroy')->name('marcas.delete');
     //Departamentos routes
     Route::get('departamentos','DepartamentoController@index')->name('departamentos.index');
     Route::get('departamentos/create','DepartamentoController@create')->name('departamentos.create');

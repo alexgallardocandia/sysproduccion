@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
+use App\Models\Marca;
 use App\Models\MateriaPrima;
 use App\Models\UnidadMedida;
-use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 
 class MateriaPrimaController extends Controller
@@ -26,11 +27,11 @@ class MateriaPrimaController extends Controller
     public function store(Request $request)
     {
         MateriaPrima::create([
-            'descripcion' => strtoupper($request->descripcion),
-            'precio' => $request->precio,
-            'fecha_lote' => $request->fecha_lote,
+            'descripcion'       => strtoupper($request->descripcion),
+            'precio'            => $request->precio,
+            'fecha_lote'        => $request->fecha_lote,
             'fecha_vencimiento' => $request->fecha_vencimiento,
-            'umedida_id' => $request->umedida_id,
+            'umedida_id'        => $request->umedida_id,
         ]);
 
         return redirect()->route('materias-primas.index')->with('success','Materia prima registrada');
@@ -44,22 +45,24 @@ class MateriaPrimaController extends Controller
     }
 
     public function edit($materia_id){
-        $materia = MateriaPrima::find($materia_id);
-        $unidades = UnidadMedida::get();
-
-        return view('pages.compras.materias-primas.edit', compact('unidades','materia'));
+        $materia    = MateriaPrima::find($materia_id);
+        $unidades   = UnidadMedida::get();
+        $categorias = Categoria::get();
+        $marcas     = Marca::get();
+        
+        return view('pages.compras.materias-primas.edit', compact('unidades','materia', 'categorias', 'marcas'));
     }
 
     public function update(Request $request)
     {
-        $materia= MateriaPrima::find($request->materia_id);
+        $materia    = MateriaPrima::find($request->materia_id);
 
         $materia->update([
-            'descripcion' => strtoupper($request->descripcion),
-            'precio' => $request->precio,
-            'fecha_lote' => $request->fecha_lote,
+            'descripcion'       => strtoupper($request->descripcion),
+            'precio'            => $request->precio,
+            'fecha_lote'        => $request->fecha_lote,
             'fecha_vencimiento' => $request->fecha_vencimiento,
-            'umedida_id' => $request->umedida_id,
+            'umedida_id'        => $request->umedida_id,
         ]);
 
         return redirect()->route('materias-primas.index')->with('warning', 'Materia prima editada');

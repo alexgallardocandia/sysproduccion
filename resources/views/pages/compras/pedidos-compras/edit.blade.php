@@ -157,6 +157,7 @@
 
       $.each(details, function (key, value) { 
         console.log(value);
+        addDetail();
       });
       // addDetail();
     }
