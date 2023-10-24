@@ -6,9 +6,9 @@
           <div class="row">
               <div class="col-lg-12">
                   <div class="card">
-                      <div class="card-body">
+                      {{-- <div class="card-body">
                           <div class="d-flex justify-content-between">
-                              <h5 class="card-title">Materia Prima <b>{{$materia->descripcion}}</b></h5>
+                              <h5 class="card-title">Materia Prima <b>{{$materia->nombre}}</b></h5>
                               <a href="{{url('materias-primas')}}" class="btn btn-xs"><i class="ri-arrow-left-circle-fill"></i>Volver</a>
                           </div>
                           <div class="row">
@@ -28,7 +28,7 @@
                               </ul>
                           </div>
                           </div>                          
-                      </div>
+                      </div> --}}
                   </div>
               </div>
           </div>

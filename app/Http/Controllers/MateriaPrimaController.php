@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateMateriaPrimaRequest;
 use App\Models\Categoria;
 use App\Models\Marca;
 use App\Models\MateriaPrima;
@@ -19,19 +20,22 @@ class MateriaPrimaController extends Controller
     }
 
     public function create(){
-        $unidades = UnidadMedida::get();
-
-        return view('pages.compras.materias-primas.create', compact('unidades'));
+        $unidades   = UnidadMedida::get();
+        $categorias = Categoria::get();
+        $marcas     = Marca::get();
+        return view('pages.compras.materias-primas.create', compact('unidades', 'categorias', 'marcas'));
     }
 
-    public function store(Request $request)
+    public function store(CreateMateriaPrimaRequest $request)
     {
         MateriaPrima::create([
-            'descripcion'       => strtoupper($request->descripcion),
-            'precio'            => $request->precio,
-            'fecha_lote'        => $request->fecha_lote,
-            'fecha_vencimiento' => $request->fecha_vencimiento,
-            'umedida_id'        => $request->umedida_id,
+            "nombre"            => strtoupper($request->nombre),
+            "categoria_id"      => $request->categoria_id,
+            "presentacion"      => $request->presentacion,
+            "fecha_lote"        => $request->fecha_lote,
+            "fecha_vencimiento" => $request->fecha_vencimiento,
+            "marca_id"          => $request->marca_id,
+            "umedida_id"        => $request->umedida_id,
         ]);
 
         return redirect()->route('materias-primas.index')->with('success','Materia prima registrada');

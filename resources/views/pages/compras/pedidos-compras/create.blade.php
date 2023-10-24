@@ -54,14 +54,14 @@
                       <label for="cantidad" class="col-sm-4 col-form-label">Cantidad</label>
                       <input name="cantidad" id="cantidad" type="number" min="1" class="form-control">
                     </div>
-                    <div class="col-md-3">
-                      <label for="umedida_id" class="col-sm-8 col-form-label">Presentacion</label>
-                      <select class="form-select" name="umedida_id" id="umedida_id">
-                        <option selected>Seleccione una unidad</option>
-                        @foreach($umedidas as $umedida)                              
-                          <option value='{{$umedida->id}}'>{{$umedida->descripcion}}</option>
-                        @endforeach()                            
-                      </select>
+                    <div class="col-md-3" id="presentacion">
+                      <label for="presentacion" class="col-sm-8 col-form-label">Presentacion</label>
+                    </div>
+                    <div class="col-md-3" id="unidad">
+                      <label for="unidad" class="col-sm-8 col-form-label">Unidad de Medida</label>
+                    </div>
+                    <div class="col-md-3" id="categoria">
+                      <label for="categoria" class="col-sm-8 col-form-label">Categoria</label>
                     </div>
                     <div class="col-md-3" style="margin-top:3.5%;">
                       <button id="btn_agregar" type="button" class="btn btn-primary"><b><i class="bi-plus-lg"></i></b></button>
@@ -74,8 +74,7 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Materia Prima</th>
-                        <th scope="col">Unidad Medida</th>
+                        <th scope="col" class="text-center">Materia Prima</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col"></th>
                       </tr>
@@ -83,8 +82,9 @@
                     <tbody id="ped_det"></tbody>
                     <tfoot class="bold">
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td id="td_total" class="text-right"></td>                                            
+                            <td></td>                                            
                         </tr>
                     </tfoot>
                   </table>
@@ -127,7 +127,10 @@
           });
         });
 
-        
+        $('#materia_id').on('change', function() {
+          getAttributes();
+        });
+
         $('#btn_agregar').click(function() {
           var materianame = $('#materia_id option:selected').text();
           var materia     = $('#materia_id').val();
@@ -140,7 +143,7 @@
           }else{
             $('#oculto').prop('hidden',false);
 
-            add_detail(materianame, cantidad,umedida,materia, umedida_id);
+            add_detail(materianame, cantidad, materia);
 
             $('#materia_id').val('Seleccione una materia prima');
             $('#cantidad').val('');
@@ -152,22 +155,45 @@
           
         });
     });
-    
-    function add_detail(mat, cant,ume, mat_id, ume_id){
+    function getAttributes() {
+      var data  = { 'materia_id' : $('#materia_id option:selected').val() };
+
+      $.ajax({
+        type: "POST",
+        url: "{{ url('pedidos-compras/ajax-attributes') }}",
+        data: data,
+        success: function (response) {
+          
+          $('#presentacion').append( '<input type="text" class="form-control" value="'+response.materia.presentacion+'" readonly>' );
+          $('#unidad').append( '<input type="text" class="form-control" value="'+response.materia.unidad+'" readonly>' );
+          $('#categoria').append( '<input type="text" class="form-control" value="'+response.materia.categoria+'" readonly>' );
+
+        },
+        error:function(response) {
+          laravelErrorMessages(response);
+        }
+        
+      });
+    }
+    function add_detail(materianame, cantidad,materia_id){
       count++;
       $('#ped_det').append(
         '<tr>'+
           '<td>'+count+'</td>'+
-          '<td>'+mat+'</td>'+
-          '<td>'+ume+'</td>'+
-          '<td>'+cant+'</td>'+
-          '<input type="hidden" name="materias[]" value="'+mat_id+'"/>'+
-          '<input type="hidden" name="umedidas[]" value="'+ume_id+'"/>'+
-          '<input type="hidden" name="cantidades[]" value="'+cant+'"/>'+
+          '<td>'+materianame+'</td>'+
+          '<td>'+cantidad+'</td>'+
+          '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
+          '<input type="hidden" name="cantidades[]" value="'+cantidad+'"/>'+
           '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
         +'</tr>'
       );
       calculateTotal();
+      $('#presentacion').empty();
+      $('#presentacion').append( '<label for="presentacion" class="col-sm-8 col-form-label">Presentacion</label>' );
+      $('#unidad').empty();
+      $('#unidad').append( '<label for="presentacion" class="col-sm-8 col-form-label">Unidad de Medida</label>' );
+      $('#categoria').empty();
+      $('#categoria').append( '<label for="presentacion" class="col-sm-8 col-form-label">Categoria</label>' );
     }
     function removeRow(t)
     {

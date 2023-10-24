@@ -17,12 +17,29 @@
                   <input name="nombre" id="nombre" class="form-control" />
                 </div>
                 <div class="col-md-3">
-                  <label for="fecha" class="form-label">Fecha</label>
-                  <input name="fecha" type="date" id="fecha"  class="form-control" required>
+                  <label for="categoria_id" class="form-label">Categoria</label>
+                  <select class="form-select" name="categoria_id" id="categoria_id">
+                    <option value="">Seleccione...</option>
+                    @foreach ($categorias as $categoria )
+                        <option value="@json($categoria->id)">{{$categoria->nombre}}</option>
+                    @endforeach
+                  </select>
                 </div>
                 <div class="col-md-3">
-                  <label for="validez" class="form-label">Validez</label>
-                  <input name="validez" type="date" id="validez"  class="form-control" required>
+                  <label for="presentacion" class="form-label">Presentacion</label>
+                  <select class="form-select" name="presentacion" id="presentacion">
+                    <option value="">Seleccione...</option>
+                    <option value="1">Unidad</option>
+                    <option value="2">Caja</option>
+                  </select>
+                </div>
+                <div class="col-md-3" id="div-fecha">
+                  <label for="fecha_lote" class="form-label">Fecha Lote</label>
+                  <input name="fecha_lote" type="date" id="fecha_lote"  class="form-control">
+                </div>
+                <div class="col-md-3" id="div-validez">
+                  <label for="fecha_vencimiento" class="form-label">Fecha Vencimiento</label>
+                  <input name="fecha_vencimiento" type="date" id="fecha_vencimiento"  class="form-control">
                 </div>
                 {{-- <div class="col-md-3">
                   <label for="type" class="form-label">Tipo</label>
@@ -34,30 +51,21 @@
                   </select>
                 </div> --}}
                 <div class="col-md-3">
-                  <label for="categoria_id" class="form-label">Categoria</label>
-                  <select class="form-select" name="categoria_id" id="categoria_id">
-                    <option value="">Seleccione...</option>
-                    {{-- @foreach ($proveedores as $proveedor )
-                        <option value="@json($proveedor->id)">{{$proveedor->razon_social}}</option>
-                    @endforeach --}}
-                  </select>
-                </div>
-                <div class="col-md-3">
                   <label for="marca_id" class="form-label">Marca</label>
                   <select class="form-select" name="marca_id" id="marca_id">
                     <option value="">Seleccione...</option>
-                    {{-- @foreach ($proveedores as $proveedor )
-                        <option value="@json($proveedor->id)">{{$proveedor->razon_social}}</option>
-                    @endforeach --}}
+                    @foreach ($marcas as $marca )
+                        <option value="@json($marca->id)">{{$marca->nombre}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="col-md-3">
                   <label for="umedida_id" class="form-label">Unidad de Medida</label>
                   <select class="form-select" name="umedida_id" id="umedida_id">
                     <option value="">Seleccione...</option>
-                    {{-- @foreach ($pedidos_compras as $pedido )
-                        <option value="@json($pedido->id)">{{$pedido->id.' | '.$pedido->user->persona->fullname.' | '.$pedido->fecha_pedido}}</option>
-                    @endforeach --}}
+                    @foreach ($unidades as $unidad )
+                        <option value="@json($unidad->id)">{{ $unidad->descripcion }}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="row g-3">
@@ -81,7 +89,34 @@
 
         $('#compras-nav').addClass("show");//coloca el menu en show
         $('#materias-menu').addClass("active");//coloca activo el submenu usuario
-                
+        
+        $('#form').on('submit', function(e) {
+          e.preventDefault();
+          $.ajax({
+            type: "POST",
+            url: "{{route('materias-primas.store')}}",
+            data: $(this).serialize(),            
+            success: function (response) {
+              window.location.href = "{{ route('materias-primas.index') }}";
+            },
+            error:function(response){
+              laravelErrorMessages(response);
+            }
+
+          });
+        });
+
+
+        $('#categoria_id').on('change', function() {
+          
+          if( $('#categoria_id option:selected').val() == 4 || $('#categoria_id option:selected').val() == 5 ) {//SI ES FRUTA O  VERDURAS
+            $('#div-fecha').hide();
+            $('#div-validez').hide();
+          } else {
+            $('#div-fecha').show();
+            $('#div-validez').show();
+          }
+        });
     });
 </script>
 @endsection

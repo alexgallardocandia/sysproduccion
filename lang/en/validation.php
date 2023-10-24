@@ -190,6 +190,13 @@ return [
         'persona_id'        => 'PERSONA',
         'numero'            => 'NUMERO',
         'proveedor_id'      => 'PROVEEDOR',
+        "nombre"            => 'NOMBRE',
+        "categoria_id"      => 'CATEGORIA',
+        "presentacion"      => 'PRESENTACION',
+        "fecha_lote"        => 'FECHA LOTE',
+        "fecha_vencimiento" => 'FECHA VENCIMIENTO',
+        "marca_id"          => 'MARCA',
+        "umedida_id"        => 'UNIDAD DE MEDIDA',
 
     ],
 

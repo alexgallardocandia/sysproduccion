@@ -18,10 +18,10 @@ class PedidoCompra extends Model
         'fecha_pedido',
     ];
 
-    public function user(){
+    public function user() {
         return $this->belongsTo('App\Models\User');
     }
-    public function details(){
+    public function details() {
         return $this->hasMany('App\Models\PedidoCompraDetalle');
     }
     public function getFechaPedidoAttribute() {

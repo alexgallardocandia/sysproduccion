@@ -28,10 +28,9 @@
                         <tr>
                           <td>{{$materia->id}}</td>
                           <td>{{$materia->nombre}}</td>                                               
-                          <td><b>{{$materia->umedida->signo}}</b></td>
-                          <td></td>                                               
-                          <td></td>
-                          <td>                        
+                          <td><b>{{config( 'constants.materias-primas-presentacion.'.$materia->presentacion )}}</b></td>
+                          <td>{{ $materia->fecha_vencimiento }}</td>
+                          <td>
                             <a href="{{url('materias-primas/' . $materia->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                               <a href="{{url('materias-primas/' . $materia->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
                               <a data-bs-toggle="modal" data-bs-target="#materia_delete" data-name="{{$materia->nombre}}" data-id="{{ $materia->id }}"><i class="bi bi-trash-fill"></i></a>                                                    

@@ -1,7 +1,7 @@
 @extends('layouts.principal')
 @section('content')
 <div class="wrapper wrapper-content">
-  <div class="row">
+  {{-- <div class="row">
       <section class="section">
           <div class="row">
               <div class="col-lg-12">
@@ -65,7 +65,7 @@
             </div>
         </div>
     </section>
-  </div>
+  </div> --}}
 </div>
 @endsection
 @section('script')

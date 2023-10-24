@@ -14,7 +14,6 @@ class PedidoCompraDetalle extends Model
         'pedido_compra_id',
         'materia_prima_id',
         'cantidad',
-        'umedid_id',
     ];
 
     public function pedido_compra(){
@@ -22,9 +21,6 @@ class PedidoCompraDetalle extends Model
     }
     public function materia_prima(){
         return $this->belongsTo('App\Models\MateriaPrima');
-    }
-    public function umedid(){
-        return $this->belongsTo('App\Models\UnidadMedida');
     }
 }
         

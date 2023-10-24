@@ -28,7 +28,8 @@ class PedidoCompraController extends Controller
 
     public function store(CreatePedidoComprasRequest $request)
     {
-        if (request()->ajax()) {            
+        if (request()->ajax()) {
+
             $pedidocompra = PedidoCompra::create([
                 'prioridad'     => $request->prioridad,
                 'fecha_pedido'  => date('Y-m-d'),
@@ -40,8 +41,7 @@ class PedidoCompraController extends Controller
                 PedidoCompraDetalle::create([
                     'pedido_compra_id'  => $pedidocompra->id,
                     'materia_prima_id'  => $request->materias[$key],
-                    'cantidad'          => $request->cantidades[$key],
-                    'umedid_id'         => $request->umedidas[$key],                    
+                    'cantidad'          => $request->cantidades[$key],                  
                 ]);
             }
 
@@ -84,5 +84,24 @@ class PedidoCompraController extends Controller
     public function destroy(PedidoCompra $pedidoCompra)
     {
         //
+    }
+
+    public function ajax_attributes() {
+        if ( request()->ajax() ) {
+            
+            $materia_prima = MateriaPrima::find(request()->materia_id);
+
+            $materia = [
+                'presentacion'      => config('constants.materias-primas-presentacion.'.$materia_prima->presentacion),
+                'unidad'            => $materia_prima->umedida->descripcion,
+                'categoria'         => $materia_prima->categoria->nombre,
+            ];            
+
+            return response()->json([ 
+                'materia'   => $materia,
+            ]);
+
+        }
+        abort(404);
     }
 }
