@@ -15,16 +15,17 @@ use Toastr;
 class UserController extends Controller
 {
     
-    public function index(lain $lain)
+    public function index()
     {
         $usuarios = DB::select('select * from v_user');
+
         return view('pages.users.index', compact('usuarios'));
     }
 
     public function create()
     {
-        $personas   = Persona::get();
-
+        $personas  = DB::select('SELECT * FROM v_personas');
+        
         return view('pages.users.create', compact('personas'));
     }
 

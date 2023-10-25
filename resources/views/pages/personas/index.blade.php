@@ -29,7 +29,7 @@
                     @foreach ($personas as $persona)                  
                         <tr>
                           <td>{{$persona->id}}</td>
-                          <td>{{$persona->nombres.' '.$persona->apellidos}}</td>                                               
+                          <td>{{$persona->fullname}}</td>
                           <td>{{$persona->direccion}}</td>                                               
                           <td>{{$persona->telefono}}</td>                                               
                           <td>{{$persona->email}}</td>                                             
@@ -37,7 +37,7 @@
                           <td>                        
                             <a href="{{url('personas/' . $persona->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                               <a href="{{url('personas/' . $persona->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                              <a data-bs-toggle="modal" data-bs-target="#persona_delete" data-name="{{$persona->nombres}}" data-id="{{ $persona->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                              <a data-bs-toggle="modal" data-bs-target="#persona_delete" data-name="{{$persona->fullname}}" data-id="{{ $persona->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                           </td>
                         </tr>
                     @endforeach
