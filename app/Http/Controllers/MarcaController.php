@@ -7,19 +7,20 @@ use Illuminate\Http\Request;
 
 class MarcaController extends Controller
 {
-    public function index()
-    {
+    public function index() {
+
         $marcas = Marca::get();
 
         return view('pages.compras.marcas.index', compact('marcas'));
     }
     
-    public function create(){
+    public function create() {
+
         return view('pages.compras.marcas.create');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
+
         Marca::create([
             'nombre'       => strtoupper($request->nombre)
         ]);
@@ -27,17 +28,18 @@ class MarcaController extends Controller
         return redirect()->route('marcas.index')->with('success', 'Marca Creada');
     }
 
-    public function show(Marca $marca)
-    {      
+    public function show(Marca $marca) {
+
         return view('pages.compras.marcas.show', compact('marca'));
     }
 
     public function edit(Marca $marca) {
+
         return view('pages.compras.marcas.edit', compact('marca'));
     }
 
-    public function update(Request $request)
-    {
+    public function update(Request $request) {
+
         $marca = Marca::find($request->marca_id);
 
         $marca->update([
@@ -47,8 +49,8 @@ class MarcaController extends Controller
         return redirect()->route('marcas.index')->with('success','Marca Editada');
     }
 
-    public function destroy()
-    {
+    public function destroy() {
+        
         $marca = Marca::find(request()->marca_id);
 
         $marca->delete();

@@ -9,6 +9,7 @@ use App\Models\lain;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Toastr;
 
 class UserController extends Controller
@@ -16,7 +17,7 @@ class UserController extends Controller
     
     public function index(lain $lain)
     {
-        $usuarios = User::get();
+        $usuarios = DB::select('select * from v_user');
         return view('pages.users.index', compact('usuarios'));
     }
 

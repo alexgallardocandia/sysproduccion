@@ -128,19 +128,21 @@
         });
 
         $('#materia_id').on('change', function() {
+
           getAttributes();
+
         });
 
         $('#btn_agregar').click(function() {
           var materianame = $('#materia_id option:selected').text();
           var materia     = $('#materia_id').val();
           var cantidad    = $('#cantidad').val();
-          var umedida     = $('#umedida_id option:selected').text();
-          var umedida_id  = $('#umedida_id option:selected').val();
 
-          if(materia === 'Seleccione una materia prima' || cantidad == 0|| cantidad == '' || umedida === 'Seleccione una unidad'){           
+          if ( (materia === 'Seleccione una materia prima') || (cantidad == 0) || (cantidad == '') ) {
+
             swal.fire("Hay campos vacios","Favor completa todos los campos...","error");
-          }else{
+          } 
+          else {
             $('#oculto').prop('hidden',false);
 
             add_detail(materianame, cantidad, materia);
@@ -163,7 +165,9 @@
         url: "{{ url('pedidos-compras/ajax-attributes') }}",
         data: data,
         success: function (response) {
-          
+
+          clearInputsDetails();
+
           $('#presentacion').append( '<input type="text" class="form-control" value="'+response.materia.presentacion+'" readonly>' );
           $('#unidad').append( '<input type="text" class="form-control" value="'+response.materia.unidad+'" readonly>' );
           $('#categoria').append( '<input type="text" class="form-control" value="'+response.materia.categoria+'" readonly>' );
@@ -175,7 +179,8 @@
         
       });
     }
-    function add_detail(materianame, cantidad,materia_id){
+    function add_detail( materianame, cantidad,materia_id ) {
+
       count++;
       $('#ped_det').append(
         '<tr>'+
@@ -187,14 +192,23 @@
           '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
         +'</tr>'
       );
+
       calculateTotal();
-      $('#presentacion').empty();
+      clearInputsDetails();
+
       $('#presentacion').append( '<label for="presentacion" class="col-sm-8 col-form-label">Presentacion</label>' );
-      $('#unidad').empty();
       $('#unidad').append( '<label for="presentacion" class="col-sm-8 col-form-label">Unidad de Medida</label>' );
-      $('#categoria').empty();
       $('#categoria').append( '<label for="presentacion" class="col-sm-8 col-form-label">Categoria</label>' );
     }
+
+    function clearInputsDetails() {
+
+      $('#presentacion').empty();
+      $('#unidad').empty();
+      $('#categoria').empty();
+
+    }
+
     function removeRow(t)
     {
         $(t).parent().parent().remove();

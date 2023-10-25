@@ -113,6 +113,7 @@ class PresupuestoCompraController extends Controller
     public function update(CreatePresupuestoComprasRequest $request)
     {
         if( request()->ajax() ) {
+            
             $nuevo_detalle      = false;
 
             $presupuesto_compra = PresupuestoCompra::find($request->presupuesto_compra_id); 

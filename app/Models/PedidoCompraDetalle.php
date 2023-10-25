@@ -10,6 +10,8 @@ class PedidoCompraDetalle extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $primaryKey = 'pedido_compra_id';
+
     protected $fillable = [
         'pedido_compra_id',
         'materia_prima_id',

@@ -8,6 +8,7 @@ use App\Models\PedidoCompra;
 use App\Models\PedidoCompraDetalle;
 use App\Models\Persona;
 use App\Models\UnidadMedida;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PedidoCompraController extends Controller
@@ -62,23 +63,71 @@ class PedidoCompraController extends Controller
         return view('pages.compras.pedidos-compras.show', compact('pedido', 'details'));
     }
 
-    public function edit($pedido_id){
-        $pedido     = PedidoCompra::find($pedido_id);
-        $detalles   = PedidoCompraDetalle::where('pedido_compra_id', $pedido_id)->get();
+    public function edit(PedidoCompra $pedido_id){
+        $detalles   = [];
         $personas   = Persona::get();
         $materias   = MateriaPrima::get();
         $umedidas   = UnidadMedida::get();
 
-        foreach ($detalles as $key => $value) {
-            
+        foreach ($pedido_id->details as $key => $det) {
+            $detalles []  = [
+                'materianame'   => $det->materia_prima->nombre,
+                'cantidad'      => $det->cantidad,
+                'materia_id'    => $det->materia_prima_id
+            ];
         }
 
-        return view('pages.compras.pedidos-compras.edit', compact('personas','materias','umedidas', 'pedido', 'detalles'));
+        return view('pages.compras.pedidos-compras.edit', compact('personas','materias','umedidas', 'pedido_id', 'detalles'));
     }
 
-    public function update(Request $request, PedidoCompra $pedidoCompra)
-    {
-        //
+    public function update ( Request $request ) {
+        if ($request->ajax()) {
+            $pedidoCompra = PedidoCompra::where('id', $request->pedido_compra_id)->first();
+            //ACTUALIZAMOS LA CABECERA DEL PEDIDO
+            $pedidoCompra->update([
+                'prioridad'     => $request->prioridad,
+                'estado'        => 1,
+                'fecha_pedido'  => Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d'),
+                'user_id'       => $request->user_id
+            ]);
+
+            //MANEJO DEL DETALLE
+            if ( count($pedidoCompra->details) == count($request->materias) ) {
+                foreach( $pedidoCompra->details as $key => $value ) {
+                    // dd($value);
+                    if ( $request->materias[$key] == $value->materia_prima_id ) {//MISMO ID DE MATERIA
+                        $value->update([
+                            'cantidad'  => $request->cantidades[$key],
+                        ]);
+                    } else {
+                        $value->update([
+                            'pedido_compra_id'  => $pedidoCompra->id,
+                            'materia_prima_id'  => $request->materias[$key],
+                            'cantidad'          => $request->cantidades[$key],
+                        ]);
+                    }
+                }
+            } else {
+                foreach ($pedidoCompra->details as $detalle) {
+                    $detalle->delete();
+                }
+
+                foreach ($request->materias as $key => $value) {
+                    PedidoCompraDetalle::create([
+                        'pedido_compra_id'  => $pedidoCompra->id,
+                        'materia_prima_id'  => $value,
+                        'cantidad'          => $request->cantidades[$key]
+                    ]);
+                }
+            }
+
+            toastr()->success('Pedido de Compra Editado Exitosamente ');
+
+            return response()->json([
+                'success' => true
+            ]);
+        }
+        abort(404);
     }
 
     public function destroy(PedidoCompra $pedidoCompra)
