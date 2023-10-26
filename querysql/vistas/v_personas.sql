@@ -9,7 +9,9 @@ CREATE OR REPLACE VIEW v_personas AS
     ec.descripcion as estado_civil,
     ca.descripcion as cargo,
     s.descripcion as sucursal,
-    ciu.descripcion as ciudad
+    ciu.descripcion as ciudad,
+    p.created_at,
+    p.updated_at
    FROM personas p 
      JOIN estado_civiles ec  ON p.civil_id = ec.id
      JOIN cargos ca ON p.cargo_id = ca.id
