@@ -75,13 +75,6 @@
               <i class="bi bi-circle"></i><span>Proveedores</span>
             </a>
           </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#compras-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bag-fill"></i><span>COMPRAS</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="compras-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a id="categorias-menu" href="{{route('categorias.index')}}" >
               <i class="bi bi-circle"></i><span>Categorias</span>
@@ -92,6 +85,13 @@
               <i class="bi bi-circle"></i><span>Marcas</span>
             </a>
           </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#compras-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bag-fill"></i><span>COMPRAS</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="compras-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a id="materias-menu" href="{{route('materias-primas.index')}}" >
               <i class="bi bi-circle"></i><span>Materias Primas</span>

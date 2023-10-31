@@ -71,7 +71,7 @@
 @section('script')
 <script>
   $(document).ready(function(){
-    $('#compras-nav').addClass('show');
+    $('#referenciales-nav').addClass('show');
     $('#categorias-menu').addClass('active');
     $('#categoria_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
