@@ -16,13 +16,8 @@
         </a>
         <ul id="referenciales-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a id="users-menu" href="{{route('users.index')}}">
-              <i class="bi bi-circle"></i><span>Usuarios</span>
-            </a>
-          </li>
-          <li>
-            <a id="estados-menu" href="{{route('estados-civiles.index')}}" >
-              <i class="bi bi-circle"></i><span>Estados Civiles</span>
+            <a id="depositos-menu" href="{{route('depositos.index')}}" >
+              <i class="bi bi-circle"></i><span>Depositos</span>
             </a>
           </li>
           <li>
@@ -31,13 +26,8 @@
             </a>
           </li>
           <li>
-            <a id="departamentos-menu" href="{{route('departamentos.index')}}" >
-              <i class="bi bi-circle"></i><span>Departamentos</span>
-            </a>
-          </li>
-          <li>
-            <a id="sucursales-menu" href="{{route('sucursales.index')}}" >
-              <i class="bi bi-circle"></i><span>Sucursales</span>
+            <a id="categorias-menu" href="{{route('categorias.index')}}" >
+              <i class="bi bi-circle"></i><span>Categorias</span>
             </a>
           </li>
           <li>
@@ -46,18 +36,38 @@
             </a>
           </li>
           <li>
+            <a id="departamentos-menu" href="{{route('departamentos.index')}}" >
+              <i class="bi bi-circle"></i><span>Departamentos</span>
+            </a>
+          </li>
+          <li>
             <a id="personas-menu" href="{{route('personas.index')}}" >
-              <i class="bi bi-circle"></i><span>Personas</span>
+              <i class="bi bi-circle"></i><span>Empleados</span>
             </a>
           </li>
           <li>
-            <a id="depositos-menu" href="{{route('depositos.index')}}" >
-              <i class="bi bi-circle"></i><span>Depositos</span>
+            <a id="estados-menu" href="{{route('estados-civiles.index')}}" >
+              <i class="bi bi-circle"></i><span>Estados Civiles</span>
             </a>
           </li>
           <li>
-            <a id="unidades-menu" href="{{route('unidades-medidas.index')}}" >
-              <i class="bi bi-circle"></i><span>Unidades de Medida</span>
+            <a id="marcas-menu" href="{{route('marcas.index')}}" >
+              <i class="bi bi-circle"></i><span>Marcas</span>
+            </a>
+          </li>
+          <li>
+            <a id="proveedores-menu" href="{{route('proveedores.index')}}" >
+              <i class="bi bi-circle"></i><span>Proveedores</span>
+            </a>
+          </li>
+          <li>
+            <a id="sucursales-menu" href="{{route('sucursales.index')}}" >
+              <i class="bi bi-circle"></i><span>Sucursales</span>
+            </a>
+          </li>
+          <li>
+            <a id="timbrados-menu" href="{{route('timbrados.index')}}" >
+              <i class="bi bi-circle"></i><span>Timbrados</span>
             </a>
           </li> 
           <li>
@@ -66,23 +76,13 @@
             </a>
           </li> 
           <li>
-            <a id="timbrados-menu" href="{{route('timbrados.index')}}" >
-              <i class="bi bi-circle"></i><span>Timbrados</span>
+            <a id="unidades-menu" href="{{route('unidades-medidas.index')}}" >
+              <i class="bi bi-circle"></i><span>Unidades de Medida</span>
             </a>
           </li> 
           <li>
-            <a id="proveedores-menu" href="{{route('proveedores.index')}}" >
-              <i class="bi bi-circle"></i><span>Proveedores</span>
-            </a>
-          </li>
-          <li>
-            <a id="categorias-menu" href="{{route('categorias.index')}}" >
-              <i class="bi bi-circle"></i><span>Categorias</span>
-            </a>
-          </li>
-          <li>
-            <a id="marcas-menu" href="{{route('marcas.index')}}" >
-              <i class="bi bi-circle"></i><span>Marcas</span>
+            <a id="users-menu" href="{{route('users.index')}}">
+              <i class="bi bi-circle"></i><span>Usuarios</span>
             </a>
           </li>
         </ul>

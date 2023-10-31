@@ -25,7 +25,7 @@
                                 <option value='{{$sucursal->id}}'>{{$sucursal->descripcion}}</option>
                               @endforeach()
                             </select>
-                          </div>                          
+                          </div>
                         </div>   
                     </div>                    
                     <div class="card-footer">                        

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Deposito;
+use App\Models\Almacen;
 use App\Models\Sucursal;
 use Illuminate\Http\Request;
 
-class DepositoController extends Controller
+class AlmacenController extends Controller
 {
  
     public function index()
     {
-        $depositos = Deposito::get();
+        $depositos = Almacen::get();
 
         return view('pages.depositos.index', compact('depositos'));
     }
@@ -23,30 +23,30 @@ class DepositoController extends Controller
 
     public function store(Request $request)
     {
-        Deposito::create([
+        Almacen::create([
             'descripcion'   => strtoupper($request->descripcion),
             'sucursal_id'   => $request->sucursal_id
         ]);
 
         return redirect()->route('depositos.index')->with('success','Desposito Creado');
-    }
+    } 
 
     public function show($deposito_id)
     {
-        $deposito = Deposito::find($deposito_id);
+        $deposito = Almacen::find($deposito_id);
         
         return view('pages.depositos.show',compact('deposito'));
     }
 
     public function edit($deposito_id){
-        $deposito = Deposito::find($deposito_id);
+        $deposito = Almacen::find($deposito_id);
         $sucursales = Sucursal::get();
         return view('pages.depositos.edit',compact('deposito','sucursales'));
     }
 
     public function update(Request $request)
     {
-        $deposito = Deposito::find($request->deposito_id);
+        $deposito = Almacen::find($request->deposito_id);
         $deposito->update([
             'descripcion' => strtoupper($request->descripcion),
             'sucursal_id' => $request->sucursal_id
@@ -57,7 +57,7 @@ class DepositoController extends Controller
 
     public function destroy()
     {
-        $deposito = Deposito::find(request()->deposito_id);
+        $deposito = Almacen::find(request()->deposito_id);
         $deposito->delete();
         
         return redirect()->route('depositos.index')->with('danger','Deposito Eliminado');

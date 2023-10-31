@@ -106,13 +106,13 @@ Route::middleware(['auth'])->group(function () {
     Route::put('personas', 'PersonaController@update')->name('personas.update');
     Route::delete('personas', 'PersonaController@destroy')->name('personas.delete');
     //depositos routes
-    Route::get('depositos','DepositoController@index')->name('depositos.index');
-    Route::get('depositos/create','DepositoController@create')->name('depositos.create');
-    Route::post('depositos','DepositoController@store')->name('depositos.store');
-    Route::get('depositos/{deposito_id}', 'DepositoController@show')->name('depositos.show');
-    Route::get('depositos/{deposito_id}/edit', 'DepositoController@edit')->name('depositos.edit');
-    Route::put('depositos', 'DepositoController@update')->name('depositos.update');
-    Route::delete('depositos', 'DepositoController@destroy')->name('depositos.delete');
+    Route::get('depositos','AlmacenController@index')->name('depositos.index');
+    Route::get('depositos/create','AlmacenController@create')->name('depositos.create');
+    Route::post('depositos','AlmacenController@store')->name('depositos.store');
+    Route::get('depositos/{deposito_id}', 'AlmacenController@show')->name('depositos.show');
+    Route::get('depositos/{deposito_id}/edit', 'AlmacenController@edit')->name('depositos.edit');
+    Route::put('depositos', 'AlmacenController@update')->name('depositos.update');
+    Route::delete('depositos', 'AlmacenController@destroy')->name('depositos.delete');
     //unidades-medidas routes
     Route::get('unidades-medidas','UnidadMedidaController@index')->name('unidades-medidas.index');
     Route::get('unidades-medidas/create','UnidadMedidaController@create')->name('unidades-medidas.create');
