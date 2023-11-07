@@ -97,14 +97,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('ciudades/{sucursal_id}/edit', 'CiudadController@edit')->name('ciudades.edit');
     Route::put('ciudades', 'CiudadController@update')->name('ciudades.update');
     Route::delete('ciudades', 'CiudadController@destroy')->name('ciudades.delete');
-    //personas routes
-    Route::get('personas','PersonaController@index')->name('personas.index');
-    Route::get('personas/create','PersonaController@create')->name('personas.create');
-    Route::post('personas','PersonaController@store')->name('personas.store');
-    Route::get('personas/{persona_id}', 'PersonaController@show')->name('personas.show');
-    Route::get('personas/{persona_id}/edit', 'PersonaController@edit')->name('personas.edit');
-    Route::put('personas', 'PersonaController@update')->name('personas.update');
-    Route::delete('personas', 'PersonaController@destroy')->name('personas.delete');
+    //empleados routes
+    Route::get('empleados','EmpleadoController@index')->name('empleados.index');
+    Route::get('empleados/create','EmpleadoController@create')->name('empleados.create');
+    Route::post('empleados','EmpleadoController@store')->name('empleados.store');
+    Route::get('empleados/{empleado}', 'EmpleadoController@show')->name('empleados.show');
+    Route::get('empleados/{empleado}/edit', 'EmpleadoController@edit')->name('empleados.edit');
+    Route::put('empleados', 'EmpleadoController@update')->name('empleados.update');
+    Route::delete('empleados', 'EmpleadoController@destroy')->name('empleados.delete');
     //depositos routes
     Route::get('depositos','AlmacenController@index')->name('depositos.index');
     Route::get('depositos/create','AlmacenController@create')->name('depositos.create');

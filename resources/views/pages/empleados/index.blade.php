@@ -7,8 +7,8 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h5>Personas</h5>
-              <a href="{{url('personas/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              <h5>Empleados</h5>
+              <a href="{{url('empleados/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
             </div>
             <div class="card-body">                                     
               <div class="table-responsive">
@@ -35,8 +35,8 @@
                           <td>{{$persona->email}}</td>                                             
                           <td>{{$persona->fecha_nacimiento}}</td>                                               
                           <td>                        
-                            <a href="{{url('personas/' . $persona->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                              <a href="{{url('personas/' . $persona->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                            <a href="{{url('empleados/' . $persona->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                              <a href="{{url('empleados/' . $persona->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
                               <a data-bs-toggle="modal" data-bs-target="#persona_delete" data-name="{{$persona->fullname}}" data-id="{{ $persona->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                           </td>
                         </tr>
@@ -55,7 +55,7 @@
                       <h5 class="modal-title">Eliminar persona </h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="POST" action="{{route('personas.delete')}}">
+                    <form method="POST" action="{{route('empleados.delete')}}">
                       @csrf
                       @method('DELETE')
                       <div class="modal-body">

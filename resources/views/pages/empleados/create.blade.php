@@ -7,7 +7,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Crear Persona</h5>
+                                <h5>Crear Empleado</h5>
                             </div>
                             <div class="card-body">
                                 <form id="form">
@@ -88,19 +88,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Ciudad</label>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <select class="form-control select2" name="ciudad_id" id="ciudad_id">
-                                                        @foreach ($ciudades as $ciudad)
-                                                            <option value='{{ $ciudad->id }}'>{{ $ciudad->descripcion }}
-                                                            </option>
-                                                        @endforeach()
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i>
@@ -128,10 +115,10 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('personas.store') }}",
+                    url: "{{ route('empleados.store') }}",
                     data: $(this).serialize(),
                     success: function(response) {
-                      window.location.href = "{{ route('personas.index') }}";
+                      window.location.href = "{{ route('empleados.index') }}";
                     },
                     error: function(response) {
                         laravelErrorMessages(response);

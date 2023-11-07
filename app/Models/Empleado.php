@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Persona extends Model
+class Empleado extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'personas';
-
     protected $fillable = [
+        'ci',
         'nombres',
         'apellidos',
         'direccion',
@@ -21,9 +20,7 @@ class Persona extends Model
         'fecha_nacimiento',
         'civil_id',
         'cargo_id',
-        'sucursal_id',
-        'ciudad_id',
-        'ci'
+        'sucursal_id'
     ];
 
     protected $append   = [
@@ -39,9 +36,6 @@ class Persona extends Model
     }
     public function cargo(){
         return $this->belongsTo('App\Models\Cargo');
-    }
-    public function Ciudad(){
-        return $this->belongsTo('App\Models\Ciudad');
     }
     public function Sucursal(){
         return $this->belongsTo('App\Models\Sucursal');

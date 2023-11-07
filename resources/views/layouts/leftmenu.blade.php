@@ -41,7 +41,7 @@
             </a>
           </li>
           <li>
-            <a id="personas-menu" href="{{route('personas.index')}}" >
+            <a id="personas-menu" href="{{route('empleados.index')}}" >
               <i class="bi bi-circle"></i><span>Empleados</span>
             </a>
           </li>

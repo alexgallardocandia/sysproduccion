@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Empleado;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePersonasRequest extends FormRequest
+class UpdateEmpleadoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,18 +28,15 @@ class CreatePersonasRequest extends FormRequest
             //
         ];
     }
+
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $empleado_ci = Empleado::where('ci', request()->ci)->first();
+            $empleado_ci = Empleado::where('ci', request()->ci)->where('id','!=',request()->empleado_id)->first();
             
             if ($empleado_ci) {
-                $validator->errors()->add('ci',"El numero de cedula ya esta registrada");
+                $validator->errors()->add('ci',"El numero de cedula ya esta registrada con el empleado $empleado_ci->fullname #$empleado_ci->id");
             }
-            //validacion de ci
-            // if(request()->detail_total == 0){
-            //     $validator->errors()->add('detail_total','El pedido debe tener al menos un detalle');
-            // }
         });
     }
 }

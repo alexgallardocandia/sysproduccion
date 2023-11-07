@@ -46,7 +46,7 @@ class EstadoCivilController extends Controller
             'descripcion'      => strtoupper($request->descripcion)
         ]);
 
-        return redirect()->route('estados-civiles.index')->with('warning', 'Estado civil editado exitosamente.');        
+        return redirect()->route('estados-civiles.index')->with('success', 'Estado civil editado exitosamente.');        
     }
 
     public function destroy(Request $request)
@@ -55,6 +55,6 @@ class EstadoCivilController extends Controller
 
         $estadocivil->delete();
 
-        return redirect()->route('estados-civiles.index')->with('danger', 'Estado civil eliminado');
+        return redirect()->route('estados-civiles.index')->with('success', 'Estado civil eliminado');
     }
 }

@@ -15,8 +15,8 @@ class Cargo extends Model
         'departamento_id'
     ];
     
-    public function persona(){
-        return $this->hasMany('App\Models\Persona');
+    public function empleado(){
+        return $this->hasMany('App\Models\Empleado');
     }
     public function departamento() {
         return $this->belongsTo('App\Models\Departamento');
