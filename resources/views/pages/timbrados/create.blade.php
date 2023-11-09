@@ -10,31 +10,28 @@
               <h5>Crear Timbrado</h5>              
             </div>
             <div class="card-body">                                  
-                <form method="POST" action="{{route('timbrados.store')}}">
-                @csrf
-                    <div class="row mb-2">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Numero</b></label>
-                        <div class="col-sm-3">
-                        <input name="numero" type="text" class="form-control" format-number required>
-                        </div>
-                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Tipo</b></label>
-                        <div class="col-sm-3">
-                            <select class="form-control" name="tipo" id="tipo">
-                              <option value="1" selected>Compra</option>
-                              <option value="2">Venta</option>
-                            </select>                          
-                        </div>
-                    </div>     
-                    <div class="row mb-3">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Fecha de Emision</b></label>
-                        <div class="col-sm-3">
-                        <input name="fecha_emision" type="date" id="fecha_mision" max="{{date('Y-m-d')}}" class="form-control" required>
-                        </div>
-                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Fecha de Vencimiento</b></label>
-                        <div class="col-sm-3">
-                        <input name="fecha_vencimiento" type="date" id="fecha_venimiento" min="{{date('Y-m-d')}}" class="form-control" required>
-                        </div>
-                    </div>                                     
+                <form class="row g-3" method="POST" action="{{route('timbrados.store')}}">
+                  @csrf
+                    <div class="col-md-3">
+                      <label for="numero" class="form-label">Numero</label>
+                      <input name="numero" type="text" class="form-control" format-number required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="proveedor_id" class="form-label"><b>Proveedor</b></label>
+                      <select class="form-control" name="proveedor_id" id="proveedor_id">
+                        @foreach ($proveedores as $prov)
+                          <option value="@json($prov->id)">{{ $prov->razon_social }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="inputEmail3" class="form-label"><b>Fecha de Emision</b></label>
+                      <input name="fecha_emision" type="date" id="fecha_mision" max="{{date('Y-m-d')}}" class="form-control" required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="inputEmail3" class="form-label"><b>Fecha de Vencimiento</b></label>
+                      <input name="fecha_vencimiento" type="date" id="fecha_venimiento" min="{{date('Y-m-d')}}" class="form-control" required>
+                    </div>
                     <div class="card-footer">                        
                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
                         <a href="{{url('timbrados')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>

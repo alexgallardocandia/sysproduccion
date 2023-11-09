@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proveedor;
 use App\Models\Timbrado;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Type\Time;
 
 class TimbradoController extends Controller
 {
@@ -16,8 +16,10 @@ class TimbradoController extends Controller
         return view('pages.timbrados.index',compact('timbrados'));
     }
 
-    public function create(){
-        return view('pages.timbrados.create');
+    public function create()
+    {
+        $proveedores = Proveedor::get();
+        return view('pages.timbrados.create', compact('proveedores'));
     }
     
     public function store(Request $request)

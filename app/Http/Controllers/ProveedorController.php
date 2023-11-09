@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Ciudad;
 use App\Models\Proveedor;
-use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 
 class ProveedorController extends Controller
@@ -54,6 +53,7 @@ class ProveedorController extends Controller
         $proveedor = Proveedor::find($request->proveedor_id);
 
         $proveedor->update([
+            'razon_social'  => strtoupper($request->razon_social),
             'ruc'           => $request->ruc,
             'telefono'      => $request->telefono,
             'direccion'     => $request->direccion,
@@ -61,7 +61,7 @@ class ProveedorController extends Controller
             'ciudad_id'     => $request->ciudad_id
         ]);
 
-        return redirect()->route('proveedores.index')->with('warning', 'Proveedor Editado exitosamente');
+        return redirect()->route('proveedores.index')->with('success', 'Proveedor Editado exitosamente');
     }
 
     public function destroy(Request $request)
@@ -70,6 +70,6 @@ class ProveedorController extends Controller
 
         $proveedor->delete();
 
-        return redirect()->route('proveedores.index')->with('danger','Proveedor Eliminado');
+        return redirect()->route('proveedores.index')->with('success','Proveedor Eliminado');
     }
 }

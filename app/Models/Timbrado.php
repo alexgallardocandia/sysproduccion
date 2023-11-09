@@ -14,7 +14,12 @@ class Timbrado extends Model
         'numero',
         'fecha_emision',
         'fecha_vencimiento',
-        'tipo',
+        'proveedor_id',
         'estado'
     ];
+
+    public function proveedor()
+    {
+        return $this->belongsTo('App\Models\Proveedor');
+    }
 }

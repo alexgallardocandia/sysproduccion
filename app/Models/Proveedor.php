@@ -24,4 +24,8 @@ class Proveedor extends Model
     public function ciudad(){
         return $this->belongsTo('App\Models\Ciudad');
     }
+    public function timbrado()
+    {
+        return $this->hasMany('App\Models\Ciudad');
+    }
 }
