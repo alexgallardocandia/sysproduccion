@@ -26,11 +26,11 @@
                     </div>
                     <div class="col-md-3">
                       <label for="inputEmail3" class="form-label"><b>Fecha de Emision</b></label>
-                      <input name="fecha_emision" type="date" id="fecha_mision" max="{{date('Y-m-d')}}" class="form-control" required>
+                      <input name="fecha_emision" type="text" id="fecha_emision" max="{{date('Y-m-d')}}" class="form-control" value="dd/mm/YYYY" required>
                     </div>
                     <div class="col-md-3">
                       <label for="inputEmail3" class="form-label"><b>Fecha de Vencimiento</b></label>
-                      <input name="fecha_vencimiento" type="date" id="fecha_venimiento" min="{{date('Y-m-d')}}" class="form-control" required>
+                      <input name="fecha_vencimiento" type="text" id="fecha_vencimiento" min="{{date('Y-m-d')}}" class="form-control" value="dd/mm/YYYY" required>
                     </div>
                     <div class="card-footer">                        
                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
@@ -53,11 +53,11 @@
     });
       flatpickr("#fecha_vencimiento",{
         minDate: "today", // Impide seleccionar fechas anteriores a la actual
-        dateFormat: "d-m-Y", // Formato de fecha
+        dateFormat: "d/m/Y", // Formato de fecha
       });
       flatpickr("#fecha_emision",{
         maxDate: "today", // Impide seleccionar fechas mayores a la actual
-        dateFormat: "d-m-Y", // Formato de fecha
+        dateFormat: "d/m/Y", // Formato de fecha
       });
   </script>
 @endsection

@@ -19,23 +19,24 @@
                         <input name="numero" type="number" min="100" class="form-control" value="{{$timbrado->numero}}" required>
                         <input name="timbrado_id" type="hidden" class="form-control" value="{{$timbrado->id}}" required>
                         </div>
-                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Tipo</b></label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Proveedor</b></label>
                         <div class="col-sm-3">
-                            <select class="form-control" name="tipo" id="tipo">
-                              <option value="{{$timbrado->tipo}}" selected>{{config('constants.timbrado-type.'.$timbrado->tipo)}}</option>
-                              <option value="1">Compra</option>
-                              <option value="2">Venta</option>
+                            <select class="form-control" name="proveedor_id" id="proveedor_id">
+                              <option value="@json($timbrado->proveedor_id)" selected>{{ $timbrado->proveedor->razon_social }}</option>
+                              @foreach ( $proveedores as $proveedor )
+                                <option value="@json($proveedor->id)">{{ $proveedor->razon_social }}</option>
+                              @endforeach
                             </select>                          
                         </div>
                     </div>     
                     <div class="row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Fecha de Emision</b></label>
                         <div class="col-sm-3">
-                        <input name="fecha_emision" type="date" id="fecha_mision" class="form-control" value="{{$timbrado->fecha_emision}}" required>
+                        <input name="fecha_emision" type="text" id="fecha_emision" class="form-control" value="{{$timbrado->fecha_emision}}" required>
                         </div>
                         <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Fecha de Vencimiento</b></label>
                         <div class="col-sm-3">
-                        <input name="fecha_vencimiento" type="date" id="fecha_venimiento" class="form-control" value="{{$timbrado->fecha_vencimiento}}" required>
+                        <input name="fecha_vencimiento" type="text" id="fecha_vencimiento" class="form-control" value="{{$timbrado->fecha_vencimiento}}" required>
                         </div>
                     </div>                                     
                     <div class="card-footer">                        
@@ -58,11 +59,11 @@
       $('#timbrados-menu').addClass("active");//coloca activo el submenu usuario
       flatpickr("#fecha_vencimiento",{
         minDate: "today", // Impide seleccionar fechas anteriores a la actual
-        dateFormat: "d-m-Y", // Formato de fecha
+        dateFormat: "d/m/Y", // Formato de fecha
       });
       flatpickr("#fecha_emision",{
         maxDate: "today", // Impide seleccionar fechas mayores a la actual
-        dateFormat: "d-m-Y", // Formato de fecha
+        dateFormat: "d/m/Y", // Formato de fecha
       });
     });
   </script>

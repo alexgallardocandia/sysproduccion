@@ -134,7 +134,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('timbrados/create','TimbradoController@create')->name('timbrados.create');
     Route::post('timbrados','TimbradoController@store')->name('timbrados.store');
     Route::get('timbrados/{timbrado_id}', 'TimbradoController@show')->name('timbrados.show');
-    Route::get('timbrados/{timbrado_id}/edit', 'TimbradoController@edit')->name('timbrados.edit');
+    Route::get('timbrados/{timbrado}/edit', 'TimbradoController@edit')->name('timbrados.edit');
     Route::put('timbrados', 'TimbradoController@update')->name('timbrados.update');
     Route::delete('timbrados', 'TimbradoController@destroy')->name('timbrados.delete');
     //proveedores routes

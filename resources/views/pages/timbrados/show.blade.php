@@ -14,9 +14,9 @@
                           <div class="card-body">
                               <!-- List group With Icons -->
                               <ul class="list-group">                                                                    
-                                  <li class="list-group-item"><i class="ri-percent-fill me-1 text-success"></i><b>Fecha de Emision: </b>{{$timbrado->fecha_emision}}</li>
-                                  <li class="list-group-item"><i class="ri-forbid-2-fill me-1 text-success"></i><b>Fecha de Vencimiento: </b>{{$timbrado->fecha_vencimiento}}</li>
-                                  <li class="list-group-item"><i class="ri-forbid-2-fill me-1 text-success"></i><b>Tipo: </b><span class="badge bg-{{config('constants.timbrado-type-label.'.$timbrado->tipo)}}">{{config('constants.timbrado-type.'.$timbrado->tipo)}}</span></li>
+                                  <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Fecha de Emision: </b>{{$timbrado->fecha_emision}}</li>
+                                  <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-primary"></i><b>Fecha de Vencimiento: </b>{{$timbrado->fecha_vencimiento}}</li>
+                                  <li class="list-group-item"><i class="ri-forbid-2-fill me-1 text-success"></i><b>Proveedor: </b>{{ $timbrado->proveedor->razon_social }}</li>
                                   <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Creado: </b>{{$timbrado->created_at->format('d/m/Y H:m:s')}}</li>
                                   <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-primary"></i><b>Modificado:</b>{{$timbrado->updated_at->format('d/m/Y H:m:s')}}</td>                        
                               </ul><!-- End List group With Icons -->

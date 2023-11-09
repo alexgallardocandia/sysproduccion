@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\TipoImpuesto;
 use Illuminate\Http\Request;
-use Laravel\Ui\Presets\React;
 
 class TipoImpuestoController extends Controller
 {
@@ -55,7 +54,7 @@ class TipoImpuestoController extends Controller
 
         ]);
 
-        return redirect()->route('tipos-impuestos.index')->with('warning','Tipo de Impuesto Editado');
+        return redirect()->route('tipos-impuestos.index')->with('success','Tipo de Impuesto Editado');
     }
 
     public function destroy(Request $request)
@@ -64,6 +63,6 @@ class TipoImpuestoController extends Controller
 
         $tipo->delete();
 
-        return redirect()->route('tipos-impuestos.index')->with('danger', 'Tipo de Impuesto Eliminado');
+        return redirect()->route('tipos-impuestos.index')->with('success', 'Tipo de Impuesto Eliminado');
     }
 }

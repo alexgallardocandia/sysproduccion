@@ -31,9 +31,9 @@ class TimbradoController extends Controller
         }else{
             Timbrado::create([
                 'numero'            => $request->numero,
-                'fecha_emision'     => Carbon::createFromFormat('Y-m-d',$request->fecha_emision),
-                'fecha_vencimiento' => Carbon::createFromFormat('Y-m-d',$request->fecha_vencimiento),
-                'tipo'              => $request->tipo,
+                'fecha_emision'     => Carbon::createFromFormat('d/m/Y',$request->fecha_emision)->format('Y-m-d'),
+                'fecha_vencimiento' => Carbon::createFromFormat('d/m/Y',$request->fecha_vencimiento)->format('Y-m-d'),
+                'proveedor_id'      => $request->proveedor_id,
                 'estado'            => 1
             ]);
 
@@ -49,25 +49,26 @@ class TimbradoController extends Controller
         return view('pages.timbrados.show', compact('timbrado'));
     }
 
-    public function edit($timbrado_id){
-        $timbrado = Timbrado::find($timbrado_id);
+    public function edit(Timbrado $timbrado) {
+        $proveedores = Proveedor::get();
 
-        return view('pages.timbrados.edit', compact('timbrado'));
+        return view('pages.timbrados.edit', compact('timbrado','proveedores'));
     }
 
     public function update(Request $request)
     {
+
         $timbrado = Timbrado::find($request->timbrado_id);
 
         $timbrado->update([
             'numero'            => $request->numero,
-            'fecha_emision'     => Carbon::createFromFormat('Y-m-d',$request->fecha_emision),
-            'fecha_vencimiento' => Carbon::createFromFormat('Y-m-d',$request->fecha_vencimiento),
-            'tipo'              => $request->tipo,
+            'fecha_emision'     => Carbon::createFromFormat('d/m/Y',$request->fecha_emision)->format('Y-m-d'),
+            'fecha_vencimiento' => Carbon::createFromFormat('d/m/Y',$request->fecha_vencimiento)->format('Y-m-d'),
+            'proveedor_id'      => $request->proveedor_id,
             'estado'            => 1
         ]);
 
-        return redirect()->route('timbrados.index')->with('warning','Timbrado editado correctamente');
+        return redirect()->route('timbrados.index')->with('success','Timbrado editado correctamente');
     }
 
     public function destroy(Request $request)
@@ -76,6 +77,6 @@ class TimbradoController extends Controller
 
         $timbrado->delete();
 
-        return redirect()->route('timbrados.index')->with('danger', 'Timbrado eliminado correctamente');
+        return redirect()->route('timbrados.index')->with('success', 'Timbrado eliminado correctamente');
     }
 }
