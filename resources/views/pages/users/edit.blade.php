@@ -10,41 +10,33 @@
               <h5>Editar Usuario {{$users->name}}</h5>              
             </div>
             <div class="card-body">                   
-                <form method="POST" action="{{route('user.update')}}">
+                <form class="row g-3" method="POST" action="{{route('user.update')}}">
                 @csrf
                 @method('PUT')
-                    <div class="row mb-3">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
-                        <div class="col-sm-10">
+                    <div class="col-md-3">
+                        <label for="inputEmail3" class="form-label">Nombre</label>
                         <input name="nombre" type="text" class="form-control" id="inputText" value="{{$users->name}}" required>
                         <input name="user_id" type="hidden" class="form-control" id="inputText" value="{{$users->id}}" required>
-                        </div>
                     </div>
-                    <div class="row mb-3">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
+                    <div class="col-md-3">
+                        <label for="inputEmail3" class="form-label">Email</label>
                         <input name="email" type="email" class="form-control" id="inputEmail" value="{{$users->email}}" required>
-                        </div>
                     </div>
-                    <div class="row mb-3">
-                        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
+                    <div class="col-md-3">
+                        <label for="inputPassword3" class="form-label">Password</label>
                         <input name="password" type="password" class="form-control" id="inputPassword" required>
-                        </div>
                     </div>
-                    <div class="row mb-3">
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Persona</label>
-                        <div class="col-sm-10">
+                    <div class="col-md-3">
+                      <label for="empleado_id" class="form-label">Empleado</label>
                           <div class="form-group">                                              
-                            <select class="form-control select2" name="persona_id" id="persona_id">
-                              <option value="@json($users->persona_id)">{{$users->persona->fullname}}</option>
+                            <select class="form-control select2" name="empleado_id" id="empleado_id">
+                              <option value="@json($users->empleado_id)">{{$users->empleado->fullname}}</option>
                               <option value="">Seleccione...</option>
-                              @foreach($personas as $persona)                              
-                                <option value='{{$persona->id}}'>{{$persona->fullname}}</option>
+                              @foreach($empleados as $empleado)                              
+                                <option value='{{$empleado->id}}'>{{$empleado->fullname}}</option>
                               @endforeach()                            
                             </select>
-                          </div>                          
-                        </div> 
+                          </div>
                     </div>
                     <div class="">                        
                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Modificar</button>

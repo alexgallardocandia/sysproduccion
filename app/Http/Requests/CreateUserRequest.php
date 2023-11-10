@@ -15,17 +15,17 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'persona_id'    => 'required'
+            'empleado_id'    => 'required'
         ];
     }
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
             
-            $persona_validate = User::where('persona_id', request()->persona_id)->first();
+            $empleado_validate = User::where('empleado_id', request()->empleado_id)->first();
 
-            if($persona_validate) {
-                $validator->errors()->add('persona_id',"La persona ya tiene un usuario creado");
+            if($empleado_validate) {
+                $validator->errors()->add('empleado_id',"El empleado ya tiene un usuario creado");
             }
          });
     }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,17 +11,13 @@ class MateriaPrima extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        
         'nombre',
-        'presentacion',
-        'fecha_lote',
-        'fecha_vencimiento',
-        'type',
-        'umedida_id',
+        'unidad_medida_id',
+        'marca_id',
         'categoria_id',
-        'marca_id', 
+        'tipo',
     ];
-    public function umedida() {
+    public function unidad_medida() {
         return $this->belongsTo('App\Models\UnidadMedida');
     }
     public function categoria() {
@@ -31,12 +26,12 @@ class MateriaPrima extends Model
     public function marca() {
         return $this->belongsTo('App\Models\Marca');
     }
-    public function getFechaAttribute() {
-        return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha_lote'])->format('d/m/Y');
-    }
-    public function getVencimientoAttribute() {
-        return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha_vencimiento'])->format('d/m/Y');
-    }
+    // public function getFechaAttribute() {
+    //     return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha_lote'])->format('d/m/Y');
+    // }
+    // public function getVencimientoAttribute() {
+    //     return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha_vencimiento'])->format('d/m/Y');
+    // }
 }
 
 

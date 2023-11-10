@@ -19,7 +19,7 @@
                       <th scope="col">#</th>
                       <th scope="col">Nombre</th>
                       <th scope="col">Email</th>
-                      <th scope="col">Persona</th>
+                      <th scope="col">Empleado</th>
                       <th scope="col">Estado</th>
                       <th scope="col">Acciones</th>
                     </tr>
@@ -31,7 +31,7 @@
                           <td>{{$usuario->id}}</td>
                           <td>{{$usuario->name}}</td>
                           <td>{{$usuario->email}}</td>
-                          <td>{{$usuario->persona}}</td>
+                          <td>{{$usuario->empleado_id ? $usuario->empleado->fullname : ''}}</td>
                           <td><span class="badge bg-{{ config('constants.users-status-label.' . intval($usuario->status)) }}">{{ config('constants.users-status.'. intval($usuario->status)) }}</span></td>
                           <td>                        
                             <a href="{{url('users/' . $usuario->id)}}"><i class="bi bi-info-circle-fill"></i></a>

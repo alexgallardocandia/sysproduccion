@@ -2,42 +2,38 @@
 
 namespace App\Http\Controllers;
 
-// use {{ namespacedModel }};
-
 use App\Http\Requests\CreateUserRequest;
-use App\Models\lain;
+use App\Models\Empleado;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Toastr;
 
 class UserController extends Controller
 {
     
     public function index()
     {
-        $usuarios = DB::select('select * from v_user');
+        $usuarios = User::get();
 
         return view('pages.users.index', compact('usuarios'));
     }
 
     public function create()
     {
-        $personas  = DB::select('SELECT * FROM v_personas');
+        $empleados = Empleado::get();
         
-        return view('pages.users.create', compact('personas'));
+        return view('pages.users.create', compact('empleados'));
     }
 
     public function store(CreateUserRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         User::create([
             'name'          => $request->nombre,
             'email'         => $request->email,
             'status'        => 1,
             'password'      => bcrypt($request->password),
-            'persona_id'    => $request->persona_id
+            'empleado_id'   => $request->empleado_id
         ]);
 
         return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
@@ -51,9 +47,9 @@ class UserController extends Controller
     
     public function edit(User $users)
     {
-        $personas   = Persona::get();
+        $empleados   = Empleado::get();
 
-        return view('pages.users.edit', compact('users', 'personas'));
+        return view('pages.users.edit', compact('users', 'empleados'));
     }
 
     
@@ -65,10 +61,10 @@ class UserController extends Controller
             'name'          => $request->nombre,
             'email'         => $request->email,
             'password'      => bcrypt($request->password,),
-            'persona_id'    => $request->persona_id
+            'empleado_id'   => $request->empleado_id
 
         ]);
-        return redirect()->route('users.index')->with('warning', 'Usuario editado exitosamente.');
+        return redirect()->route('users.index')->with('success', 'Usuario editado exitosamente.');
     }
 
     
@@ -79,7 +75,7 @@ class UserController extends Controller
         $user->update([
             'status' => 0
         ]);
-        return redirect()->route('users.index')->with('danger', 'Usuario inactivado.');
+        return redirect()->route('users.index')->with('success', 'Usuario inactivado.');
 
     }
 }

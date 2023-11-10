@@ -23,9 +23,7 @@ class Empleado extends Model
         'sucursal_id'
     ];
 
-    protected $append   = [
-        'fullname'
-    ];
+    protected $appends = [ 'fullname' ];
 
     public function getFullnameAttribute() {
         return $this->attributes['nombres'] . ' ' .  $this->attributes['apellidos'];
