@@ -72,8 +72,8 @@ return [
         3 => 'danger',
     ],
     //MATERIAS PRIMAS
-    'materias-primas-presentacion'  => [
-        1 => 'Unidad',
-        2 => 'Caja',
+    'materias-primas-tipos'  => [
+        1 => 'PERECEDEROS',
+        2 => 'NO PERECEDEROS',
     ],
 ];

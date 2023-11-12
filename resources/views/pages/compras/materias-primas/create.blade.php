@@ -17,15 +17,41 @@
                   <input name="nombre" id="nombre" class="form-control" />
                 </div>
                 <div class="col-md-3">
+                  <label for="umedida_id" class="form-label">Unidad de Medida</label>
+                  <select class="form-select" name="umedida_id" id="umedida_id">
+                    <option value="" selected>Seleccione...</option>
+                    @foreach ($unidades as $unidad )
+                        <option value="@json($unidad->id)">{{ $unidad->descripcion }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label for="marca_id" class="form-label">Marca</label>
+                  <select class="form-select" name="marca_id" id="marca_id">
+                    <option value="" selected>Seleccione...</option>
+                    @foreach ($marcas as $marca )
+                        <option value="@json($marca->id)">{{$marca->nombre}}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-md-3">
                   <label for="categoria_id" class="form-label">Categoria</label>
                   <select class="form-select" name="categoria_id" id="categoria_id">
-                    <option value="">Seleccione...</option>
+                    <option value="" selected>Seleccione...</option>
                     @foreach ($categorias as $categoria )
                         <option value="@json($categoria->id)">{{$categoria->nombre}}</option>
                     @endforeach
                   </select>
                 </div>
                 <div class="col-md-3">
+                  <label for="tipo" class="form-label">Tipo</label>
+                  <select class="form-select" name="tipo" id="tipo">
+                    <option value="" selected>Seleccione...</option>
+                    <option value="1">PERECEDEROS</option>
+                    <option value="2">NO PERECEDEROS</option>
+                  </select>
+                </div>
+                {{-- <div class="col-md-3">
                   <label for="presentacion" class="form-label">Presentacion</label>
                   <select class="form-select" name="presentacion" id="presentacion">
                     <option value="">Seleccione...</option>
@@ -40,40 +66,13 @@
                 <div class="col-md-3" id="div-validez">
                   <label for="fecha_vencimiento" class="form-label">Fecha Vencimiento</label>
                   <input name="fecha_vencimiento" type="date" id="fecha_vencimiento"  class="form-control">
-                </div>
-                {{-- <div class="col-md-3">
-                  <label for="type" class="form-label">Tipo</label>
-                  <select class="form-select" name="type" id="type">
-                    <option value="">Seleccione...</option>
-                    @foreach ($proveedores as $proveedor )
-                        <option value="@json($proveedor->id)">{{$proveedor->razon_social}}</option>
-                    @endforeach
-                  </select>
-                </div> --}}
-                <div class="col-md-3">
-                  <label for="marca_id" class="form-label">Marca</label>
-                  <select class="form-select" name="marca_id" id="marca_id">
-                    <option value="">Seleccione...</option>
-                    @foreach ($marcas as $marca )
-                        <option value="@json($marca->id)">{{$marca->nombre}}</option>
-                    @endforeach
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <label for="umedida_id" class="form-label">Unidad de Medida</label>
-                  <select class="form-select" name="umedida_id" id="umedida_id">
-                    <option value="">Seleccione...</option>
-                    @foreach ($unidades as $unidad )
-                        <option value="@json($unidad->id)">{{ $unidad->descripcion }}</option>
-                    @endforeach
-                  </select>
-                </div>
+                </div>--}}
                 <div class="row g-3">
                   <div class="card-footer">                        
                       <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
                       <a href="{{url('materias-primas')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
                   </div>
-                </div>    
+                </div>
               </form>
             </div>
           </div>    

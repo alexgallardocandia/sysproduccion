@@ -18,8 +18,8 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Presentacion</th>                      
-                      <th scope="col">Fecha Vencimiento</th>
+                      <th scope="col">Unidad Medida</th>                      
+                      <th scope="col">Marca</th>
                       <th scope="col">Acciones</th>
                     </tr>
                   </thead>
@@ -28,8 +28,8 @@
                         <tr>
                           <td>{{$materia->id}}</td>
                           <td>{{$materia->nombre}}</td>                                               
-                          <td><b>{{config( 'constants.materias-primas-presentacion.'.$materia->presentacion )}}</b></td>
-                          <td>{{ $materia->fecha_vencimiento }}</td>
+                          <td>{{ $materia->unidad_medida_id ? $materia->unidad_medida->descripcion : '' }}</td>
+                          <td>{{ $materia->marca_id ? $materia->marca->nombre : '' }}</td>
                           <td>
                             <a href="{{url('materias-primas/' . $materia->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                               <a href="{{url('materias-primas/' . $materia->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>

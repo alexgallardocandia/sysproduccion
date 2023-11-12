@@ -26,18 +26,18 @@ class CreateMateriaPrimaRequest extends FormRequest
         return [
             "nombre"            => 'required',
             "categoria_id"      => 'required',
-            "presentacion"      => 'required',
             "marca_id"          => 'required',
             "umedida_id"        => 'required',
+            "tipo"              => 'required',
         ];
     }
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
             //VALIDACION DE FECHAS EN EL CASO QUE LA CATEGORIA SEA DIFERENTE A FRUTAS O VERDURAS
-            if ( ( request()->categoria_id != 4 && request()->categoria_id != 5 ) && ( request()->fecha_lote == NULL || request()->fecha_vencimiento == NULL ) ) {
-                $validator->errors()->add('fecha_lote',"Los campos de fecha son obligatorios si la categoria es frutas o verduras");
-            }
+            // if ( ( request()->categoria_id != 4 && request()->categoria_id != 5 ) && ( request()->fecha_lote == NULL || request()->fecha_vencimiento == NULL ) ) {
+            //     $validator->errors()->add('fecha_lote',"Los campos de fecha son obligatorios si la categoria es frutas o verduras");
+            // }
 
          });
     }

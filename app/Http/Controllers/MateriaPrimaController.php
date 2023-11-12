@@ -13,10 +13,9 @@ class MateriaPrimaController extends Controller
 {    
     public function index() {
 
-        $unidades = UnidadMedida::get();
-        $materias = MateriaPrima::get();
+        $materias   = MateriaPrima::get();
 
-        return view('pages.compras.materias-primas.index', compact('unidades','materias'));
+        return view('pages.compras.materias-primas.index', compact('materias'));
     }
 
     public function create() {
@@ -29,17 +28,22 @@ class MateriaPrimaController extends Controller
 
     public function store(CreateMateriaPrimaRequest $request) {
 
-        MateriaPrima::create([
-            "nombre"            => strtoupper($request->nombre),
-            "categoria_id"      => $request->categoria_id,
-            "presentacion"      => $request->presentacion,
-            "fecha_lote"        => $request->fecha_lote,
-            "fecha_vencimiento" => $request->fecha_vencimiento,
-            "marca_id"          => $request->marca_id,
-            "umedida_id"        => $request->umedida_id,
-        ]);
+        if($request->ajax())
+        {
+            MateriaPrima::create([
+                "nombre"            => strtoupper($request->nombre),
+                "unidad_medida_id"  => $request->umedida_id,
+                "marca_id"          => $request->marca_id,
+                "categoria_id"      => $request->categoria_id,
+                "tipo"              => $request->tipo
+            ]);
+            
+            toastr()->success('Materia Prima Creada!');
+            
 
-        return redirect()->route('materias-primas.index')->with('success','Materia prima registrada');
+            return response()->json(['success' => true]);
+        }
+        abort(404);
     }
 
     public function show($materia_id) {
