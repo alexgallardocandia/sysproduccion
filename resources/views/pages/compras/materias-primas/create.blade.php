@@ -51,22 +51,6 @@
                     <option value="2">NO PERECEDEROS</option>
                   </select>
                 </div>
-                {{-- <div class="col-md-3">
-                  <label for="presentacion" class="form-label">Presentacion</label>
-                  <select class="form-select" name="presentacion" id="presentacion">
-                    <option value="">Seleccione...</option>
-                    <option value="1">Unidad</option>
-                    <option value="2">Caja</option>
-                  </select>
-                </div>
-                <div class="col-md-3" id="div-fecha">
-                  <label for="fecha_lote" class="form-label">Fecha Lote</label>
-                  <input name="fecha_lote" type="date" id="fecha_lote"  class="form-control">
-                </div>
-                <div class="col-md-3" id="div-validez">
-                  <label for="fecha_vencimiento" class="form-label">Fecha Vencimiento</label>
-                  <input name="fecha_vencimiento" type="date" id="fecha_vencimiento"  class="form-control">
-                </div>--}}
                 <div class="row g-3">
                   <div class="card-footer">                        
                       <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
@@ -105,17 +89,6 @@
           });
         });
 
-
-        $('#categoria_id').on('change', function() {
-          
-          if( $('#categoria_id option:selected').val() == 4 || $('#categoria_id option:selected').val() == 5 ) {//SI ES FRUTA O  VERDURAS
-            $('#div-fecha').hide();
-            $('#div-validez').hide();
-          } else {
-            $('#div-fecha').show();
-            $('#div-validez').show();
-          }
-        });
     });
 </script>
 @endsection

@@ -13,26 +13,16 @@
                 <div class="mb-3"></div>
                 <form class="row g-3" id="form">
                   @csrf
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     <label for="persona_id" class="form-label">Solicitante</label>
-                    <input name="user" id="user" class="form-control" value="{{auth()->user()->persona ? auth()->user()->persona->fullname:''}}" readonly/>
+                    <input name="user" id="user" class="form-control" value="{{auth()->user()->empleado ? auth()->user()->empleado->fullname:''}}" readonly/>
                     <input name="user_id" id="user_id" type="hidden" value="{{auth()->user()->id}}"/>
                   </div>
-                  <div class="col-md-3">
-                    <label for="departamento_id" class="form-label">Departamento</label>
-                    <input name="departamento" id="departamento" class="form-control" value="{{auth()->user()->persona->cargo->departamento->nombre}}" readonly>
-                    <input name="departamento_id" id="departamento_id" type="hidden" value="{{auth()->user()->persona->cargo->departamento->id}}" />
-                  </div>
-                  <div class="col-md-3">
-                    <label for="sucursal_id" class="form-label">Sucursal</label>
-                    <input name="sucursal" id="sucursal" class="form-control" value="{{auth()->user()->persona->sucursal->descripcion}}" readonly>
-                    <input name="sucursal_id" id="sucursal_id" type="hidden" value="{{auth()->user()->persona->sucursal->id}}" />
-                  </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     <label for="fecha" class="form-label">Fecha</label>
                     <input name="fecha" id="fecha" class="form-control" value="{{ date('d/m/Y') }}" readonly>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     <label for="fecha" class="form-label">Prioridad</label>
                     <select class="form-select" name="prioridad" id="prioridad">
                       <option value='3'>Baja</option>
@@ -41,29 +31,20 @@
                     </select>
                   </div>
                   <div class="row g-3">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <label for="materia_id" class="col-sm-4 col-form-label">Materia Prima</label>
                       <select class="form-select" name="materia_id" id="materia_id">
                         <option value="">Seleccione...</option>
                         @foreach($materias as $materia)                              
-                          <option value='{{$materia->id}}'>{{$materia->nombre}}</option>
+                          <option value='{{$materia->id}}'>{{$materia->nombre.' | '.$materia->unidad_medida->descripcion}}</option>
                         @endforeach()                            
                       </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <label for="cantidad" class="col-sm-4 col-form-label">Cantidad</label>
-                      <input name="cantidad" id="cantidad" type="number" min="1" class="form-control">
+                      <input name="cantidad" id="cantidad" type="text" class="form-control" format-number/>
                     </div>
-                    <div class="col-md-3" id="presentacion">
-                      <label for="presentacion" class="col-sm-8 col-form-label">Presentacion</label>
-                    </div>
-                    <div class="col-md-3" id="unidad">
-                      <label for="unidad" class="col-sm-8 col-form-label">Unidad de Medida</label>
-                    </div>
-                    <div class="col-md-3" id="categoria">
-                      <label for="categoria" class="col-sm-8 col-form-label">Categoria</label>
-                    </div>
-                    <div class="col-md-3" style="margin-top:3.5%;">
+                    <div class="col-md-4" style="margin-top:3.5%;">
                       <button id="btn_agregar" type="button" class="btn btn-primary"><b><i class="bi-plus-lg"></i></b></button>
                     </div>
                 </div>              
@@ -127,12 +108,6 @@
           });
         });
 
-        $('#materia_id').on('change', function() {
-
-          getAttributes();
-
-        });
-
         $('#btn_agregar').click(function() {
           var materianame = $('#materia_id option:selected').text();
           var materia     = $('#materia_id').val();
@@ -157,28 +132,6 @@
           
         });
     });
-    function getAttributes() {
-      var data  = { 'materia_id' : $('#materia_id option:selected').val() };
-
-      $.ajax({
-        type: "POST",
-        url: "{{ url('pedidos-compras/ajax-attributes') }}",
-        data: data,
-        success: function (response) {
-
-          clearInputsDetails();
-
-          $('#presentacion').append( '<input type="text" class="form-control" value="'+response.materia.presentacion+'" readonly>' );
-          $('#unidad').append( '<input type="text" class="form-control" value="'+response.materia.unidad+'" readonly>' );
-          $('#categoria').append( '<input type="text" class="form-control" value="'+response.materia.categoria+'" readonly>' );
-
-        },
-        error:function(response) {
-          laravelErrorMessages(response);
-        }
-        
-      });
-    }
     function add_detail( materianame, cantidad,materia_id ) {
 
       count++;

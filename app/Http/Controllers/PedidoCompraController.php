@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePedidoComprasRequest;
+use App\Models\Empleado;
 use App\Models\MateriaPrima;
 use App\Models\PedidoCompra;
 use App\Models\PedidoCompraDetalle;
-use App\Models\Persona;
 use App\Models\UnidadMedida;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class PedidoCompraController extends Controller
     }
 
     public function create(){
-        $personas = Persona::get();
+        $personas = Empleado::get();
         $materias = MateriaPrima::get();
         $umedidas = UnidadMedida::get();
         return view('pages.compras.pedidos-compras.create', compact('personas','materias','umedidas'));
@@ -30,7 +30,7 @@ class PedidoCompraController extends Controller
     public function store(CreatePedidoComprasRequest $request)
     {
         if (request()->ajax()) {
-
+            dd(request()->all());
             $pedidocompra = PedidoCompra::create([
                 'prioridad'     => $request->prioridad,
                 'fecha_pedido'  => date('Y-m-d'),
@@ -65,7 +65,7 @@ class PedidoCompraController extends Controller
 
     public function edit(PedidoCompra $pedido_id){
         $detalles   = [];
-        $personas   = Persona::get();
+        $personas   = Empleado::get();
         $materias   = MateriaPrima::get();
         $umedidas   = UnidadMedida::get();
 
