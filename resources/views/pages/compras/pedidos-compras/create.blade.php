@@ -93,8 +93,10 @@
         $('#compras-nav').addClass("show");//coloca el menu en show
         $('#pedidos-compras-menu').addClass("active");//coloca activo el submenu usuario
 
-        $('#form').on('submit', function(e){
+        $('#form').on('submit', function(e) {
           e.preventDefault();
+
+          $('button[type=submit]').prop('disabled', true);
           $.ajax({
             type: "POST",
             url: "{{route('pedidos-compras.store')}}",
@@ -104,54 +106,73 @@
             },
             error:function(data){
               laravelErrorMessages(data);
+              $('button[type=submit]').prop('disabled', false);
+
             }
           });
         });
 
         $('#btn_agregar').click(function() {
+          
           var materianame = $('#materia_id option:selected').text();
           var materia     = $('#materia_id').val();
-          var cantidad    = $('#cantidad').val();
+          var cantidad    = $('#cantidad').val().replace('.','');
 
-          if ( (materia === 'Seleccione una materia prima') || (cantidad == 0) || (cantidad == '') ) {
+          if ( (materia == '') || (cantidad == 0) || (cantidad == '') ) {
 
             swal.fire("Hay campos vacios","Favor completa todos los campos...","error");
           } 
           else {
-            $('#oculto').prop('hidden',false);
-
+            $('#oculto').prop('hidden', false);
             add_detail(materianame, cantidad, materia);
 
-            $('#materia_id').val('Seleccione una materia prima');
+            $('#materia_id').val('');
             $('#cantidad').val('');
-            $('#umedida_id').val('Seleccione una unidad');
           }
-        }); 
-        
-        $('#persona_id').on('change', function(){
-          
         });
     });
     function add_detail( materianame, cantidad,materia_id ) {
+      var old_cantidad = 0; //CONTENDRA EL VALOR ANTERIOR DE LA CANTIDAD
+      var new_cantidad = 0; //CONTENDRA LA SUMA DEL VALOR ANTERIOR Y EL NUEVO
+      var append       = true; //SE VUELVE FALSE CUANDO ES LA MISMA MATERIA_ID
 
-      count++;
-      $('#ped_det').append(
-        '<tr>'+
-          '<td>'+count+'</td>'+
-          '<td>'+materianame+'</td>'+
-          '<td>'+cantidad+'</td>'+
-          '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
-          '<input type="hidden" name="cantidades[]" value="'+cantidad+'"/>'+
-          '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
-        +'</tr>'
-      );
+      $('input[name^="materias[]"]').each( function (key, value) {//RECORREMOS LAS MATERIAS
 
-      calculateTotal();
-      clearInputsDetails();
+        if($(this).val() == materia_id)//SI YA EXISTE UNA MATERIA PRIMA EN EL DETALLE 
+        {
 
-      $('#presentacion').append( '<label for="presentacion" class="col-sm-8 col-form-label">Presentacion</label>' );
-      $('#unidad').append( '<label for="presentacion" class="col-sm-8 col-form-label">Unidad de Medida</label>' );
-      $('#categoria').append( '<label for="presentacion" class="col-sm-8 col-form-label">Categoria</label>' );
+          old_cantidad = $('#td_cantidad_'+materia_id).text();//GUARDAMOS EL VALOR ACTUAL DE ESTE TD
+          new_cantidad = parseInt(old_cantidad.replace('.','')) + parseInt(cantidad); //GUARDAMOS LA SUMA DE LA CANTIDAD VIEJA CON LA NUEVA
+          $('#td_cantidad_'+materia_id).html(''); //LIMPIAMOS EL TD
+          $('#td_cantidad_'+materia_id).html($.number(new_cantidad, 0, ',','.')); //MANDAMOS LA NUEVA CANTIDAD AL TD
+
+          $('#cantidad_'+materia_id).val(new_cantidad); //MANDAMOS LA NUEVA CANTIDAD EN EL INPUT
+
+          append = false;
+          
+          calculateTotal();
+          clearInputsDetails();
+        }
+
+      });
+      if(append)
+      {
+
+        count++;
+        $('#ped_det').append(
+          '<tr name="detalle">'+
+            '<td>'+count+'</td>'+
+            '<td>'+materianame+'</td>'+
+            '<td id="td_cantidad_'+materia_id+'">'+$.number(cantidad,0,',','.')+'</td>'+
+            '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
+            '<input type="hidden" id="cantidad_'+materia_id+'" name="cantidades[]" value="'+cantidad+'"/>'+
+            '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
+          +'</tr>'
+        );
+  
+        calculateTotal();
+        clearInputsDetails();
+      }
     }
 
     function clearInputsDetails() {

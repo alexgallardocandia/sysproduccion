@@ -10,6 +10,7 @@ use App\Models\PedidoCompraDetalle;
 use App\Models\UnidadMedida;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PedidoCompraController extends Controller
 {
@@ -30,37 +31,48 @@ class PedidoCompraController extends Controller
     public function store(CreatePedidoComprasRequest $request)
     {
         if (request()->ajax()) {
-            dd(request()->all());
-            $pedidocompra = PedidoCompra::create([
-                'prioridad'     => $request->prioridad,
-                'fecha_pedido'  => date('Y-m-d'),
-                'user_id'       => $request->user_id,
-                'estado'        => 1,
-            ]);
 
-            foreach ($request->materias as $key => $value) {                
-                PedidoCompraDetalle::create([
-                    'pedido_compra_id'  => $pedidocompra->id,
-                    'materia_prima_id'  => $request->materias[$key],
-                    'cantidad'          => $request->cantidades[$key],                  
+            DB::beginTransaction();
+
+            try {
+
+                $pedidocompra = PedidoCompra::create([
+                    'prioridad'     => $request->prioridad,
+                    'fecha_pedido'  => date('Y-m-d'),
+                    'user_id'       => $request->user_id,
+                    'estado'        => 1,
+                ]);
+
+                foreach ($request->materias as $key => $value) {                
+                    PedidoCompraDetalle::create([
+                        'pedido_compra_id'  => $pedidocompra->id,
+                        'materia_prima_id'  => $value,
+                        'cantidad'          => $request->cantidades[$key],                  
+                    ]);
+                }
+                DB::commit();
+
+                toastr()->success('Pedido Creado Exitosamente ','Pedido #'.$pedidocompra->id);
+
+                return response()->json([
+                    'success' => true
+                ]);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                toastr()->error('Error al crear el pedido: ' . $e->getMessage());
+
+                return response()->json([
+                    'success' => false,
+                    'error'   => $e->getMessage()
                 ]);
             }
-
-            toastr()->success('Pedido Creado Exitosamente ','Pedido #'.$pedidocompra->id);
-
-            return response()->json([
-                'success' => true
-            ]);
         }
         abort(404);
     }
 
-    public function show($pedido_id)
+    public function show(PedidoCompra $pedido_id)
     {
-        $pedido     = PedidoCompra::find($pedido_id);
-        $details    = PedidoCompraDetalle::where('pedido_compra_id', $pedido_id)->get();
-
-        return view('pages.compras.pedidos-compras.show', compact('pedido', 'details'));
+        return view('pages.compras.pedidos-compras.show', compact('pedido_id'));
     }
 
     public function edit(PedidoCompra $pedido_id){
