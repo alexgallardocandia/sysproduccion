@@ -35,7 +35,7 @@
                           <td>                        
                             <a href="{{url('pedidos-compras/' . $pedidoc->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                               <a href="{{url('pedidos-compras/' . $pedidoc->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                              <a data-bs-toggle="modal" data-bs-target="#pedidoc_delete" data-name="{{$pedidoc->descripcion}}" data-id="{{ $pedidoc->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                              <a data-bs-toggle="modal" data-bs-target="#pedidoc_delete"  data-id="{{ $pedidoc->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                           </td>
                         </tr>
                     @endforeach 
@@ -50,14 +50,14 @@
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Eliminar pedidoc </h5>
+                      <h5 class="modal-title">Eliminar Pedido Compra </h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form method="POST" action="{{route('pedidos-compras.delete')}}">
                       @csrf
                       @method('DELETE')
                       <div class="modal-body">
-                        <p>Deseas eliminar la pedidoc <b><span id="pedidoc_id"></span></b>?</p>
+                        <p>Deseas eliminar la pedido de compra  #<b><span id="pedidoc_id"></span></b>?</p>
                         <input name="pedidoc_id" type="hidden" id="id_pedidoc"/>
                       </div>
                       <div class="modal-footer">
@@ -82,9 +82,8 @@
     $('#pedidoc_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var pedidoc_id = button.data('id'); // Extraer el valor del atributo data-id
-        var descripcion = button.data('name'); // Extraer el valor del atributo data-id
         var modal = $(this);
-        modal.find('#pedidoc_id').text(descripcion); // Insertar el valor en el modal
+        modal.find('#pedidoc_id').text(pedidoc_id); // Insertar el valor en el modal
         $('#id_pedidoc').val(pedidoc_id); // Insertar el valor en el modal        
     });
   });

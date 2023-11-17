@@ -92,7 +92,7 @@
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i>
                                         Guardar</button>
-                                    <a href="{{ url('personas') }}" class="btn btn-danger"><i
+                                    <a href="{{ url('empleados') }}" class="btn btn-danger"><i
                                             class="ri-close-circle-fill"></i> Cancelar</a>
                                 </div>
                             </form><!-- End Horizontal Form -->

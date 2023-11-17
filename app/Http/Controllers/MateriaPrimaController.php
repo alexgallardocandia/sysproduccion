@@ -14,7 +14,7 @@ class MateriaPrimaController extends Controller
 {    
     public function index() {
 
-        $materias   = MateriaPrima::get();
+        $materias   = MateriaPrima::orderBy('id', 'DESC')->get();
 
         return view('pages.compras.materias-primas.index', compact('materias'));
     }

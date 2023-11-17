@@ -38,13 +38,13 @@
                       <select class="form-select" id="materia_id">
                         <option value="">Seleccione...</option>
                         @foreach($materias as $materia)                              
-                          <option value='{{$materia->id}}'>{{$materia->nombre}}</option>
+                          <option value='{{$materia->id}}'>{{$materia->nombre.' | '.$materia->unidad_medida->descripcion}}</option>
                         @endforeach()                            
                       </select>
                     </div>
                     <div class="col-md-4">
                       <label for="cantidad" class="col-sm-4 col-form-label">Cantidad</label>
-                      <input id="cantidad" type="number" min="1" class="form-control">
+                      <input id="cantidad" type="text" class="form-control" format-number />
                     </div>
                     <div class="col-md-4" style="margin-top:3.5%;">
                       <button id="btn_agregar" type="button" class="btn btn-primary"><b><i class="bi-plus-lg"></i></b></button>
@@ -130,7 +130,6 @@
           swal.fire("Hay campos vacios","Favor completa todos los campos...","error");
         } 
         else {
-          $('#oculto').prop('hidden', false);
           add_detail(materianame, cantidad, materia);
 
           $('#materia_id').val('');
@@ -144,7 +143,7 @@
 
   function chargeDetails() {
 
-      var details = @json($detalles);
+    var details = @json($detalles);
 
       $.each(details, function (key, value) { 
 
@@ -155,6 +154,7 @@
   }
 
   function add_detail( materianame, cantidad,materia_id ) {
+
     var old_cantidad = 0; //CONTENDRA EL VALOR ANTERIOR DE LA CANTIDAD
     var new_cantidad = 0; //CONTENDRA LA SUMA DEL VALOR ANTERIOR Y EL NUEVO
     var append       = true; //SE VUELVE FALSE CUANDO ES LA MISMA MATERIA_ID
@@ -196,6 +196,7 @@
       calculateTotal();
       clearInputsDetails();
     }
+    $('#oculto').prop('hidden', false);
   }
   function afterAddDetails() {
 

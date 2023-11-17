@@ -53,7 +53,7 @@
                         <div class="col-sm-4">
                           <div class="form-group">                                              
                             <select class="form-control select2" name="estado_id" id="estado_id">
-                                <option value='{{$empleado->civil_id}}' selected>{{$empleado->civil->descripcion}}</option>
+                                <option value='{{$empleado->civil_id ?? 1}}' selected>{{$empleado->civil_id ? $empleado->civil->descripcion : 'Sin Estado'}}</option>
                               @foreach($eciviles as $ecivil)                              
                                 <option value='{{$ecivil->id}}'>{{$ecivil->descripcion}}</option>
                               @endforeach()                            
