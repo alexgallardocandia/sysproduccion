@@ -15,21 +15,16 @@ class PresupuestoCompraDetalle extends Model
         'materia_prima_id',
         'cantidad',
         'precio_unitario',
-        'descuento',
-        'umedid_id',
         'estado',
     ];
     protected $append   = [
         'total'
     ];
     public function presupuesto(){
-        return $this->belongsTo('App\Models\Presupuesto');
+        return $this->belongsTo('App\Models\PresupuestoCompra');
     }
     public function materia_prima(){
         return $this->belongsTo('App\Models\MateriaPrima');
-    }
-    public function umedid(){
-        return $this->belongsTo('App\Models\UnidadMedida');
     }
     public function getTotalAttribute() {
         return $this->attributes['cantidad'] * $this->attributes['precio_unitario'] - $this->attributes['descuento'];

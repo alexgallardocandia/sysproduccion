@@ -19,11 +19,21 @@
                   </div>
                   <div class="col-md-3">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input name="fecha" type="date" id="fecha" max="{{date('Y-m-d')}}" class="form-control" required>
+                    <input name="fecha" type="text" id="fecha" class="form-control" value="dd/mm/YY" required>
                   </div>
                   <div class="col-md-3">
                     <label for="validez" class="form-label">Validez</label>
-                    <input name="validez" type="date" id="validez" min="{{date('Y-m-d')}}" class="form-control" required>
+                    <input name="validez" type="text" id="validez" class="form-control" value="dd/mm/YY" required>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="monto_descuento" class="form-label">Monto Descuento</label>
+                    <input name="monto_descuento" type="text" id="monto_descuento" class="form-control" format-number required>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="tipo_descuento" class="form-label">Tipo Descuento</label>
+                    <select name="tipo_descuento" id="tipo_descuento" class="form-select">
+                      <option value="">Seleccione...</option>
+                    </select>
                   </div>
                   <div class="col-md-3">
                     <label for="proveedor_id" class="form-label">Proveedor</label>
@@ -39,42 +49,29 @@
                     <select class="form-select" name="pedido_compra_id" id="pedido_compra_id">
                       <option value="">Seleccione...</option>
                       @foreach ($pedidos_compras as $pedido )
-                          <option value="@json($pedido->id)">{{$pedido->id.' | '.$pedido->user->persona->fullname.' | '.$pedido->fecha_pedido}}</option>
+                          <option value="@json($pedido->id)">{{$pedido->id.' | '.$pedido->user->empleado->fullname.' | '.$pedido->fecha_pedido}}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="row g-3">
                     <hr>
                     <p>Agregar Detalle</p>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                       <label for="materia_id" class="col-sm-4 col-form-label">Materia P.</label>
                       <select class="form-select" name="materia_id" id="materia_id">
                         <option value="">Seleccione...</option>
                         @foreach($materias as $materia)                              
-                          <option value='{{$materia->id}}'>{{$materia->descripcion}}</option>
+                          <option value='{{$materia->id}}'>{{$materia->nombre}}</option>
                         @endforeach()                            
                       </select>
                     </div>
-                    <div class="col-md-2">
-                      <label for="umedida_id" class="col-sm-8 col-form-label">Presentacion</label>
-                      <select class="form-select" name="umedida_id" id="umedida_id">
-                        <option selected>Seleccione una unidad</option>
-                        @foreach($umedidas as $umedida)                              
-                          <option value='{{$umedida->id}}'>{{$umedida->descripcion}}</option>
-                        @endforeach()                            
-                      </select>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                       <label for="cantidad" class="col-sm-4 col-form-label">Cantidad</label>
                       <input name="cantidad" id="cantidad" type="number" min="1" class="form-control">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                       <label for="precio_unitario" class="col-sm-4 col-form-label">Precio</label>
                       <input name="precio_unitario" id="precio_unitario" type="text" class="form-control" format-number/>
-                    </div>
-                    <div class="col-md-3">
-                      <label for="descuento" class="col-sm-4 col-form-label">Descuento</label>
-                      <input name="descuento" id="descuento" type="text" class="form-control" format-number/>
                     </div>
                     <div class="col-md-1" style="margin-top:3.5%;">
                       <button id="btn_agregar" type="button" class="btn btn-primary"><b><i class="bi-plus-lg"></i></b></button>
@@ -145,6 +142,19 @@
         });
       });
       
+      $('#pedido_compra_id').on('change', function() {
+        $.ajax({
+          type: "POST",
+          url: "{{url('ajax/getdetailspedidos')}}",
+          data: $(this).serialize(),
+          success: function (response) {
+            console.log(response);
+          }
+        });
+        
+      });
+
+
       $('#btn_agregar').click(function() {
         var materianame = $('#materia_id option:selected').text();
         var materia_id  = $('#materia_id option:selected').val();
@@ -164,10 +174,18 @@
             add_detail( materianame, materia_id, umedida, umedida_id, cantidad, precio.replace('.',''), descuento.replace('.','') );
           }
         }
-      });        
+      });
+      flatpickr("#validez",{
+        minDate: "today", // Impide seleccionar fechas anteriores a la actual
+        dateFormat: "d/m/Y", // Formato de fecha
+      });
+      flatpickr("#fecha",{
+        maxDate: "today", // Impide seleccionar fechas mayores a la actual
+        dateFormat: "d/m/Y", // Formato de fecha
+      });
     });
 
-    function add_detail(materianame, materia_id, umedida, umedida_id, cantidad, precio, descuento){
+    function add_detail(materianame, materia_id, cantidad, precio) {
       count++;
       var total = (parseInt(cantidad) * parseInt(precio)) - parseInt(descuento) ;
       $('#ped_det').append(

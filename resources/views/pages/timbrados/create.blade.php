@@ -51,13 +51,13 @@
       $('#referenciales-nav').addClass("show");//coloca el menu en show
       $('#timbrados-menu').addClass("active");//coloca activo el submenu usuario
     });
-      flatpickr("#fecha_vencimiento",{
-        minDate: "today", // Impide seleccionar fechas anteriores a la actual
-        dateFormat: "d/m/Y", // Formato de fecha
-      });
-      flatpickr("#fecha_emision",{
-        maxDate: "today", // Impide seleccionar fechas mayores a la actual
-        dateFormat: "d/m/Y", // Formato de fecha
-      });
+    flatpickr("#fecha_vencimiento",{
+      minDate: "today", // Impide seleccionar fechas anteriores a la actual
+      dateFormat: "d/m/Y", // Formato de fecha
+    });
+    flatpickr("#fecha_emision",{
+      maxDate: "today", // Impide seleccionar fechas mayores a la actual
+      dateFormat: "d/m/Y", // Formato de fecha
+    });
   </script>
 @endsection

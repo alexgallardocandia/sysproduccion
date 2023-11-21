@@ -171,6 +171,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('presupuestos-compras/{presupuesto_id}/edit', 'PresupuestoCompraController@edit')->name('presupuestos-compras.edit');
     Route::put('presupuestos-compras', 'PresupuestoCompraController@update')->name('presupuestos-compras.update');
     Route::delete('presupuestos-compras', 'PresupuestoCompraController@destroy')->name('presupuestos-compras.delete');
+    Route::post('ajax/getdetailspedidos', 'PresupuestoCompraController@ajax_getdetailspedidos')->name('presupuestos-compras.ajax_getdetailspedidos');
 
 });
 

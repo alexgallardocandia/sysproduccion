@@ -17,6 +17,7 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
+                      <th scope="col">Numero</th>
                       <th scope="col">Fecha</th>
                       <th scope="col">Validez</th>
                       <th scope="col">Proveedor</th>
@@ -29,6 +30,7 @@
                     @foreach ($presupuestos as $presupuesto)                  
                         <tr>
                           <td>{{$presupuesto->id}}</td>
+                          <td>{{number_format($presupuesto->numero, 0, ',','.')}}</td>
                           <td>{{$presupuesto->fecha}}</td>
                           <td>{{$presupuesto->validez}} <span class="badge bg-{{ $presupuesto->validez > date('d/m/Y') ? 'success' : 'danger' }}">&nbsp;</span></td>
                           <td>{{$presupuesto->proveedor->razon_social}}</td>

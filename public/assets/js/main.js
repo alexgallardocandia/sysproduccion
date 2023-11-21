@@ -25,8 +25,8 @@ function laravelErrorMessages(data) {
 
   var printError = '';  
 
-  $.each(response.errors, function (key, value) {      
-      $.each(value, function (key1, value1) {          
+  $.each(response.errors, function (key, value) {
+      $.each(value, function (key1, value1) {
           printError += value1.capitalize() + "\n";
       });
   });
@@ -43,8 +43,13 @@ function laravelErrorMessages(data) {
   swal.fire({
       title: title,
       text: text,
-      icon: icon,      
-  });  
+      icon: icon,
+  });
+}
+
+function redirect(url) {
+  document.location.href = url;
+  return false;
 }
 
 (function() {

@@ -130,6 +130,14 @@
             $('#cantidad').val('');
           }
         });
+        flatpickr("#fecha",{
+          minDate: "today", // Impide seleccionar fechas anteriores a la actual
+          dateFormat: "d/m/Y", // Formato de fecha
+        });
+        flatpickr("#fecha_emision",{
+          maxDate: "today", // Impide seleccionar fechas mayores a la actual
+          dateFormat: "d/m/Y", // Formato de fecha
+        });
     });
     function add_detail( materianame, cantidad,materia_id ) {
       var old_cantidad = 0; //CONTENDRA EL VALOR ANTERIOR DE LA CANTIDAD

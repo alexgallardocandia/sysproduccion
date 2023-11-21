@@ -11,9 +11,6 @@ use App\Models\PresupuestoCompraDetalle;
 use App\Models\Proveedor;
 use App\Models\UnidadMedida;
 use Carbon\Carbon;
-use GuzzleHttp\Promise\Create;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class PresupuestoCompraController extends Controller
 {
@@ -181,5 +178,18 @@ class PresupuestoCompraController extends Controller
     public function destroy(PresupuestoCompra $presupuestoCompra)
     {
         //
+    }
+
+    public function ajax_getdetailspedidos()
+    {
+        // dd(request()->all());
+        if(request()->ajax()){
+            $detalles = PedidoCompraDetalle::where('pedido_compra_id',request()->pedido_compra_id)->get();
+
+            return response()->json([$detalles]);
+        }
+        abort(404);        
+
+
     }
 }
