@@ -13,46 +13,64 @@
                 <div class="mb-3"></div>
                 <form class="row g-3" id="form">
                   @csrf
-                  <div class="col-md-3">
-                    <label for="numero" class="form-label">Numero</label>
-                    <input name="numero" id="numero" class="form-control" value="" format-number/>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="fecha" class="form-label">Fecha</label>
-                    <input name="fecha" type="text" id="fecha" class="form-control" value="dd/mm/YY" required>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="validez" class="form-label">Validez</label>
-                    <input name="validez" type="text" id="validez" class="form-control" value="dd/mm/YY" required>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="monto_descuento" class="form-label">Monto Descuento</label>
-                    <input name="monto_descuento" type="text" id="monto_descuento" class="form-control" format-number required>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="tipo_descuento" class="form-label">Tipo Descuento</label>
-                    <select name="tipo_descuento" id="tipo_descuento" class="form-select">
-                      <option value="">Seleccione...</option>
-                    </select>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="proveedor_id" class="form-label">Proveedor</label>
-                    <select class="form-select" name="proveedor_id" id="proveedor_id">
-                      <option value="">Seleccione...</option>
-                      @foreach ($proveedores as $proveedor )
-                          <option value="@json($proveedor->id)">{{$proveedor->razon_social}}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="pedido_compra_id" class="form-label">Pedido Compra</label>
-                    <select class="form-select" name="pedido_compra_id" id="pedido_compra_id">
-                      <option value="">Seleccione...</option>
-                      @foreach ($pedidos_compras as $pedido )
-                          <option value="@json($pedido->id)">{{$pedido->id.' | '.$pedido->user->empleado->fullname.' | '.$pedido->fecha_pedido}}</option>
-                      @endforeach
-                    </select>
-                  </div>
+                    <div class="col-md-3">
+                      <label for="numero" class="form-label">Numero</label>
+                      <input name="numero" id="numero" class="form-control" value="" format-number/>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="fecha" class="form-label">Fecha</label>
+                      <input name="fecha" type="text" id="fecha" class="form-control" value="dd/mm/YY" required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="validez" class="form-label">Validez</label>
+                      <input name="validez" type="text" id="validez" class="form-control" value="dd/mm/YY" required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="monto_descuento" class="form-label">Monto Descuento</label>
+                      <input name="monto_descuento" type="text" id="monto_descuento" class="form-control" format-number required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="tipo_descuento" class="form-label">Tipo Descuento</label>
+                      <select name="tipo_descuento" id="tipo_descuento" class="form-select">
+                        <option value="">Seleccione...</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="proveedor_id" class="form-label">Proveedor</label>
+                      <select class="form-select" name="proveedor_id" id="proveedor_id">
+                        <option value="">Seleccione...</option>
+                        @foreach ($proveedores as $proveedor )
+                            <option value="@json($proveedor->id)">{{$proveedor->razon_social}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="pedido_compra_id" class="form-label">Pedido Compra</label>
+                      <select class="form-select" name="pedido_compra_id" id="pedido_compra_id">
+                        <option value="0">Seleccione...</option>
+                        @foreach ($pedidos_compras as $pedido )
+                            <option value="@json($pedido->id)">{{$pedido->id.' | '.$pedido->user->empleado->fullname.' | '.$pedido->fecha_pedido}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="row g-3" id="pedido_compra_detalles_div" hidden>
+                        <div class="">
+                          <label for="pedido_compra_detalles" class="form-label">Detalles del Pedido de Compra</label>
+                          <!-- Table Variants -->
+                          <table class="table">
+                            <thead class="table-primary">
+                              <tr>
+                                <th scope="col">Materia Prima</th>
+                                <th scope="col">Cantidad</th>
+                              </tr>
+                            </thead>
+                            <tbody id="detail_body"></tbody>
+                          </table>
+                          <!-- End Table Variants -->
+                        </div>
+                      </div>
+                    </div>
                   <div class="row g-3">
                     <hr>
                     <p>Agregar Detalle</p>
@@ -61,13 +79,13 @@
                       <select class="form-select" name="materia_id" id="materia_id">
                         <option value="">Seleccione...</option>
                         @foreach($materias as $materia)                              
-                          <option value='{{$materia->id}}'>{{$materia->nombre}}</option>
+                          <option value='{{$materia->id}}'>{{$materia->nombre.' | '.$materia->unidad_medida->descripcion}}</option>
                         @endforeach()                            
                       </select>
                     </div>
                     <div class="col-md-3">
                       <label for="cantidad" class="col-sm-4 col-form-label">Cantidad</label>
-                      <input name="cantidad" id="cantidad" type="number" min="1" class="form-control">
+                      <input name="cantidad" id="cantidad" type="text" class="form-control" format-number>
                     </div>
                     <div class="col-md-3">
                       <label for="precio_unitario" class="col-sm-4 col-form-label">Precio</label>
@@ -84,21 +102,18 @@
                           <tr>
                             <th scope="col">#</th>
                             <th scope="col">Materia Prima</th>
-                            <th scope="col">Presentacion</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Precio</th>
-                            <th scope="col">Descuento</th>
                             <th scope="col">SubTotal</th>
                             <th scope="col"></th>
                           </tr>
                         </thead>
-                        <tbody id="ped_det"></tbody>
+                        <tbody id="pre_det"></tbody>
                         <tfoot class="bold">
                             <tr>
                                 <td colspan="3"></td>
                                 <td id="td_total" class="text-right"></td>
                                 <td id="td_total_precio" class="text-right"></td>
-                                <td id="td_total_descuento" class="text-right"></td>
                                 <td id="td_grand_total" class="text-right"></td>
                             </tr>
                         </tfoot>
@@ -116,7 +131,7 @@
             </div>    
           </div>
         </div>
-      </section>      
+      </section> 
     </div>
   </div>
 @endsection
@@ -127,52 +142,60 @@
       $('#compras-nav').addClass("show");//coloca el menu en show
       $('#presupuestos-compras-menu').addClass("active");//coloca activo el submenu usuario
 
-      $('#form').on('submit', function(e) {
+      $('#form').on('submit', function(e) {        
         e.preventDefault();
+        $('input[type=submit]').prop('disable', true);
         $.ajax({
           type: "POST",
           url: "{{route('presupuestos-compras.store')}}",
           data: $(this).serialize(),            
           success: function (response) {
-            window.location.href = "{{ route('presupuestos-compras.index') }}";
+            redirect("{{ route('presupuestos-compras.index') }}");
           },
           error:function(data){
             laravelErrorMessages(data);
+            $('input[type=submit]').prop('disable', false);
+
           }
         });
       });
       
       $('#pedido_compra_id').on('change', function() {
-        $.ajax({
-          type: "POST",
-          url: "{{url('ajax/getdetailspedidos')}}",
-          data: $(this).serialize(),
-          success: function (response) {
-            console.log(response);
-          }
-        });
+        console.log($(this).val());
         
+        if ( $(this).val() != 0  ) {
+          $.ajax({
+            type: "POST",
+            url: "{{url('ajax/getdetailspedidos')}}",
+            data: $(this).serialize(),
+            success: function (data) {
+              $('#detail_body').html('');
+              $.each(data.detalles, function (key, value) {
+                showPedidoCompraDetalle(value.materianame, value.materia_id, value.cantidad);
+              });
+            },
+            error:function(data) {
+              laravelErrorMessages(data);
+              $('#pedido_compra_detalles_div').prop('hidden', true);
+            }
+          });
+        } else {
+          $('#pedido_compra_detalles_div').prop('hidden', true);
+        }
       });
 
 
       $('#btn_agregar').click(function() {
         var materianame = $('#materia_id option:selected').text();
         var materia_id  = $('#materia_id option:selected').val();
-        var umedida     = $('#umedida_id option:selected').text();
-        var umedida_id  = $('#umedida_id option:selected').val();
         var cantidad    = $('#cantidad').val();
         var precio      = $('#precio_unitario').val();
-        var descuento   = $('#descuento').val();
 
-        if ( (materia_id == '' || umedida_id == '') || (cantidad == '' || precio == '') ) {
+        if ( materia_id == '' || cantidad == '' || precio == '' ) {
           swal.fire("Sistema","Favor completa todos los campos.","info");
         } else {
-          if ( descuento == '' ) {
-            descuento = 0;
-            add_detail( materianame, materia_id, umedida, umedida_id, cantidad, precio.replace('.',''), descuento );
-          } else {
-            add_detail( materianame, materia_id, umedida, umedida_id, cantidad, precio.replace('.',''), descuento.replace('.','') );
-          }
+          add_detail( materianame, materia_id,cantidad, precio.replace('.',''));
+          $('#oculto').prop('hidden', false);
         }
       });
       flatpickr("#validez",{
@@ -185,34 +208,58 @@
       });
     });
 
-    function add_detail(materianame, materia_id, cantidad, precio) {
-      count++;
-      var total = (parseInt(cantidad) * parseInt(precio)) - parseInt(descuento) ;
-      $('#ped_det').append(
-        '<tr>'+
-          '<td>'+count+'</td>'+
+    function showPedidoCompraDetalle(materianame, materia_id, cantidad)
+    {
+      $('#detail_body').append(
+        '<tr class="table-info">'+
           '<td>'+materianame+'</td>'+
-          '<td>'+umedida+'</td>'+
-          '<td>'+cantidad+'</td>'+
-          '<td>'+$.number(precio, 0, ',', '.')+'</td>'+
-          '<td>'+$.number(descuento, 0, ',', '.')+'</td>'+
-          '<td>'+$.number(total, 0,',','.')+'</td>'+
-          '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
-          '<input type="hidden" name="umedidas[]" value="'+umedida_id+'"/>'+
-          '<input type="hidden" name="cantidades[]" value="'+cantidad+'"/>'+
-          '<input type="hidden" name="precios[]" value="'+precio.replace('.','')+'"/>'+
-          '<input type="hidden" name="descuentos[]" value="'+descuento.replace('.','')+'"/>'+
-          '<input type="hidden" name="total[]" value="'+total+'"/>'+
-          '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
+          '<td>'+$.number(cantidad, 0, ',', '.')+'</td>'
         +'</tr>'
       );
-      $('#materia_id').val('');
-      $('#umedida_id').val('');
-      $('#cantidad').val('');
-      $('#precio_unitario').val('');
-      $('#descuento').val('');
-      calculateTotal();
-      $('#oculto').prop('hidden',false);
+      $('#pedido_compra_detalles_div').prop('hidden', false);
+    }
+
+    function add_detail( materianame, materia_id, cantidad, precio ) {
+      var old_cantidad = 0; //CONTENDRA EL VALOR ANTERIOR DE LA CANTIDAD
+      var new_cantidad = 0; //CONTENDRA LA SUMA DEL VALOR ANTERIOR Y EL NUEVO
+      var append       = true; //SE VUELVE FALSE CUANDO ES LA MISMA MATERIA_ID
+
+      $('input[name^="materias[]"]').each( function (key, value) {//RECORREMOS LAS MATERIAS
+
+        if($(this).val() == materia_id)//SI YA EXISTE UNA MATERIA PRIMA EN EL DETALLE 
+        {
+
+          old_cantidad = $('#td_cantidad_'+materia_id).text();//GUARDAMOS EL VALOR ACTUAL DE ESTE TD
+          new_cantidad = parseInt(old_cantidad.replace('.','')) + parseInt(cantidad); //GUARDAMOS LA SUMA DE LA CANTIDAD VIEJA CON LA NUEVA
+          $('#td_cantidad_'+materia_id).html(''); //LIMPIAMOS EL TD
+          $('#td_cantidad_'+materia_id).html($.number(new_cantidad, 0, ',','.')); //MANDAMOS LA NUEVA CANTIDAD AL TD
+
+          $('#cantidad_'+materia_id).val(new_cantidad); //MANDAMOS LA NUEVA CANTIDAD EN EL INPUT
+
+          append = false;
+          
+          calculateTotal();
+        }
+      });
+      if(append)
+      {
+
+        count++;
+        $('#pre_det').append(
+          '<tr name="detalle">'+
+            '<td>'+count+'</td>'+
+            '<td>'+materianame+'</td>'+
+            '<td id="td_cantidad_'+materia_id+'">'+$.number(cantidad,0,',','.')+'</td>'+
+            '<td id="td_precio_'+materia_id+'">'+$.number(precio,0,',','.')+'</td>'+
+            '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
+            '<input type="hidden" id="cantidad_'+materia_id+'" name="cantidades[]" value="'+cantidad+'"/>'+
+            '<input type="hidden" id="precio_'+materia_id+'" name="precios[]" value="'+precio+'"/>'+
+            '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
+          +'</tr>'
+        );
+  
+        calculateTotal();
+      }
     }
     function removeRow(t)
     {
@@ -232,9 +279,6 @@
         });
         $('input[name^="precios[]"]').each(function () {
           total_precio += parseInt($(this).val());
-        });
-        $('input[name^="descuentos[]"]').each(function () {          
-          total_descuento += parseInt($(this).val());
         });
         $('input[name^="total[]"]').each(function () {          
           grand_total += parseInt($(this).val());

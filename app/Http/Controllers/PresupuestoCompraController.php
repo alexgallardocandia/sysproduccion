@@ -182,11 +182,19 @@ class PresupuestoCompraController extends Controller
 
     public function ajax_getdetailspedidos()
     {
-        // dd(request()->all());
         if(request()->ajax()){
-            $detalles = PedidoCompraDetalle::where('pedido_compra_id',request()->pedido_compra_id)->get();
+            $pedidos_compras    = PedidoCompra::findOrFail(request()->pedido_compra_id);
+            $detalles           = [];
 
-            return response()->json([$detalles]);
+            foreach ($pedidos_compras->details as $value) 
+            {
+                $detalles[] = [
+                    'materianame'   => $value->materia_prima->nombre.' | '.$value->materia_prima->unidad_medida->descripcion,
+                    'materia_id'    => $value->materia_prima_id,
+                    'cantidad'      => $value->cantidad
+                ];
+            }
+            return response()->json(['detalles' => $detalles]);
         }
         abort(404);        
 
