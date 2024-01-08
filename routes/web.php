@@ -106,7 +106,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('empleados', 'EmpleadoController@update')->name('empleados.update');
     Route::delete('empleados', 'EmpleadoController@destroy')->name('empleados.delete');
     //depositos routes
-    Route::get('depositos','AlmacenController@index')->name('depositos.index');
+    Route::get('depositos','AlmacenController@index')->name('depositos.index')->middleware('ver_depositos');
     Route::get('depositos/create','AlmacenController@create')->name('depositos.create');
     Route::post('depositos','AlmacenController@store')->name('depositos.store');
     Route::get('depositos/{deposito_id}', 'AlmacenController@show')->name('depositos.show');
@@ -172,6 +172,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('presupuestos-compras', 'PresupuestoCompraController@update')->name('presupuestos-compras.update');
     Route::delete('presupuestos-compras', 'PresupuestoCompraController@destroy')->name('presupuestos-compras.delete');
     Route::post('ajax/getdetailspedidos', 'PresupuestoCompraController@ajax_getdetailspedidos')->name('presupuestos-compras.ajax_getdetailspedidos');
+    //MODULO DE PERMISOS
+    Route::get('permisos','PermisoController@index')->name('permisos.index');
+    Route::get('permisos/create', 'PermisoController@create')->name('permisos.create');
+    Route::post('permisos','PermisoController@store')->name('permisos.store');
+    Route::get('permisos/{permiso_id}','PermisoController@show')->name('permisos.show');
+    Route::get('permisos/{permiso_id}/edit', 'PermisoController@edit')->name('permisos.edit');
+    Route::put('permisos', 'PermisoController@update')->name('permisos.update');
+    Route::delete('permisos','PermisoController@destroy')->name('permisos.delete');
 
 });
 

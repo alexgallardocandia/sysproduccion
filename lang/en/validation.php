@@ -197,6 +197,9 @@ return [
         "fecha_vencimiento" => 'FECHA VENCIMIENTO',
         "marca_id"          => 'MARCA',
         "umedida_id"        => 'UNIDAD DE MEDIDA',
+        "name"              => 'NOMBRE',
+        "display_name"      => 'NOMBRE A MOSTRAR',
+        "description"       => 'DESCRIPCION',
 
     ],
 
