@@ -12,14 +12,16 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#referenciales-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gear"></i><span>REFERENCIALES</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-hammer"></i><span>REFERENCIALES</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="referenciales-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <li>
-            <a id="depositos-menu" href="{{route('depositos.index')}}" >
-              <i class="bi bi-circle"></i><span>Depositos</span>
-            </a>
-          </li>
+          @permission('depositos.index')
+            <li>
+              <a id="depositos-menu" href="{{route('depositos.index')}}" >
+                <i class="bi bi-circle"></i><span>Depositos</span>
+              </a>
+            </li>
+          @endpermission
           <li>
             <a id="cargos-menu" href="{{route('cargos.index')}}" >
               <i class="bi bi-circle"></i><span>Cargos</span>
@@ -105,6 +107,18 @@
           <li>
             <a id="presupuestos-compras-menu" href="{{route('presupuestos-compras.index')}}" >
               <i class="bi bi-circle"></i><span>Presupuestos de Compra</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#configuraciones-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gear-fill"></i><span>CONFIGURACIONES</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="configuraciones-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a id="permisos-menu" href="{{route('permisos.index')}}" >
+              <i class="bi bi-circle"></i><span>Permisos</span>
             </a>
           </li>
         </ul>

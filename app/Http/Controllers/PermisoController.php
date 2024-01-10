@@ -24,8 +24,8 @@ class PermisoController extends Controller
         if ($request->ajax()) {
             Permission::create([
                 'name'          => $request->name,
-                'display_name'  => $request->display_name,
-                'description'   => $request->description
+                'display_name'  => strtoupper($request->display_name),
+                'description'   => strtoupper($request->description)
             ]);
 
             toastr()->success('Permiso Creado Exitosamente ');
@@ -49,8 +49,8 @@ class PermisoController extends Controller
             $permiso = Permission::find($request->permiso_id);
             $permiso->update([
                 'name'          => $request->name,
-                'display_name'  => $request->display_name,
-                'description'   => $request->description
+                'display_name'  => strtoupper($request->display_name),
+                'description'   => strtoupper($request->description)
             ]);
 
             toastr()->success('Permiso Editado Exitosamente ');

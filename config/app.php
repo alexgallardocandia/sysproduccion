@@ -42,6 +42,7 @@ return [
     */
 
     'debug' => (bool) env('APP_DEBUG', false),
+    'error_view' => 'errors/403.blade.php',
 
     /*
     |--------------------------------------------------------------------------
@@ -198,6 +199,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Laratrust\LaratrustServiceProvider::class,
 
     ],
 
@@ -216,6 +218,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Toastr' => Yoeunes\Toastr\Facades\Toastr::class,
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
     ])->toArray(),
     
     

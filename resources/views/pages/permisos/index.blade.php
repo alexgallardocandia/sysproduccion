@@ -75,8 +75,8 @@
 @section('script')
 <script>
   $(document).ready(function(){
-    $('#referenciales-nav').addClass('show');
-    $('#cargos-menu').addClass('active');
+    $('#configuraciones-nav').addClass('show');
+    $('#permisos-menu').addClass('active');
     $('#cargo_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var permiso_id = button.data('id'); // Extraer el valor del atributo data-id

@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'PrincipalController@index')->name('home'); // Asegúrate de que el controlador y el método sean correctos
 
     //users routes
-    Route::get('users','UserController@index')->name('users.index');
+    Route::get('users','UserController@index')->name('users.index')->middleware('permission:users-read');
     Route::get('users/create','UserController@create')->name('users.create');
     Route::post('users','UserController@store')->name('users.store');
     Route::get('users/{users}', 'UserController@show')->name('user.show');
@@ -106,11 +106,11 @@ Route::middleware(['auth'])->group(function () {
     Route::put('empleados', 'EmpleadoController@update')->name('empleados.update');
     Route::delete('empleados', 'EmpleadoController@destroy')->name('empleados.delete');
     //depositos routes
-    Route::get('depositos','AlmacenController@index')->name('depositos.index')->middleware('ver_depositos');
-    Route::get('depositos/create','AlmacenController@create')->name('depositos.create');
+    Route::get('depositos','AlmacenController@index')->name('depositos.index')->middleware('permission:depositos.index');
+    Route::get('depositos/create','AlmacenController@create')->name('depositos.create')->middleware('permission:depositos.create');
     Route::post('depositos','AlmacenController@store')->name('depositos.store');
-    Route::get('depositos/{deposito_id}', 'AlmacenController@show')->name('depositos.show');
-    Route::get('depositos/{deposito_id}/edit', 'AlmacenController@edit')->name('depositos.edit');
+    Route::get('depositos/{deposito_id}', 'AlmacenController@show')->name('depositos.show')->middleware('permission:depositos.show');
+    Route::get('depositos/{deposito_id}/edit', 'AlmacenController@edit')->name('depositos.edit')->middleware('permission:depositos.edit');
     Route::put('depositos', 'AlmacenController@update')->name('depositos.update');
     Route::delete('depositos', 'AlmacenController@destroy')->name('depositos.delete');
     //unidades-medidas routes
