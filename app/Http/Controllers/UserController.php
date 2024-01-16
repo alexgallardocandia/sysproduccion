@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Models\Empleado;
+use App\Models\Permission;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,20 +22,22 @@ class UserController extends Controller
     public function create()
     {
         $empleados = Empleado::get();
+        $permisos = Permission::get()->groupBy('description');
         
-        return view('pages.users.create', compact('empleados'));
+        return view('pages.users.create', compact('empleados', 'permisos'));
     }
 
     public function store(CreateUserRequest $request)
     {
-        // dd($request->all());
-        User::create([
+        $user = User::create([
             'name'          => $request->nombre,
             'email'         => $request->email,
             'status'        => 1,
             'password'      => bcrypt($request->password),
             'empleado_id'   => $request->empleado_id
         ]);
+
+        $user->syncPermissions($request->permission_id, '');
 
         return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
     }
@@ -48,8 +51,9 @@ class UserController extends Controller
     public function edit(User $users)
     {
         $empleados   = Empleado::get();
+        $permisos = Permission::get()->groupBy('description');
 
-        return view('pages.users.edit', compact('users', 'empleados'));
+        return view('pages.users.edit', compact('users', 'empleados', 'permisos'));
     }
 
     
@@ -64,6 +68,11 @@ class UserController extends Controller
             'empleado_id'   => $request->empleado_id
 
         ]);
+
+        if ($request->permission_id) {
+            $user->syncPermissions($request->permission_id, '');
+        }
+
         return redirect()->route('users.index')->with('success', 'Usuario editado exitosamente.');
     }
 

@@ -88,6 +88,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                        <label for="inputNumber" class="col-sm-2 col-form-label">Imagen</label>
+                                        <div class="col-sm-4">
+                                            <div class="col-sm-10">
+                                              <input class="form-control" type="file" name="user-image" id="user-image">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i>
@@ -116,7 +124,10 @@
                 $.ajax({
                     type: "POST",
                     url: "{{ route('empleados.store') }}",
-                    data: $(this).serialize(),
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    // data: $(this).serialize(),
                     success: function(response) {
                       window.location.href = "{{ route('empleados.index') }}";
                     },

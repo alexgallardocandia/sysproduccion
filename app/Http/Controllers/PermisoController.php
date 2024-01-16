@@ -36,6 +36,10 @@ class PermisoController extends Controller
         }
         abort(404);
     }
+    public function show(Permission $permiso_id)
+    {
+        return view('pages.permisos.show', compact('permiso_id'));
+    }
     public function edit()
     {        
         $permiso = Permission::find(request()->route('permiso_id'));
@@ -44,8 +48,8 @@ class PermisoController extends Controller
     }
     public function update(UpdatePermisoRequest $request)
     {
-        // dd($request);
         if ($request->ajax()) {
+            
             $permiso = Permission::find($request->permiso_id);
             $permiso->update([
                 'name'          => $request->name,
@@ -63,6 +67,10 @@ class PermisoController extends Controller
     }
     public function destroy()
     {
-
+        $permiso = Permission::find(request()->permiso_id);
+        $permiso->delete();
+        toastr()->success('Permiso Eliminado Exitosamente ');
+        
+        return redirect()->route('permisos.index');
     }
 }

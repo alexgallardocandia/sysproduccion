@@ -35,7 +35,7 @@ class EmpleadoController extends Controller
 
     public function store(CreatePersonasRequest $request)
     {
-
+        dd($request->all());
         if ($request->ajax()) {
 
             Empleado::create([

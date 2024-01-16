@@ -79,7 +79,7 @@
 @section('script')
 <script>
   $(document).ready(function() {
-    $('#referenciales-nav').addClass("show");
+    $('#configuraciones-nav').addClass("show");
     $('#users-menu').addClass("active");
     $('#user_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal

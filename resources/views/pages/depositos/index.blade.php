@@ -8,7 +8,9 @@
           <div class="card">
             <div class="card-header">
               <h5>Depositos</h5>
-              <a href="{{url('depositos/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              @permission('depositos.create')
+                <a href="{{url('depositos/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              @endpermission
             </div>
             <div class="card-body">                                     
               <div class="table-responsive">
@@ -28,10 +30,16 @@
                           <td>{{$deposito->id}}</td>                                                                      
                           <td>{{$deposito->descripcion}}</td>                                                
                           <td>{{$deposito->sucursal->descripcion}}</td> 
-                          <td>                        
-                            <a href="{{url('depositos/' . $deposito->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
-                              <a href="{{url('depositos/' . $deposito->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                          <td>              
+                            @permission('depositos.show')
+                              <a href="{{url('depositos/' . $deposito->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                            @endpermission
+                            @permission('depositos.edit')
+                              <a href="{{url('depositos/' . $deposito->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>  
+                            @endpermission
+                            @permission('depositos.delete') 
                               <a data-bs-toggle="modal" data-bs-target="#deposito_delete" data-name="{{$deposito->descripcion}}" data-id="{{ $deposito->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                            @endpermission          
                           </td>
                         </tr>
                     @endforeach

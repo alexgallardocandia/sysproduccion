@@ -7,7 +7,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h5>Editar Permiso #{{$permiso->id}}</h5>              
+              <h5>Crear Permiso</h5>              
             </div>
             <div class="card-body">                                  
                 <form id="form">
@@ -15,24 +15,23 @@
                     <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
-                        <input name="name" type="text" class="form-control" value="{{$permiso->name}}">
-                        <input name="permiso_id" type="hidden" class="form-control" value="{{$permiso->id}}">
+                        <input name="name" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="row mb-3">
                       <label for="display_name" class="col-sm-2 col-form-label">Nombre a Mostrar</label>
                       <div class="col-sm-10">
-                      <input name="display_name" type="text" class="form-control" value="{{$permiso->display_name}}">
+                      <input name="display_name" type="text" class="form-control">
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="description" class="col-sm-2 col-form-label">Descripcion</label>
                       <div class="col-sm-10">
-                      <input name="description" type="text" class="form-control" value="{{$permiso->description}}">
+                      <input name="description" type="text" class="form-control">
                       </div>
                     </div>               
                     <div class="card-footer">                        
-                        <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Modificar</button>
+                        <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
                         <a href="{{url('permisos')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
                     </div>
                 </form><!-- End Horizontal Form -->
@@ -53,8 +52,8 @@
         $('#form').on('submit', function(e){
           e.preventDefault();
           $.ajax({
-            type: "PUT",
-            url: "{{route('permisos.update')}}",
+            type: "POST",
+            url: "{{route('permisos.store')}}",
             data: $(this).serialize(),            
             success: function (response) {
               window.location.href = "{{ route('permisos.index') }}";

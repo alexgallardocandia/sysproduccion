@@ -35,6 +35,18 @@
                             </select>
                           </div>
                     </div>
+                    <div class="col-md-12">
+                      <label for="permission_id" class="form-label">Permisos</label>
+                      <select class="form-select" name="permission_id[]" id="multiple-select-optgroup-field" data-placeholder="Seleccionar Permisos" multiple>
+                        @foreach ($permisos as $key => $value)
+                          <optgroup label="{{ $key }}">
+                            @foreach ($value as $permission)
+                              <option value="{{$permission->id}}">{{$permission->display_name}}</option>
+                            @endforeach
+                          </optgroup>
+                        @endforeach
+                      </select>
+                    </div>
                     <div class="">                        
                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
                         <a href="{{url('users')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
@@ -51,7 +63,7 @@
 @section('script')
 <script>
   $(document).ready(function() {
-    $('#referenciales-nav').addClass("show");
+    $('#configuraciones-nav').addClass("show");
     $('#users-menu').addClass("active");
 
     $('#form').on('submit', function(e){
@@ -67,7 +79,13 @@
               laravelErrorMessages(data);
             }
           });
-        });
+    });
+    $('#multiple-select-optgroup-field').select2({
+        theme: "bootstrap-5",
+        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+        placeholder: $(this).data('placeholder'),
+        closeOnSelect: false,
+    });
   });
 </script>
 @endsection

@@ -70,6 +70,9 @@ class Kernel extends HttpKernel
         'role' => \Laratrust\Middleware\LaratrustRole::class,
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,
+        'menu.referenciales'    => \App\Http\Middleware\MenuReferenciales::class,
+        'menu.compras'    => \App\Http\Middleware\MenuReferenciales::class,
+        'menu.configuraciones'    => \App\Http\Middleware\MenuReferenciales::class,
 
     ];
 }

@@ -8,7 +8,9 @@
           <div class="card">
             <div class="card-header">
               <h5>Cargos</h5>
-              <a href="{{url('cargos/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              @permission('cargos.create')
+                <a href="{{url('cargos/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              @endpermission
             </div>
             <div class="card-body">            
               <div class="table-responsive">
@@ -29,10 +31,16 @@
                           <td>{{$cargo->id}}</td>
                           <td>{{$cargo->descripcion}}</td>                                                
                           <td>{{$cargo->departamento->nombre}}</td>                                                
-                          <td>                        
-                            <a href="{{url('cargos/' . $cargo->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                          <td>        
+                            @permission('cargos.show')
+                              <a href="{{url('cargos/' . $cargo->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                            @endpermission 
+                            @permission('cargos.edit')
                               <a href="{{url('cargos/' . $cargo->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
+                            @endpermission 
+                            @permission('cargos.delete')
                               <a data-bs-toggle="modal" data-bs-target="#cargo_delete" data-name="{{$cargo->descripcion}}" data-id="{{ $cargo->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                            @endpermission                
                           </td>
                         </tr>
                     @endforeach

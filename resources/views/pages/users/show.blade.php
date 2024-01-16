@@ -32,7 +32,7 @@
 @section('script')
 <script>
   $(document).ready(function() {
-    $('#referenciales-nav').addClass("show");
+    $('#configuraciones-nav').addClass("show");
     $('#users-menu').addClass("active");    
   });
 </script>

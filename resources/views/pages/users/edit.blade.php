@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="inputPassword3" class="form-label">Password</label>
-                        <input name="password" type="password" class="form-control" id="inputPassword" required>
+                        <input name="password" type="password" class="form-control" id="inputPassword">
                     </div>
                     <div class="col-md-3">
                       <label for="empleado_id" class="form-label">Empleado</label>
@@ -37,6 +37,18 @@
                               @endforeach()                            
                             </select>
                           </div>
+                    </div>
+                    <div class="col-md-12">
+                      <label for="permission_id" class="form-label">Permisos</label>
+                      <select class="form-select" name="permission_id[]" id="multiple-select-optgroup-field" data-placeholder="Seleccionar Permisos" multiple>
+                        @foreach ($permisos as $description => $value)
+                          <optgroup label="{{ $description }}">
+                            @foreach ($value as $key => $permission)
+                              <option value="{{$permission->id}}" {{ in_array($permission->id, $users->permissions->pluck('id')->toArray()) ? 'selected' : '' }}>{{$permission->display_name}}</option>
+                            @endforeach
+                          </optgroup>
+                        @endforeach
+                      </select>
                     </div>
                     <div class="">                        
                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Modificar</button>
@@ -54,8 +66,14 @@
 @section('script')
 <script>
   $(document).ready(function() {
-    $('#referenciales-nav').addClass("show");//coloca el menu en show
+    $('#configuraciones-nav').addClass("show");//coloca el menu en show
     $('#users-menu').addClass("active");//coloca activo el submenu usuario
+    $('#multiple-select-optgroup-field').select2({
+        theme: "bootstrap-5",
+        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+        placeholder: $(this).data('placeholder'),
+        closeOnSelect: false,
+    });
   });
 </script>
 @endsection
