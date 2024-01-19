@@ -76,4 +76,8 @@ return [
         1 => 'PERECEDEROS',
         2 => 'NO PERECEDEROS',
     ],
+    'tipo-descuento' => [
+        1 => 'GUARANIES',
+        2 => 'PORCENTAJE'
+    ],
 ];

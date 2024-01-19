@@ -36,8 +36,8 @@ class PresupuestoCompraController extends Controller
             $presupuestocompra  = PresupuestoCompra::create([
                 'numero'            => $request->numero,
                 'estado'            => 1,
-                'fecha'             => Carbon::createFromFormat('Y-m-d', $request->fecha)->format('Y-m-d'),
-                'validez'           => Carbon::createFromFormat('Y-m-d', $request->validez)->format('Y-m-d'),
+                'fecha'             => Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d'),
+                'validez'           => Carbon::createFromFormat('d/m/Y', $request->validez)->format('Y-m-d'),
                 'proveedor_id'      => $request->proveedor_id,
                 'pedido_compra_id'  => $request->pedido_compra_id
             ]);
@@ -48,8 +48,8 @@ class PresupuestoCompraController extends Controller
                     'materia_prima_id'  => $value,
                     'cantidad'          => $request->cantidades[$key],
                     'precio_unitario'   => $request->precios[$key],
-                    'descuento'         => $request->descuentos[$key],
-                    'umedid_id'         => $request->umedidas[$key],
+                    // 'descuento'         => $request->descuentos[$key],
+                    // 'umedid_id'         => $request->umedidas[$key],
                     'estado'            => 1,
                 ]);
             }

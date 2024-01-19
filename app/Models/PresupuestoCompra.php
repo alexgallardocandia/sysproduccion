@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -40,6 +41,22 @@ class PresupuestoCompra extends Model
     }
     public function getValidezAttribute() {
         return Carbon::createFromFormat('Y-m-d', $this->attributes['validez'])->format('d/m/Y');
+    }
+    public function getValidezBoolAttribute () {
+        $hola=[];
+        $bool = false;
+        
+        $fecha_validez = Carbon::createFromFormat('Y-m-d', $this->attributes['validez'])->format('d/m/Y');
+        $fecha_time = DateTime::createFromFormat('d/m/y',$fecha_validez);
+        $fecha_unix = $fecha_time->getTimestamp();
+        $fecha_actual = date('d/m/Y');
+        $hola[1]=$fecha_unix;
+        $hola[2]=$fecha_actual;
+        if ($fecha_unix > $fecha_actual) {
+            $bool = true;
+        }
+
+        return $hola;
     }
     public function getTotalDetalles() {
         

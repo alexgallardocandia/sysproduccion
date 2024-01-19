@@ -16,8 +16,8 @@ class CreatePresupuestoComprasRequest extends FormRequest
         return [
             'numero'        => 'required',
             'proveedor_id'  => 'required',
-            'fecha'         => "required|date|before_or_equal:$now",
-            'validez'       => 'required|date|after_or_equal:today',
+            'fecha'         => "required|before_or_equal:$now",
+            'validez'       => "required|after_or_equal:$now",
         ];
     }
     public function withValidator($validator)

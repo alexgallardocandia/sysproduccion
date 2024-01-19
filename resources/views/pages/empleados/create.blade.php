@@ -92,7 +92,7 @@
                                         <label for="inputNumber" class="col-sm-2 col-form-label">Imagen</label>
                                         <div class="col-sm-4">
                                             <div class="col-sm-10">
-                                              <input class="form-control" type="file" name="user-image" id="user-image">
+                                              <input class="form-control" type="file" name="imagen_empleado" id="imagen_empleado">
                                             </div>
                                         </div>
                                     </div>

@@ -10,9 +10,15 @@ use App\Models\Empleado;
 use App\Models\EstadoCivil;
 use App\Models\Persona;
 use App\Models\Sucursal;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Image;
+
+
 
 class EmpleadoController extends Controller
 {
@@ -33,11 +39,28 @@ class EmpleadoController extends Controller
         return view('pages.empleados.create', compact('eciviles', 'cargos', 'sucursales', 'ciudades'));
     }
 
-    public function store(CreatePersonasRequest $request)
+    public function store(CreatePersonasRequest $request, Empleado $empleado)
     {
-        dd($request->all());
+        // dd($request->all());
         if ($request->ajax()) {
+            //PROCESAMIENTO DE ARCHIVO
+            $file   = $request->file('imagen_empleado');
+            // dd($request->imagen_empleado);
+            $dir    = 'storage/imagen_empleado';
 
+            if( !is_dir($dir) )//VALIDAMOS SI NO EXISTE EL DIRECTORIO STORAGE/TRANSFER_IMAGES
+            {
+                mkdir($dir, 0777, true);//CREAMOS EL DIRECTORIO
+            }
+            if( $file )//SI HAY ARCHIVO
+            {
+                if( $request->imagen_empleado )
+                {
+                    Storage::disk('public')->delete('imagen_empleado/' . $request->imagen_empleado);
+                }
+                $imagen_empleado = $this->uploadSignature($file);
+            }
+             
             Empleado::create([
                 'ci'                => $request->ci,
                 'nombres'           => $request->nombres,
@@ -47,6 +70,7 @@ class EmpleadoController extends Controller
                 'email'             => $request->email,
                 'fecha_nacimiento'  => $request->fecha_nacimiento,
                 'civil_id'          => $request->civil_id,
+                'imagen-empleado'   => $imagen_empleado,
                 'cargo_id'          => $request->cargo_id,
                 'sucursal_id'       => $request->sucursal_id
             ]);
@@ -111,5 +135,14 @@ class EmpleadoController extends Controller
         return redirect()
             ->route('empleados.index')
             ->with('warning', 'Persona Eliminada');
+    }
+    private function uploadSignature($file)
+    {
+        $signature_name = Str::random(40) . '.' . $file->getClientOriginalExtension();
+        
+        // Mover el archivo directamente al destino
+        $file->move(storage_path('imagen_empleado'), $signature_name);
+
+        return $signature_name;
     }
 }

@@ -32,7 +32,8 @@
                           <td>{{$presupuesto->id}}</td>
                           <td>{{number_format($presupuesto->numero, 0, ',','.')}}</td>
                           <td>{{$presupuesto->fecha}}</td>
-                          <td>{{$presupuesto->validez}} <span class="badge bg-{{ $presupuesto->validez > date('d/m/Y') ? 'success' : 'danger' }}">&nbsp;</span></td>
+                          @dd($presupuesto->ValidezBool)
+                          <td>{{$presupuesto->validez}} <span class="badge bg-{{ $presupuesto->ValidezBool ? 'success' : 'danger' }}">&nbsp;</span></td>
                           <td>{{$presupuesto->proveedor->razon_social}}</td>
                           <td>{{number_format($presupuesto->getTotalDetalles(), 0, ',', '.')}}</td>
                           <td><span class="badge bg-{{ config('constants.presupuestos-compras-status-label.' . intval($presupuesto->estado)) }}">{{ config('constants.presupuestos-compras-status.'. intval($presupuesto->estado)) }}</span></td>

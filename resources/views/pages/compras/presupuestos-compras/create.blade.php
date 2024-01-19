@@ -25,16 +25,19 @@
                       <label for="validez" class="form-label">Validez</label>
                       <input name="validez" type="text" id="validez" class="form-control" value="dd/mm/YY" required>
                     </div>
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
                       <label for="monto_descuento" class="form-label">Monto Descuento</label>
                       <input name="monto_descuento" type="text" id="monto_descuento" class="form-control" format-number required>
-                    </div>
-                    <div class="col-md-3">
+                    </div> --}}
+                    {{-- <div class="col-md-3">
                       <label for="tipo_descuento" class="form-label">Tipo Descuento</label>
                       <select name="tipo_descuento" id="tipo_descuento" class="form-select">
                         <option value="">Seleccione...</option>
+                        @foreach (config('constants.tipo-descuento') as $key => $item)
+                          <option value="{{$key}}">{{$item}}</option>
+                        @endforeach
                       </select>
-                    </div>
+                    </div> --}}
                     <div class="col-md-3">
                       <label for="proveedor_id" class="form-label">Proveedor</label>
                       <select class="form-select" name="proveedor_id" id="proveedor_id">
@@ -111,7 +114,7 @@
                         <tbody id="pre_det"></tbody>
                         <tfoot class="bold">
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="2"></td>
                                 <td id="td_total" class="text-right"></td>
                                 <td id="td_total_precio" class="text-right"></td>
                                 <td id="td_grand_total" class="text-right"></td>
@@ -160,9 +163,7 @@
         });
       });
       
-      $('#pedido_compra_id').on('change', function() {
-        console.log($(this).val());
-        
+      $('#pedido_compra_id').on('change', function() {        
         if ( $(this).val() != 0  ) {
           $.ajax({
             type: "POST",
@@ -223,6 +224,7 @@
       var old_cantidad = 0; //CONTENDRA EL VALOR ANTERIOR DE LA CANTIDAD
       var new_cantidad = 0; //CONTENDRA LA SUMA DEL VALOR ANTERIOR Y EL NUEVO
       var append       = true; //SE VUELVE FALSE CUANDO ES LA MISMA MATERIA_ID
+      var new_subtotal = 0;
 
       $('input[name^="materias[]"]').each( function (key, value) {//RECORREMOS LAS MATERIAS
 
@@ -231,10 +233,13 @@
 
           old_cantidad = $('#td_cantidad_'+materia_id).text();//GUARDAMOS EL VALOR ACTUAL DE ESTE TD
           new_cantidad = parseInt(old_cantidad.replace('.','')) + parseInt(cantidad); //GUARDAMOS LA SUMA DE LA CANTIDAD VIEJA CON LA NUEVA
+          new_subtotal = new_cantidad * precio;
           $('#td_cantidad_'+materia_id).html(''); //LIMPIAMOS EL TD
           $('#td_cantidad_'+materia_id).html($.number(new_cantidad, 0, ',','.')); //MANDAMOS LA NUEVA CANTIDAD AL TD
 
           $('#cantidad_'+materia_id).val(new_cantidad); //MANDAMOS LA NUEVA CANTIDAD EN EL INPUT
+          $('#td_subtotal_'+materia_id).html(new_subtotal); //MANDAMOS EL NUEVO SUBTOTAL EN EL INPUT
+          $('#precio_total_'+materia_id).val(new_subtotal);
 
           append = false;
           
@@ -246,14 +251,16 @@
 
         count++;
         $('#pre_det').append(
-          '<tr name="detalle">'+
+          '<tr name="detalle" id="detalle">'+
             '<td>'+count+'</td>'+
             '<td>'+materianame+'</td>'+
             '<td id="td_cantidad_'+materia_id+'">'+$.number(cantidad,0,',','.')+'</td>'+
             '<td id="td_precio_'+materia_id+'">'+$.number(precio,0,',','.')+'</td>'+
+            '<td id="td_subtotal_'+materia_id+'">'+$.number((precio * cantidad),0,',','.')+'</td>'+
             '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
             '<input type="hidden" id="cantidad_'+materia_id+'" name="cantidades[]" value="'+cantidad+'"/>'+
             '<input type="hidden" id="precio_'+materia_id+'" name="precios[]" value="'+precio+'"/>'+
+            '<input type="hidden" id="precio_total_'+materia_id+'" name="precios_total[]" value="'+precio * cantidad+'"/>'+
             '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
           +'</tr>'
         );
@@ -272,25 +279,31 @@
         var total_cantidad  = 0;
         var total_precio    = 0;
         var total_descuento = 0;
-        var grand_total     = 0;
-
-        $('input[name^="cantidades[]"]').each(function () {          
+        
+        $('input[name^="cantidades[]"]').each(function () {
           total_cantidad += parseInt($(this).val());
         });
         $('input[name^="precios[]"]').each(function () {
           total_precio += parseInt($(this).val());
         });
-        $('input[name^="total[]"]').each(function () {          
-          grand_total += parseInt($(this).val());
-        });
         
         $("#td_total").html('<b>' + $.number(total_cantidad, 0, ',', '.')+'</b>');
         $("#td_total_precio").html('<b>' + $.number(total_precio, 0, ',', '.')+'</b>');
-        $("#td_total_descuento").html('<b>' + $.number(total_descuento, 0, ',', '.')+'</b>');
-        $("#td_grand_total").html('<b>' + $.number(grand_total, 0, ',', '.')+'</b>');
 
         $("#detail_total").val('');
         $("#detail_total").val(total_cantidad);
+        calculateGrandTotal();
+    }
+    function calculateGrandTotal()
+    {
+      var grand_total     = 0;
+
+      $('input[name^="precios_total[]"]').each(function () {
+        grand_total += parseInt($(this).val());
+        console.log(grand_total);
+      });
+      $("#td_grand_total").html('<b>' + $.number(grand_total, 0, ',', '.')+'</b>');
+
     }
 </script>
 @endsection

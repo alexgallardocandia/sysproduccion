@@ -19,6 +19,7 @@ class Empleado extends Model
         'email',
         'fecha_nacimiento',
         'civil_id',
+        'imagen-empleado',
         'cargo_id',
         'sucursal_id'
     ];
