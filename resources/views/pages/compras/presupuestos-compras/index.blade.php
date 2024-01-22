@@ -32,15 +32,16 @@
                           <td>{{$presupuesto->id}}</td>
                           <td>{{number_format($presupuesto->numero, 0, ',','.')}}</td>
                           <td>{{$presupuesto->fecha}}</td>
-                          @dd($presupuesto->ValidezBool)
-                          <td>{{$presupuesto->validez}} <span class="badge bg-{{ $presupuesto->ValidezBool ? 'success' : 'danger' }}">&nbsp;</span></td>
+                          {{-- @dd($presupuesto->ValidezBool) --}}
+                          <td>{{$presupuesto->validez}}</td>
+                          {{-- <td>{{$presupuesto->validez}} <span class="badge bg-{{ $presupuesto->ValidezBool ? 'success' : 'danger' }}">&nbsp;</span></td> --}}
                           <td>{{$presupuesto->proveedor->razon_social}}</td>
                           <td>{{number_format($presupuesto->getTotalDetalles(), 0, ',', '.')}}</td>
                           <td><span class="badge bg-{{ config('constants.presupuestos-compras-status-label.' . intval($presupuesto->estado)) }}">{{ config('constants.presupuestos-compras-status.'. intval($presupuesto->estado)) }}</span></td>
                           <td>                        
                             <a href="{{url('presupuestos-compras/' . $presupuesto->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                               <a href="{{url('presupuestos-compras/' . $presupuesto->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
-                              <a data-bs-toggle="modal" data-bs-target="#presupuesto_delete" data-name="{{$presupuesto->descripcion}}" data-id="{{ $presupuesto->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                              <a data-bs-toggle="modal" data-bs-target="#presupuesto_delete" data-number="{{$presupuesto->numero}}" data-id="{{ $presupuesto->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                           </td>
                         </tr>
                     @endforeach
@@ -51,7 +52,7 @@
               <!-- End Table with stripped rows -->
           </div>  
                    
-              <div class="modal fade" id="presupuestoc_delete" tabindex="-1">
+              <div class="modal fade" id="presupuesto_delete" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -84,12 +85,12 @@
   $(document).ready(function(){
     $('#compras-nav').addClass('show');
     $('#presupuestos-compras-menu').addClass('active');
-    $('#presupuestoc_delete').on('show.bs.modal', function(event) {
+    $('#presupuesto_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var presupuesto_id = button.data('id'); // Extraer el valor del atributo data-id
-        var descripcion = button.data('name'); // Extraer el valor del atributo data-id
+        var number = button.data('number'); // Extraer el valor del atributo data-id
         var modal = $(this);
-        modal.find('#presupuesto_id').text(descripcion); // Insertar el valor en el modal
+        modal.find('#presupuesto_id').text(number); // Insertar el valor en el modal
         $('#id_presupuesto').val(presupuesto_id); // Insertar el valor en el modal        
     });
   });

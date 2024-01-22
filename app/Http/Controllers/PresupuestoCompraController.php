@@ -94,9 +94,9 @@ class PresupuestoCompraController extends Controller
 
         foreach ($detalles as $key => $value) {
             $precargado[]   = [
-                'materianame'   => $detalles[$key]->materia_prima->descripcion, 
+                'materianame'   => $detalles[$key]->materia_prima->nombre.' | '.$detalles[$key]->materia_prima->unidad_medida->descripcion , 
                 'materia_id'    => $detalles[$key]->materia_prima_id, 
-                'umedida'       => $detalles[$key]->umedid->descripcion, 
+                'umedida'       => $detalles[$key]->materia_prima->unidad_medida->descripcion, 
                 'umedida_id'    => $detalles[$key]->umedid_id, 
                 'cantidad'      => $detalles[$key]->cantidad, 
                 'precio'        => $detalles[$key]->precio_unitario, 
@@ -175,9 +175,23 @@ class PresupuestoCompraController extends Controller
         abort(404);
     }
     
-    public function destroy(PresupuestoCompra $presupuestoCompra)
+    public function destroy()
     {
-        //
+        if ( request()->presupuesto_id ) {
+            $presupuesto = PresupuestoCompra::find(request()->presupuesto_id);
+            
+            $presupuesto->update([
+                'estado' => 3,
+            ]);
+            $presupuesto->details()->update([
+                'estado' => 3,
+            ]);
+            
+            return redirect()->route('presupuestos-compras.index')->with('Success','Presupuesto rechazado');
+        } else {
+            return redirect()->route('presupuestos-compras.index')->with('Danger','Ocurrio un error!!');
+        }
+        
     }
 
     public function ajax_getdetailspedidos()

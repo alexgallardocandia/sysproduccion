@@ -50,19 +50,19 @@
                                     <th>Presentacion</th>
                                     <th>Cantidad</th>
                                     <th>Precio</th>
-                                    <th>Descuento</th>
-                                    <th>SubTotal</th>
+                                    {{-- <th>Descuento</th> --}}
+                                    <th></th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($details as $detail)
                                     <tr>
-                                        <td>{{$detail->materia_prima->descripcion}}</td>
-                                        <td>{{$detail->umedid->descripcion}}</td>
+                                        <td>{{$detail->materia_prima->nombre}}</td>
+                                        <td>{{$detail->materia_prima->unidad_medida->descripcion}}</td>
                                         <td>{{$detail->cantidad}}</td>
                                         <td>{{number_format($detail->precio_unitario, 0, ',','.')}}</td>
-                                        <td>{{number_format($detail->descuento, 0, ',','.')}}</td>
+                                        {{-- <td>{{number_format($detail->descuento, 0, ',','.')}}</td> --}}
                                         <td>{{number_format(($detail->precio_unitario * $detail->cantidad ) - $detail->descuento, 0, ',','.')}}</td>
                                         <td><b></b><span class="badge bg-{{ config('constants.presupuestos-compras-detalles-status-label.' . intval($detail->estado)) }}">{{ config('constants.presupuestos-compras-detalles-status.'. intval($detail->estado)) }}</span></td>
                                     </tr>
@@ -73,7 +73,7 @@
                                     <td colspan="2"></td>
                                     <td class="text-right"><b>{{ $total_cant }}</b></td>
                                     <td class="text-right"><b>{{ number_format($total_precio, 0, ',', '.') }}</b></td>
-                                    <td class="text-right"><b>{{ number_format($total_desc, 0, ',', '.') }}</b></td>
+                                    {{-- <td class="text-right"><b>{{ number_format($total_desc, 0, ',', '.') }}</b></td> --}}
                                     <td class="text-right"><b>{{ number_format($grand_total, 0, ',', '.') }}</b></td>
                                     <td class="text-right"></td>
                                 </tr>
