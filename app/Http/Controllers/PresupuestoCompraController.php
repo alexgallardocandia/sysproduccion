@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePresupuestoComprasRequest;
 use App\Models\MateriaPrima;
 use App\Models\PedidoCompra;
-use App\Models\PedidoCompraDetalle;
 use App\Models\PresupuestoCompra;
 use App\Models\PresupuestoCompraDetalle;
 use App\Models\Proveedor;
 use App\Models\UnidadMedida;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class PresupuestoCompraController extends Controller
 {
@@ -213,5 +213,52 @@ class PresupuestoCompraController extends Controller
         abort(404);        
 
 
+    }
+    public function before_aprove($presupuesto_id)
+    {
+        $presupuestocompra = PresupuestoCompra::find($presupuesto_id);
+        $details           = PresupuestoCompraDetalle::where('presupuesto_compra_id', $presupuesto_id)->get();
+        $grand_total       = 0;
+        $total_cant        = 0;
+        $total_desc        = 0;
+        $total_precio      = 0;
+        foreach ($details as $detail) {
+            $total_cant     += $detail->cantidad; 
+            $total_precio   += $detail->precio_unitario; 
+            $grand_total    += ($detail->precio_unitario * $detail->cantidad ) - $detail->descuento;
+        }
+        return view('pages.compras.presupuestos-compras.before-aprove', compact('presupuestocompra', 'details','total_cant', 'total_desc', 'total_precio', 'grand_total'));
+    }
+    public function aprove()
+    {
+        if ( request()->ajax() ) {
+
+            $presupuesto_compra = PresupuestoCompra::find(request()->presupuesto_id);
+
+            if ( request()->check_aprove ) {
+
+                foreach ( request()->detail_id_materia as $key => $value ) {
+
+                    if ( isset(request()->check_aprove[$value]) ) {
+
+                        $presupuesto_compra->details()->where('materia_prima_id', $value)->update(['estado' => 2]);
+
+                    }
+                }
+
+                $presupuesto_compra->update(['estado' => 2]);
+
+                toastr()->success('Presupuesto Aprobado');
+    
+                return response()->json(['success' => true]);
+
+            } else {
+
+                toastr()->warning('Sin cambios');
+    
+                return response()->json(['success' => true]);
+            }
+        }
+        abort(404);
     }
 }

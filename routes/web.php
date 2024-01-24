@@ -163,10 +163,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('presupuestos-compras/create','PresupuestoCompraController@create')->name('presupuestos-compras.create')->middleware('permission:presupuestos-compras.create');
         Route::post('presupuestos-compras','PresupuestoCompraController@store')->name('presupuestos-compras.store');
         Route::get('presupuestos-compras/{presupuesto_id}', 'PresupuestoCompraController@show')->name('presupuestos-compras.show')->middleware('permission:presupuestos-compras.show');
+        Route::get('presupuestos-compras/{presupuesto_id}/before-aprove', 'PresupuestoCompraController@before_aprove')->name('presupuestos-compras.before_aprove')->middleware('permission:presupuestos-compras.show');
         Route::get('presupuestos-compras/{presupuesto_id}/edit', 'PresupuestoCompraController@edit')->name('presupuestos-compras.edit')->middleware('permission:presupuestos-compras.edit');
         Route::put('presupuestos-compras', 'PresupuestoCompraController@update')->name('presupuestos-compras.update');
         Route::delete('presupuestos-compras', 'PresupuestoCompraController@destroy')->name('presupuestos-compras.delete');
         Route::post('ajax/getdetailspedidos', 'PresupuestoCompraController@ajax_getdetailspedidos')->name('presupuestos-compras.ajax_getdetailspedidos');
+        Route::post('ajax/aprove', 'PresupuestoCompraController@aprove')->name('presupuestos-compras.aprove');
     /*FIN MENU COMPRAS*/
     /*MENU CONFIGURACIONES COMPRAS REFERENCIALES*/
         //users routes

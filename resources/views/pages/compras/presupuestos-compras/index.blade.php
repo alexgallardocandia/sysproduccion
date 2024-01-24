@@ -39,7 +39,8 @@
                           <td>{{number_format($presupuesto->getTotalDetalles(), 0, ',', '.')}}</td>
                           <td><span class="badge bg-{{ config('constants.presupuestos-compras-status-label.' . intval($presupuesto->estado)) }}">{{ config('constants.presupuestos-compras-status.'. intval($presupuesto->estado)) }}</span></td>
                           <td>                        
-                            <a href="{{url('presupuestos-compras/' . $presupuesto->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                            <a href="{{url('presupuestos-compras/' . $presupuesto->id. '/before-aprove')}}"><i class="bi bi-check-circle-fill"></i></a>
+                            <a href="{{url('presupuestos-compras/' . $presupuesto->id)}}"><i class="bi bi-info-circle-fill"></i></a>
                               <a href="{{url('presupuestos-compras/' . $presupuesto->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
                               <a data-bs-toggle="modal" data-bs-target="#presupuesto_delete" data-number="{{$presupuesto->numero}}" data-id="{{ $presupuesto->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
                           </td>
