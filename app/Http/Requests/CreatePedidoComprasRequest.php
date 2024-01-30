@@ -15,15 +15,15 @@ class CreatePedidoComprasRequest extends FormRequest
     public function rules()
     {
         return [            
-            'user_id'   => 'required'
+            'empleado_id'   => 'required'
         ];
     }
     public function withValidator($validator)
     {
         $validator->after(function ($validator)
         {
-            if(request()->user_id == 'Seleccione...'){
-                $validator->errors()->add('user_id',"El campo PERSONA es requerido");
+            if(request()->empleado_id == 'Seleccione...'){
+                $validator->errors()->add('empleado_id',"El campo PERSONA es requerido");
             }
             //validacion del detalle
             if(request()->detail_total == 0){

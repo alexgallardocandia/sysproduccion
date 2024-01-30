@@ -36,7 +36,9 @@ class MateriaPrimaController extends Controller
                 "unidad_medida_id"  => $request->umedida_id,
                 "marca_id"          => $request->marca_id,
                 "categoria_id"      => $request->categoria_id,
-                "tipo"              => $request->tipo
+                "descripcion"       => '',
+                "tipo"              => $request->tipo,
+                "precio"            => 1
             ]);
             
             toastr()->success('Materia Prima Creada!');

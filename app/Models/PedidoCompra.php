@@ -13,6 +13,7 @@ class PedidoCompra extends Model
 
     protected $fillable = [
         'prioridad',
+        'empleado_id',
         'estado',
         'user_id',
         'fecha_pedido',
@@ -20,6 +21,9 @@ class PedidoCompra extends Model
 
     public function user() {
         return $this->belongsTo('App\Models\User');
+    }
+    public function empleado() {
+        return $this->belongsTo('App\Models\Empleado');
     }
     public function details() {
         return $this->hasMany('App\Models\PedidoCompraDetalle');

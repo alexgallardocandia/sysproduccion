@@ -22,7 +22,7 @@
                         <label for="sucursal_id" class="col-sm-2 col-form-label">Sucursal</label>
                         <div class="">
                           <div class="form-group">                                              
-                            <select class="form-control select2" name="sucursal_id" id="sucursal_id">
+                            <select class="form-control selectpicker" data-live-search="true" name="sucursal_id" id="sucursal_id">
                               @foreach($sucursales as $sucursal)                              
                                 <option value='{{$sucursal->id}}'>{{$sucursal->descripcion}}</option>
                               @endforeach()

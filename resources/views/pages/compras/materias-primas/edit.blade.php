@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-3">
                   <label for="umedida_id" class="form-label">Unidad de Medida</label>
-                  <select class="form-select" name="umedida_id" id="umedida_id">
+                  <select class="form-control selectpicker" data-live-search="true" name="umedida_id" id="umedida_id">
                     <option value="@json($materia_id->unidad_medida_id)" >{{ $materia_id->unidad_medida->descripcion }}</option>
                     @foreach ($unidades as $unidad )
                         <option value="@json($unidad->id)">{{ $unidad->descripcion }}</option>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-md-3">
                   <label for="marca_id" class="form-label">Marca</label>
-                  <select class="form-select" name="marca_id" id="marca_id">
+                  <select class="form-control selectpicker" data-live-search="true" name="marca_id" id="marca_id">
                     <option value="@json($materia_id->marca_id)" >{{ $materia_id->marca->nombre }}</option>
                     @foreach ($marcas as $marca )
                         <option value="@json($marca->id)">{{$marca->nombre}}</option>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-3">
                   <label for="categoria_id" class="form-label">Categoria</label>
-                  <select class="form-select" name="categoria_id" id="categoria_id">
+                  <select class="form-control selectpicker" data-live-search="true" name="categoria_id" id="categoria_id">
                     <option value="@json($materia_id->categoria_id)" >{{ $materia_id->categoria->nombre }}</option>
                     @foreach ($categorias as $categoria )
                         <option value="@json($categoria->id)">{{$categoria->nombre}}</option>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-md-3">
                   <label for="tipo" class="form-label">Tipo</label>
-                  <select class="form-select" name="tipo" id="tipo">
+                  <select class="form-control selectpicker" data-live-search="true" name="tipo" id="tipo">
                     <option value="@json($materia_id->tipo)" >{{ config('constants.materias-primas-tipos.'.$materia_id->tipo) }}</option>
                     <option value="1">PERECEDEROS</option>
                     <option value="2">NO PERECEDEROS</option>

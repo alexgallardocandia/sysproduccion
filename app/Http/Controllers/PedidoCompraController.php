@@ -8,8 +8,10 @@ use App\Models\MateriaPrima;
 use App\Models\PedidoCompra;
 use App\Models\PedidoCompraDetalle;
 use App\Models\UnidadMedida;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -23,10 +25,10 @@ class PedidoCompraController extends Controller
     }
 
     public function create(){
-        $personas = Empleado::get();
+        $empleados = Empleado::where('estado', 1)->get();
         $materias = MateriaPrima::get();
         $umedidas = UnidadMedida::get();
-        return view('pages.compras.pedidos-compras.create', compact('personas','materias','umedidas'));
+        return view('pages.compras.pedidos-compras.create', compact('empleados','materias','umedidas'));
     }
 
     public function store(CreatePedidoComprasRequest $request)
@@ -40,7 +42,8 @@ class PedidoCompraController extends Controller
                 $pedidocompra = PedidoCompra::create([
                     'prioridad'     => $request->prioridad,
                     'fecha_pedido'  => date('Y-m-d'),
-                    'user_id'       => $request->user_id,
+                    'user_id'       => Auth::user()->id,
+                    'empleado_id'   => $request->empleado_id,
                     'estado'        => 1,
                 ]);
 
@@ -78,8 +81,9 @@ class PedidoCompraController extends Controller
 
     public function edit(PedidoCompra $pedido_id)
     {
+        
         $detalles   = [];
-        $personas   = Empleado::get();
+        $empleados   = Empleado::where('estado', 1)->get();
         $materias   = MateriaPrima::get();
         $umedidas   = UnidadMedida::get();
         
@@ -91,7 +95,7 @@ class PedidoCompraController extends Controller
             ];
         }
         
-        return view('pages.compras.pedidos-compras.edit', compact('personas','materias','umedidas', 'pedido_id', 'detalles'));
+        return view('pages.compras.pedidos-compras.edit', compact('empleados','materias','umedidas', 'pedido_id', 'detalles'));
     }
 
     public function update ( Request $request ) 
@@ -106,7 +110,7 @@ class PedidoCompraController extends Controller
                     'prioridad'     => $request->prioridad,
                     'estado'        => 1,
                     'fecha_pedido'  => Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d'),
-                    'user_id'       => $request->user_id
+                    'empleado_id'   => $request->empleado_id
                 ]);
                 
                 //MANEJO DEL DETALLE
@@ -145,9 +149,9 @@ class PedidoCompraController extends Controller
     public function destroy()
     {
         $pedido_compra = PedidoCompra::find(request()->pedidoc_id);
-        $pedido_compra->delete();
+        $pedido_compra->update(['estado' => 3]);
 
-        return redirect()->route('pedidos-compras.index')->with('success','Pedido de Compra #'. request()->pedidoc_id .' Eliminado');
+        return redirect()->route('pedidos-compras.index')->with('success','Pedido de Compra #'. request()->pedidoc_id .' Rechazado');
 
     }
 

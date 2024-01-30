@@ -14,10 +14,14 @@
                 <form class="row g-3" id="form">
                   @csrf
                   <div class="col-md-4">
-                    <label for="persona_id" class="form-label">Solicitante</label>
-                    <input id="user" class="form-control" value="{{ $pedido_id->user->empleado->fullname }}" readonly/>
-                    <input name="user_id" id="user_id" type="hidden" value="{{ $pedido_id->user_id }}"/>
                     <input type="hidden" name="pedido_compra_id" value="@json($pedido_id->id)" />
+                    <label for="empleado_id" class="form-label">Solicitante</label>
+                    <select name="empleado_id" id="empleado_id" class="selectpicker form-control" data-live-search="true">
+                      <option value="@json($pedido_id->empleado_id)">{{ $pedido_id->empleado->fullname }}</option>
+                      @foreach ($empleados as $empleado )
+                        <option value="@json($empleado->id)">{{ $empleado->fullname }}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="col-md-4">
                     <label for="fecha" class="form-label">Fecha</label>
@@ -35,7 +39,7 @@
                   <div class="row g-3">
                     <div class="col-md-4">
                       <label for="materia_id" class="col-sm-4 col-form-label">Materia Prima</label>
-                      <select class="form-select" id="materia_id">
+                      <select class="form-control selectpicker" data-live-search="true" id="materia_id">
                         <option value="">Seleccione...</option>
                         @foreach($materias as $materia)                              
                           <option value='{{$materia->id}}'>{{$materia->nombre.' | '.$materia->unidad_medida->descripcion}}</option>

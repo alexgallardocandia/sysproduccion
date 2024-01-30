@@ -21,7 +21,7 @@
                     <div class="row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Departamento</label>
                         <div class="col-sm-10">
-                          <select class="form-control select2" name="departamento_id" id="departamento_id">
+                          <select class="form-control selectpicker" data-live-search="true" name="departamento_id" id="departamento_id">
                             <option value="">Seleccione</option>
                             @foreach ($departamentos as $dep )
                               <option value="{{$dep->id}}">{{$dep->nombre}}</option>

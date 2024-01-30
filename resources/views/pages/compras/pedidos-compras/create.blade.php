@@ -14,9 +14,13 @@
                 <form class="row g-3" id="form">
                   @csrf
                   <div class="col-md-4">
-                    <label for="persona_id" class="form-label">Solicitante</label>
-                    <input name="user" id="user" class="form-control" value="{{auth()->user()->empleado ? auth()->user()->empleado->fullname:''}}" readonly/>
-                    <input name="user_id" id="user_id" type="hidden" value="{{auth()->user()->id}}"/>
+                    <label for="empleado_id" class="form-label">Solicitante</label>
+                    <select name="empleado_id" id="empleado_id" class="selectpicker form-control" data-live-search="true">
+                      <option value="">Seleccione</option>
+                      @foreach ($empleados as $empleado)
+                        <option value="@json($empleado->id)">{{ $empleado->fullname }}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="col-md-4">
                     <label for="fecha" class="form-label">Fecha</label>
@@ -33,7 +37,7 @@
                   <div class="row g-3">
                     <div class="col-md-4">
                       <label for="materia_id" class="col-sm-4 col-form-label">Materia Prima</label>
-                      <select class="form-select" name="materia_id" id="materia_id">
+                      <select class="form-control selectpicker" data-live-search="true" name="materia_id" id="materia_id">
                         <option value="">Seleccione...</option>
                         @foreach($materias as $materia)                              
                           <option value='{{$materia->id}}'>{{$materia->nombre.' | '.$materia->unidad_medida->descripcion}}</option>
@@ -130,11 +134,11 @@
             $('#cantidad').val('');
           }
         });
+        // flatpickr("#fecha",{
+        //   minDate: "today", // Impide seleccionar fechas anteriores a la actual
+        //   dateFormat: "d/m/Y", // Formato de fecha
+        // });
         flatpickr("#fecha",{
-          minDate: "today", // Impide seleccionar fechas anteriores a la actual
-          dateFormat: "d/m/Y", // Formato de fecha
-        });
-        flatpickr("#fecha_emision",{
           maxDate: "today", // Impide seleccionar fechas mayores a la actual
           dateFormat: "d/m/Y", // Formato de fecha
         });

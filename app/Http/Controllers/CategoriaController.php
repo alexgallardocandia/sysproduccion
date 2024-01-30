@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\TryCatch;
 
 class CategoriaController extends Controller
 {
@@ -92,10 +93,16 @@ class CategoriaController extends Controller
 
     public function destroy()
     {
-        DB::delete('DELETE FROM categorias WHERE id = ?', [request()->categoria_id]);
+        try {
+            
+            DB::delete('DELETE FROM categorias WHERE id = ?', [request()->categoria_id]);
 
-        return redirect()
-            ->route('categorias.index')
-            ->with('success', 'Categoria Eliminada');
+            return redirect()
+                ->route('categorias.index')
+                ->with('success', 'Categoria Eliminada');
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
     }
 }

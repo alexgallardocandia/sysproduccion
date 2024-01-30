@@ -40,7 +40,7 @@
                     </div> --}}
                     <div class="col-md-3">
                       <label for="proveedor_id" class="form-label">Proveedor</label>
-                      <select class="form-select" name="proveedor_id" id="proveedor_id">
+                      <select class="selectpicker" name="proveedor_id" id="proveedor_id" data-live-search="true" >
                         <option value="">Seleccione...</option>
                         @foreach ($proveedores as $proveedor )
                             <option value="@json($proveedor->id)">{{$proveedor->razon_social}}</option>
@@ -49,10 +49,10 @@
                     </div>
                     <div class="col-md-3">
                       <label for="pedido_compra_id" class="form-label">Pedido Compra</label>
-                      <select class="form-select" name="pedido_compra_id" id="pedido_compra_id">
+                      <select class="selectpicker form-control" data-live-search="true" name="pedido_compra_id" id="pedido_compra_id">
                         <option value="0">Seleccione...</option>
                         @foreach ($pedidos_compras as $pedido )
-                            <option value="@json($pedido->id)">{{$pedido->id.' | '.$pedido->user->empleado->fullname.' | '.$pedido->fecha_pedido}}</option>
+                            <option value="@json($pedido->id)">{{$pedido->id.' | '.$pedido->empleado->fullname.' | '.$pedido->fecha_pedido}}</option>
                         @endforeach
                       </select>
                     </div>
@@ -79,7 +79,7 @@
                     <p>Agregar Detalle</p>
                     <div class="col-md-3">
                       <label for="materia_id" class="col-sm-4 col-form-label">Materia P.</label>
-                      <select class="form-select" name="materia_id" id="materia_id">
+                      <select class="selectpicker" data-live-search="true" name="materia_id" id="materia_id">
                         <option value="">Seleccione...</option>
                         @foreach($materias as $materia)                              
                           <option value='{{$materia->id}}'>{{$materia->nombre.' | '.$materia->unidad_medida->descripcion}}</option>
@@ -187,6 +187,7 @@
 
 
       $('#btn_agregar').click(function() {
+
         var materianame = $('#materia_id option:selected').text();
         var materia_id  = $('#materia_id option:selected').val();
         var cantidad    = $('#cantidad').val();
@@ -198,6 +199,10 @@
           add_detail( materianame, materia_id,cantidad, precio.replace('.',''));
           $('#oculto').prop('hidden', false);
         }
+        // $('#materia_id').select('');
+        $('#cantidad').val('');
+        $('#precio_unitario').val('');
+        
       });
       flatpickr("#validez",{
         minDate: "today", // Impide seleccionar fechas anteriores a la actual
@@ -220,7 +225,8 @@
       $('#pedido_compra_detalles_div').prop('hidden', false);
     }
 
-    function add_detail( materianame, materia_id, cantidad, precio ) {
+    function add_detail( materianame, materia_id, cantidad, precio ) 
+    {
       var old_cantidad = 0; //CONTENDRA EL VALOR ANTERIOR DE LA CANTIDAD
       var new_cantidad = 0; //CONTENDRA LA SUMA DEL VALOR ANTERIOR Y EL NUEVO
       var append       = true; //SE VUELVE FALSE CUANDO ES LA MISMA MATERIA_ID
@@ -267,6 +273,10 @@
   
         calculateTotal();
       }
+      $('#cantidad').val('');
+      $('#precio_unitario').val('');
+      $('#materia_id').selectpicker('val',''); //selecciona el valor vacio
+      // $('#materia_id').selectpicker('render');
     }
     function removeRow(t)
     {

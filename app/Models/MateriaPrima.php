@@ -15,7 +15,9 @@ class MateriaPrima extends Model
         'unidad_medida_id',
         'marca_id',
         'categoria_id',
+        'descripcion',
         'tipo',
+        'precio',
     ];
     public function unidad_medida() {
         return $this->belongsTo('App\Models\UnidadMedida');

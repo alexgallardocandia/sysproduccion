@@ -21,7 +21,8 @@ class Empleado extends Model
         'civil_id',
         'imagen-empleado',
         'cargo_id',
-        'sucursal_id'
+        'sucursal_id',
+        'estado',
     ];
 
     protected $appends = [ 'fullname' ];

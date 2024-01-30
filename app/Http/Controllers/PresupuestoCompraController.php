@@ -247,6 +247,7 @@ class PresupuestoCompraController extends Controller
                 }
 
                 $presupuesto_compra->update(['estado' => 2]);
+                $presupuesto_compra->pedido_compra->update(['estado' => 2]);
 
                 toastr()->success('Presupuesto Aprobado');
     

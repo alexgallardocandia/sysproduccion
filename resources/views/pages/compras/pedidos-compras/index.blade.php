@@ -19,7 +19,7 @@
                       <th scope="col">#</th>
                       <th scope="col">Fecha</th>
                       <th scope="col">Prioridad</th>
-                      <th scope="col">Usuario</th>
+                      <th scope="col">Solicitante</th>
                       <th scope="col">Estado</th>
                       <th scope="col">Acciones</th>
                     </tr>
@@ -30,12 +30,20 @@
                           <td>{{$pedidoc->id}}</td>
                           <td>{{ $pedidoc->fecha_pedido}}</td>
                           <td><span class="badge bg-{{ config('constants.pedidos-compras-prioridad-label.' . intval($pedidoc->prioridad)) }}">{{ config('constants.pedidos-compras-prioridad.'. intval($pedidoc->prioridad)) }}</span></td>
-                          <td>{{$pedidoc->user ? $pedidoc->user->name : ''}}</td>                                               
+                          <td>{{$pedidoc->empleado ? $pedidoc->empleado->fullname : ''}}</td>                                               
                           <td><span class="badge bg-{{ config('constants.pedidos-compras-status-label.' . intval($pedidoc->estado)) }}">{{ config('constants.pedidos-compras-status.'. intval($pedidoc->estado)) }}</span></td>
-                          <td>                        
-                            <a href="{{url('pedidos-compras/' . $pedidoc->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                          <td>     
+                            @if ($pedidoc->estado == 2)
+                              <a href="{{url('pedidos-compras/' . $pedidoc->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                            @endif
+                            @if ($pedidoc->estado == 3)  
+                              <a href="{{url('pedidos-compras/' . $pedidoc->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
+                            @endif
+                            @if ($pedidoc->estado != 3 && $pedidoc->estado != 2)
+                              <a href="{{url('pedidos-compras/' . $pedidoc->id)}}"><i class="bi bi-info-circle-fill"></i></a>                          
                               <a href="{{url('pedidos-compras/' . $pedidoc->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a>
                               <a data-bs-toggle="modal" data-bs-target="#pedidoc_delete"  data-id="{{ $pedidoc->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
+                            @endif
                           </td>
                         </tr>
                     @endforeach 
