@@ -163,7 +163,7 @@
         });
       });
       
-      $('#pedido_compra_id').on('change', function() {        
+      $('#pedido_compra_id').on('change', function() { 
         if ( $(this).val() != 0  ) {
           $.ajax({
             type: "POST",
@@ -171,17 +171,21 @@
             data: $(this).serialize(),
             success: function (data) {
               $('#detail_body').html('');
+              $('#pre_det').html('');
+
               $.each(data.detalles, function (key, value) {
                 showPedidoCompraDetalle(value.materianame, value.materia_id, value.cantidad);
               });
+              count = 0;
             },
             error:function(data) {
               laravelErrorMessages(data);
-              $('#pedido_compra_detalles_div').prop('hidden', true);
+              $('#oculto').prop('hidden', true);
             }
           });
         } else {
-          $('#pedido_compra_detalles_div').prop('hidden', true);
+          $('#detail_body').html('');
+          $('#oculto').prop('hidden', true);
         }
       });
 
@@ -213,16 +217,55 @@
         dateFormat: "d/m/Y", // Formato de fecha
       });
     });
-
     function showPedidoCompraDetalle(materianame, materia_id, cantidad)
     {
-      $('#detail_body').append(
-        '<tr class="table-info">'+
-          '<td>'+materianame+'</td>'+
-          '<td>'+$.number(cantidad, 0, ',', '.')+'</td>'
-        +'</tr>'
-      );
-      $('#pedido_compra_detalles_div').prop('hidden', false);
+      var precio = 0;
+
+      count++;
+        $('#pre_det').append(
+          '<tr name="detalle[]" id="detalle">'+
+            '<td>'+count+'</td>'+
+            '<td>'+materianame+'</td>'+
+            '<td id="td_cantidad_'+materia_id+'">'+$.number(cantidad,0,',','.')+'</td>'+
+            '<td><input type="text" name="precios_td[]" format-number class="form-control" id="td_precio_'+materia_id+'" onkeyup="recalculateTotal(this)"/></td>'+
+            '<td name="subtotales[]" id="td_subtotal_'+materia_id+'">'+$.number((precio * cantidad),0,',','.')+'</td>'+
+            '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
+            '<input type="hidden" id="cantidad_'+materia_id+'" name="cantidades[]" value="'+cantidad+'"/>'+
+            '<input type="hidden" id="precio_'+materia_id+'" name="precios[]" value="'+precio+'"/>'+
+            '<input type="hidden" id="precio_total_'+materia_id+'" name="precios_total[]" value="'+precio * cantidad+'"/>'+
+            '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
+          +'</tr>'
+        );
+        calculateTotal();
+      $('#oculto').prop('hidden', false);
+
+    }
+
+    function recalculateTotal(param)
+    {
+
+      var ids = param.id.split('_');
+      var total_cantidad  = 0;
+      var precio          = 0;
+      var total_precio    = 0;
+      var cantidad        = 0;
+      var grand_total     = 0;
+
+
+      precio = parseInt($('#td_precio_'+ids[2]).val());
+
+      cantidad = parseInt($('#td_cantidad_'+ids[2]).text().replace('.',''));
+
+      $('#td_subtotal_'+ids[2]).html($.number(precio * cantidad, 0,',','.'));
+      $('#precio_'+ids[2]).val(precio);
+
+
+      $('td[name^="subtotales[]"]').each(function (key, value) {
+        grand_total += parseInt($(this).text().replace('.',''));
+      });
+      $("#td_grand_total").html('<b>' + $.number(grand_total, 0, ',', '.')+'</b>');
+      $('input[name^="precios_total[]"]').val(grand_total);
+
     }
 
     function add_detail( materianame, materia_id, cantidad, precio ) 
@@ -262,7 +305,7 @@
             '<td>'+materianame+'</td>'+
             '<td id="td_cantidad_'+materia_id+'">'+$.number(cantidad,0,',','.')+'</td>'+
             '<td id="td_precio_'+materia_id+'">'+$.number(precio,0,',','.')+'</td>'+
-            '<td id="td_subtotal_'+materia_id+'">'+$.number((precio * cantidad),0,',','.')+'</td>'+
+            '<td name="subtotales[]" id="td_subtotal_'+materia_id+'">'+$.number((precio * cantidad),0,',','.')+'</td>'+
             '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
             '<input type="hidden" id="cantidad_'+materia_id+'" name="cantidades[]" value="'+cantidad+'"/>'+
             '<input type="hidden" id="precio_'+materia_id+'" name="precios[]" value="'+precio+'"/>'+
@@ -310,7 +353,6 @@
 
       $('input[name^="precios_total[]"]').each(function () {
         grand_total += parseInt($(this).val());
-        console.log(grand_total);
       });
       $("#td_grand_total").html('<b>' + $.number(grand_total, 0, ',', '.')+'</b>');
 

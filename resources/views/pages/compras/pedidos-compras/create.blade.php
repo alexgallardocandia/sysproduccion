@@ -98,6 +98,7 @@
         $('#pedidos-compras-menu').addClass("active");//coloca activo el submenu usuario
 
         $('#form').on('submit', function(e) {
+          
           e.preventDefault();
 
           $('button[type=submit]').prop('disabled', true);
@@ -187,7 +188,8 @@
       }
     }
 
-    function clearInputsDetails() {
+    function clearInputsDetails() 
+    {
 
       $('#presentacion').empty();
       $('#unidad').empty();

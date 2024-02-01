@@ -27,9 +27,10 @@
                                     <li class="list-group-item"><i class="ri-money-dollar-circle-line"></i><b>Monto: </b>{{ number_format($grand_total, 0, ',', '.') }}</li>
                                     <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Creado: </b>{{$presupuestocompra->created_at->format('d/m/Y H:m:s')}}</li>
                                     <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Modificado:</b>{{$presupuestocompra->updated_at->format('d/m/Y H:m:s')}}</td>
+                                    <li class="list-group-item"><i class="ri-shopping-bag-3-fill me-1 text-success"></i><b>Pedido de Compra: </b>{{$presupuestocompra->pedido_compra ? $presupuestocompra->pedido_compra->id.'- '.$presupuestocompra->pedido_compra->empleado->fullname.' | '. $presupuestocompra->pedido_compra->fecha_pedido : ''}}</td>
                                 </ul>
                             </div>
-                          </div>                          
+                          </div>
                       </div>
                   </div>
               </div>
@@ -91,7 +92,7 @@
 <script>
     $(document).ready(function() {
         $('#compras-nav').addClass("show");//coloca el menu en show
-        $('#pedidos-compras-menu').addClass("active");//coloca activo el submenu usuario
+        $('#presupuestos-compras-menu').addClass("active");//coloca activo el submenu usuario
     });
 </script>
 @endsection

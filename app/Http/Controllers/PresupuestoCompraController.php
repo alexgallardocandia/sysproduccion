@@ -10,6 +10,7 @@ use App\Models\PresupuestoCompraDetalle;
 use App\Models\Proveedor;
 use App\Models\UnidadMedida;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class PresupuestoCompraController extends Controller
@@ -33,33 +34,46 @@ class PresupuestoCompraController extends Controller
     public function store(CreatePresupuestoComprasRequest $request)
     {
         if( request()->ajax() ) {
-            $presupuestocompra  = PresupuestoCompra::create([
-                'numero'            => $request->numero,
-                'estado'            => 1,
-                'fecha'             => Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d'),
-                'validez'           => Carbon::createFromFormat('d/m/Y', $request->validez)->format('Y-m-d'),
-                'proveedor_id'      => $request->proveedor_id,
-                'pedido_compra_id'  => $request->pedido_compra_id
-            ]);
-
-            foreach( $request->materias as $key => $value ) {
-                PresupuestoCompraDetalle::create([
-                    'presupuesto_compra_id'    => $presupuestocompra->id,
-                    'materia_prima_id'  => $value,
-                    'cantidad'          => $request->cantidades[$key],
-                    'precio_unitario'   => $request->precios[$key],
-                    // 'descuento'         => $request->descuentos[$key],
-                    // 'umedid_id'         => $request->umedidas[$key],
+            DB::beginTransaction();
+            try {
+                $presupuestocompra  = PresupuestoCompra::create([
+                    'numero'            => $request->numero,
                     'estado'            => 1,
+                    'fecha'             => Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d'),
+                    'validez'           => Carbon::createFromFormat('d/m/Y', $request->validez)->format('Y-m-d'),
+                    'proveedor_id'      => $request->proveedor_id,
+                    'pedido_compra_id'  => $request->pedido_compra_id
+                ]);
+    
+                foreach( $request->materias as $key => $value ) {
+                    PresupuestoCompraDetalle::create([
+                        'presupuesto_compra_id'    => $presupuestocompra->id,
+                        'materia_prima_id'  => $value,
+                        'cantidad'          => $request->cantidades[$key],
+                        'precio_unitario'   => $request->precios[$key],
+                        // 'descuento'         => $request->descuentos[$key],
+                        // 'umedid_id'         => $request->umedidas[$key],
+                        'estado'            => 1,
+                    ]);
+                }
+                DB::commit();
+    
+                toastr()->success('Presupuesto Creado Exitosamente ','#'.$presupuestocompra->id);
+    
+                return response()->json([
+                    'success' => true
+                ]);
+
+            } catch (\Exception $e) {
+
+                DB::rollBack();
+                toastr()->error('Error al crear el presupuesto: ' . $e->getMessage());
+
+                return response()->json([
+                    'success' => false,
+                    'error'   => $e->getMessage()
                 ]);
             }
-
-            toastr()->success('Presupuesto Creado Exitosamente ','#'.$presupuestocompra->id);
-
-            return response()->json([
-                'success' => true
-            ]);
-
         }
         abort(404);
     }
