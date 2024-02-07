@@ -1,6 +1,11 @@
 <?php
 
 return [
+    //General
+    'type_condition' => [
+        1 => 'CONTADO', 
+        2 => 'CREDITO'
+    ],
     //Usuarios
     'users-status' => [
         1 => 'Activo',
@@ -79,5 +84,16 @@ return [
     'tipo-descuento' => [
         1 => 'GUARANIES',
         2 => 'PORCENTAJE'
+    ],
+    //ORDEN DE COMPRAS
+    'orden-compras-status' => [  
+        1 => 'PENDIENTE',
+        2 => 'AUTORIZADO',
+        3 => 'RECHAZADO',
+    ],
+    'orden-compras-status-label' => [  
+        1 => 'warning',
+        2 => 'primary',
+        3 => 'danger',
     ],
 ];

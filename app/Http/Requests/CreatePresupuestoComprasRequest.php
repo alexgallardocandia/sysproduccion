@@ -26,6 +26,10 @@ class CreatePresupuestoComprasRequest extends FormRequest
             if( request()->detail_total <= 0 ) {
                 $validator->errors()->add('detail_total','El presupuesto debe tener al menos un detalle');
             }
+            if ( !request()->solicitante_id && !request()->pedido_compra_id ) {
+                $validator->errors()->add('solicitante_id','El presupuesto debe tener, pedido compra o solicitante');
+            }
+            // dd(request()->all());
         });
     }
 }

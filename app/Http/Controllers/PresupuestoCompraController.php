@@ -8,10 +8,12 @@ use App\Models\PedidoCompra;
 use App\Models\PresupuestoCompra;
 use App\Models\PresupuestoCompraDetalle;
 use App\Models\Proveedor;
+use App\Models\Empleado;
+use App\Models\OrdenCompra;
+use App\Models\OrdenCompraDetalle;
 use App\Models\UnidadMedida;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class PresupuestoCompraController extends Controller
 {
@@ -29,7 +31,8 @@ class PresupuestoCompraController extends Controller
         $proveedores        = Proveedor::get();
         $materias           = MateriaPrima::get();
         $umedidas           = UnidadMedida::get();
-        return view('pages.compras.presupuestos-compras.create', compact('pedidos_compras','proveedores','materias','umedidas'));
+        $empleados          = Empleado::where('estado', 1)->get();
+        return view('pages.compras.presupuestos-compras.create', compact('pedidos_compras','proveedores','materias','umedidas', 'empleados'));
     }
     public function store(CreatePresupuestoComprasRequest $request)
     {
@@ -42,7 +45,10 @@ class PresupuestoCompraController extends Controller
                     'fecha'             => Carbon::createFromFormat('d/m/Y', $request->fecha)->format('Y-m-d'),
                     'validez'           => Carbon::createFromFormat('d/m/Y', $request->validez)->format('Y-m-d'),
                     'proveedor_id'      => $request->proveedor_id,
-                    'pedido_compra_id'  => $request->pedido_compra_id
+                    'pedido_compra_id'  => $request->pedido_compra_id,
+                    'solicitante_id'    => $request->solicitante_id,
+                    'condicion'         => $request->condicion,
+                    'nro_cuotas'        => $request->nro_cuotas,
                 ]);
     
                 foreach( $request->materias as $key => $value ) {
@@ -246,33 +252,69 @@ class PresupuestoCompraController extends Controller
     public function aprove()
     {
         if ( request()->ajax() ) {
+            DB::beginTransaction();
+            try{
 
-            $presupuesto_compra = PresupuestoCompra::find(request()->presupuesto_id);
+                $presupuesto_compra = PresupuestoCompra::find(request()->presupuesto_id);
 
-            if ( request()->check_aprove ) {
-
-                foreach ( request()->detail_id_materia as $key => $value ) {
-
-                    if ( isset(request()->check_aprove[$value]) ) {
-
-                        $presupuesto_compra->details()->where('materia_prima_id', $value)->update(['estado' => 2]);
-
+                if ( request()->check_aprove ) {
+    
+                    foreach ( request()->detail_id_materia as $key => $value ) {
+    
+                        if ( isset(request()->check_aprove[$value]) ) {
+    
+                            $presupuesto_compra->details()->where('materia_prima_id', $value)->update(['estado' => 2]);
+    
+                        }
                     }
+    
+                    $presupuesto_compra->update(['estado' => 2]);
+                    $presupuesto_compra->pedido_compra->update(['estado' => 2]);
+                
+                    $presupuesto_compra_details = PresupuestoCompraDetalle::where('presupuesto_compra_id', $presupuesto_compra->id)->where('estado', 2)->get();
+
+                    /*ORDEN DE COMPRA*/
+                        $orden_compra  = OrdenCompra::create([
+                            'fecha'                     => now(),
+                            'presupuesto_compra_id'     => $presupuesto_compra->id,
+                            'solicitante_id'            => $presupuesto_compra->solicitante_id ?? $presupuesto_compra->pedido_compra->empleado_id,
+                            'observacion'               => request()->observacion,
+                            'estado'                    => 1
+                        ]);
+            
+                        foreach( $presupuesto_compra_details as $value ) {
+                            OrdenCompraDetalle::create([
+                                'orden_compra_id'    => $orden_compra->id,
+                                'materia_prima_id'  => $value->materia_prima_id,
+                                'cantidad'          => $value->cantidad,
+                                'precio_unitario'   => $value->precio_unitario
+                            ]);
+                        }
+                    /*ORDEN DE COMPRA */
+                    DB::commit();
+
+                    toastr()->success('Presupuesto Aprobado');
+                    toastr()->success('Orden Nro. '. $orden_compra->id .'Generada!' );
+        
+                    return response()->json(['success' => true]);
+    
+                } else {
+                    DB::commit();
+                    
+                    toastr()->warning('Sin cambios');
+        
+                    return response()->json(['success' => true]);
                 }
+            } catch (\Exception $e) {
+                DB::rollBack();
+                toastr()->error('Error al crear el presupuesto: ' . $e->getMessage());
 
-                $presupuesto_compra->update(['estado' => 2]);
-                $presupuesto_compra->pedido_compra->update(['estado' => 2]);
-
-                toastr()->success('Presupuesto Aprobado');
-    
-                return response()->json(['success' => true]);
-
-            } else {
-
-                toastr()->warning('Sin cambios');
-    
-                return response()->json(['success' => true]);
+                return response()->json([
+                    'success' => false,
+                    'error'   => $e->getMessage()
+                ]);
             }
+
         }
         abort(404);
     }

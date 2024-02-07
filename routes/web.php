@@ -169,6 +169,21 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('presupuestos-compras', 'PresupuestoCompraController@destroy')->name('presupuestos-compras.delete');
         Route::post('ajax/getdetailspedidos', 'PresupuestoCompraController@ajax_getdetailspedidos')->name('presupuestos-compras.ajax_getdetailspedidos');
         Route::post('ajax/aprove', 'PresupuestoCompraController@aprove')->name('presupuestos-compras.aprove');
+
+        //orden-compras routes
+        Route::get('orden-compras','OrdenCompraController@index')->name('orden-compras.index')->middleware('permission:orden-compras.index');
+        Route::get('orden-compras/create','OrdenCompraController@create')->name('orden-compras.create')->middleware('permission:orden-compras.create');
+        Route::post('orden-compras','OrdenCompraController@store')->name('orden-compras.store');
+        Route::get('orden-compras/{ordencompra}', 'OrdenCompraController@show')->name('orden-compras.show')->middleware('permission:orden-compras.show');
+        Route::get('orden-compras/{ordencompra}/edit', 'OrdenCompraController@edit')->name('orden-compras.edit')->middleware('permission:orden-compras.edit');
+        Route::post('orden-compras/aprove', 'OrdenCompraController@aprove')->name('orden-compras.aprove')->middleware('permission:orden-compras.aprove');
+        Route::get('orden-compras/{ordencompra}/pdf', 'OrdenCompraController@pdf')->name('orden-compras.pdf')->middleware('permission:orden-compras.aprove');
+        Route::put('orden-compras', 'OrdenCompraController@update')->name('orden-compras.update');
+        Route::delete('orden-compras', 'OrdenCompraController@destroy')->name('orden-compras.delete');
+
+        //Ajax
+        Route::post('ajax/getpresupuestos','OrdenCompraController@ajax_getpresupuestos')->name('ajax-getpresupuestos');
+
     /*FIN MENU COMPRAS*/
     /*MENU CONFIGURACIONES COMPRAS REFERENCIALES*/
         //users routes

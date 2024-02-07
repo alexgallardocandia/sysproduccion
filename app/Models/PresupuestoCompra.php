@@ -19,8 +19,11 @@ class PresupuestoCompra extends Model
         'validez',
         'monto_descuento',
         'tipo_descuento',
+        'condicion',
+        'nro_cuotas',
         'proveedor_id',
         'pedido_compra_id',
+        'solicitante_id',
     ];
 
     protected $append   = [
@@ -30,11 +33,18 @@ class PresupuestoCompra extends Model
     public function proveedor() {
         return $this->belongsTo('App\Models\Proveedor');
     }
+    public function solicitante() {
+        return $this->belongsTo('App\Models\Empleado');
+    }
     public function pedido_compra() {
         return $this->belongsTo('App\Models\PedidoCompra');
     }
     public function details() {
         return $this->hasMany('App\Models\PresupuestoCompraDetalle');
+    }
+    public function orden_compra()
+    {
+        return $this->hasOne('App\Models\OrdenCompra');
     }
     public function getFechaAttribute() {
         return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha'])->format('d/m/Y');

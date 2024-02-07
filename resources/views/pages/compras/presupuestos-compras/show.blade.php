@@ -20,6 +20,7 @@
                                   <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Fecha: </b>{{ $presupuestocompra->fecha }}</li>
                                   <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Validez: </b>{{ $presupuestocompra->validez }}</li>
                                   <li class="list-group-item"><i class="bi bi-person-fill text-success"></i><b>Proveedor: </b>{{ $presupuestocompra->proveedor->razon_social }}</li>
+                                  <li class="list-group-item"><i class="bi bi-person-fill text-success"></i><b>Solicitante: </b>{{ $presupuestocompra->solicitante_id ? $presupuestocompra->solicitante->fullname : ($presupuestocompra->pedido_compra_id ? $presupuestocompra->pedido_compra->empleado->fullname :'') }}</li>
                               </ul><!-- End List group With Icons -->                              
                             </div>
                             <div class="card-body col-6">
@@ -28,6 +29,8 @@
                                     <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Creado: </b>{{$presupuestocompra->created_at->format('d/m/Y H:m:s')}}</li>
                                     <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Modificado:</b>{{$presupuestocompra->updated_at->format('d/m/Y H:m:s')}}</td>
                                     <li class="list-group-item"><i class="ri-shopping-bag-3-fill me-1 text-success"></i><b>Pedido de Compra: </b>{{$presupuestocompra->pedido_compra ? $presupuestocompra->pedido_compra->id.'- '.$presupuestocompra->pedido_compra->empleado->fullname.' | '. $presupuestocompra->pedido_compra->fecha_pedido : ''}}</td>
+                                    <li class="list-group-item"><i class="ri-money-dollar-circle-line"></i><b>Condicion: </b>{{ config('constants.type_condition.'. $presupuestocompra->condicion)}}</li>
+                                    <li class="list-group-item"><i class="ri-artboard-2-line"></i><b>Nro de Coutas: </b> {{ $presupuestocompra->nro_cuotas }} </li>
                                 </ul>
                             </div>
                           </div>

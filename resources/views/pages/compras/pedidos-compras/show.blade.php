@@ -18,11 +18,12 @@
                                   <li class="list-group-item"><i class="bi bi-layers-half text-success"></i><b>Prioridad: </b><span class="badge bg-{{ config('constants.pedidos-compras-prioridad-label.' . intval($pedido_id->prioridad)) }}">{{ config('constants.pedidos-compras-prioridad.'. intval($pedido_id->prioridad)) }}</span></li>
                                   <li class="list-group-item"><i class="bi bi-question-lg text-success"></i><b>Estado: </b><span class="badge bg-{{ config('constants.pedidos-compras-status-label.' . intval($pedido_id->estado)) }}">{{ config('constants.pedidos-compras-status.'. intval($pedido_id->estado)) }}</span></li>
                                   <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Fecha: </b>{{$pedido_id->fecha_pedido}}</li>
-                                  <li class="list-group-item"><i class="bi bi-person-fill text-success"></i><b>Solicitante: </b>{{$pedido_id->user->empleado->fullname}}</li>
+                                  <li class="list-group-item"><i class="bi bi-person-fill text-success"></i><b>Solicitante: </b>{{$pedido_id->empleado->fullname}}</li>
                               </ul><!-- End List group With Icons -->                              
                             </div>
                             <div class="card-body col-6">
-                                <ul class="list-group">                                    
+                                <ul class="list-group">
+                                    <li class="list-group-item"><i class="bi bi-person-fill text-success"></i><b>Creado por: </b>{{$pedido_id->user->empleado->fullname}}</li>
                                     <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Creado: </b>{{$pedido_id->created_at->format('d/m/Y H:m:s')}}</li>
                                     <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Modificado:</b>{{$pedido_id->updated_at->format('d/m/Y H:m:s')}}</td>
                                 </ul>

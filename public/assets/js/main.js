@@ -5,7 +5,7 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-$(document).ready(function(){
+$(function(){
 
   $("[format-number]").inputmask({
     alias: 'decimal',

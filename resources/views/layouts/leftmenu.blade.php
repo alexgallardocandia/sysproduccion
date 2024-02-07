@@ -136,6 +136,13 @@
                 </a>
               </li>
             @endpermission
+            @permission('orden-compras.index')
+              <li>
+                <a id="orden-compras-menu" href="{{route('orden-compras.index')}}" >
+                  <i class="bi bi-circle"></i><span>Orden de Compra</span>
+                </a>
+              </li>
+            @endpermission
           </ul>
         </li>
       @endpermission

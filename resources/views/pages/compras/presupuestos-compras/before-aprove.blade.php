@@ -84,9 +84,15 @@
                                     </tr>
                                 </tfoot>
                             </table>                       
+                            <div class="col-md-3">
+                                <label for="observacion" class="form-label">Observacion</label>
+                                <textarea name="observacion" id="observacion" cols="30" rows="3" class="form-control"></textarea>                                
+                            </div>
                         </div>
-                        <div class="card-footer">                        
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-bookmark-check-fill"></i> Aprobar</button>
+                        <div class="card-footer">  
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-bookmark-check-fill"></i> Generar Orden</button>
+                            </div>
                         </div>
                     </form>
                 </div>

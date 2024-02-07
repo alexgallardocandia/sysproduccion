@@ -7,24 +7,44 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
-                <h5>Crear Presupuesto de Compra</h5>              
+                <h5>Crear Orden de Compra</h5>
               </div>
               <div class="card-body">
                 <div class="mb-3"></div>
                 <form class="row g-3" id="form">
                   @csrf
                     <div class="col-md-3">
-                      <label for="numero" class="form-label">Numero</label>
-                      <input name="numero" id="numero" class="form-control" value="" format-number/>
+                      <label for="presupuesto_compra_id" class="form-label">Presupuesto de Compra</label>
+                      <select class="selectpicker form-control" name="presupuesto_compra_id" id="presupuesto_compra_id" data-live-search="true" >
+                        <option value="">Seleccione...</option>
+                        @foreach ($presupuestos as $presupuesto )
+                            <option value="@json($presupuesto->id)">{{$presupuesto->id.'|'.$presupuesto->fecha.'|'.number_format($presupuesto->getTotalDetalles(), 0, ',', '.')}}</option>
+                        @endforeach
+                      </select>
                     </div>
                     <div class="col-md-3">
+                      <label for="fecha" class="form-label">Fecha</label>
+                      <input name="fecha" type="text" class="form-control" value="{{now()->format('d/m/Y')}}" readonly required>
+                    </div>
+                    <div class="col-md-3" id="div-solicitante">
+                      <label for="solicitante_id" class="form-label">Solicitante</label>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="descuento" class="form-label">Descuento</label>
+                      <input name="descuento"  id="descuento" type="number" min="0" max="100" class="form-control" format-number required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="observacion" class="form-label">Observacion</label>
+                      <textarea name="observacion"  id="observacion" type="textarea" class="form-control"></textarea>
+                    </div>
+                    {{-- <div class="col-md-3">
                       <label for="fecha" class="form-label">Fecha</label>
                       <input name="fecha" type="text" id="fecha" class="form-control" value="dd/mm/YY" required>
                     </div>
                     <div class="col-md-3">
                       <label for="validez" class="form-label">Validez</label>
                       <input name="validez" type="text" id="validez" class="form-control" value="dd/mm/YY" required>
-                    </div>
+                    </div> --}}
                     {{-- <div class="col-md-3">
                       <label for="monto_descuento" class="form-label">Monto Descuento</label>
                       <input name="monto_descuento" type="text" id="monto_descuento" class="form-control" format-number required>
@@ -38,7 +58,7 @@
                         @endforeach
                       </select>
                     </div> --}}
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
                       <label for="proveedor_id" class="form-label">Proveedor</label>
                       <select class="selectpicker" name="proveedor_id" id="proveedor_id" data-live-search="true" >
                         <option value="">Seleccione...</option>
@@ -48,42 +68,13 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <br>
-                      <div class="checkbox checkbox-inline">
-                          <input type="checkbox" name="check_pedido_compra" id="check_pedido_compra" value="1" >
-                          <label for="check_pedido_compra">Con pedido compra</label>
-                      </div>
-                    </div>
-                    <div class="col-md-3" id="div-pedido_compra" hidden>
                       <label for="pedido_compra_id" class="form-label">Pedido Compra</label>
                       <select class="selectpicker form-control" data-live-search="true" name="pedido_compra_id" id="pedido_compra_id">
-                        <option value="">Seleccione...</option>
+                        <option value="0">Seleccione...</option>
                         @foreach ($pedidos_compras as $pedido )
                             <option value="@json($pedido->id)">{{$pedido->id.' | '.$pedido->empleado->fullname.' | '.$pedido->fecha_pedido}}</option>
                         @endforeach
                       </select>
-                    </div>
-                    <div class="col-md-3" id="div-solicitante">
-                      <label for="solicitante_id" class="form-label">Solicitante</label>
-                      <select name="solicitante_id" id="solicitante_id" class="selectpicker form-control" data-live-search="true">
-                        <option value="">Seleccione...</option>
-                        @foreach ( $empleados as $empleado )
-                            <option value="@json($empleado->id)">{{ $empleado->fullname }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                    <div class="col-md-3" id="div-condicion">
-                      <label for="condicion" class="form-label">Condicion</label>
-                      <select name="condicion" id="condicion" class="selectpicker form-control" data-live-search="true">
-                        <option value="">Seleccione...</option>
-                        @foreach ( config('constants.type_condition') as $key => $condicion )
-                            <option value="{{$key}}">{{ $condicion }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                    <div class="col-md-3" id="div-nro_cuotas" hidden>
-                      <label for="nro_cuotas" class="form-label">Cuotas</label>
-                      <input type="number" min="1" max="100" value="1" name="nro_cuotas" class="form-control"/>
                     </div>
                     <div class="col-md-3">
                       <div class="row g-3" id="pedido_compra_detalles_div" hidden>
@@ -98,23 +89,23 @@
                               </tr>
                             </thead>
                             <tbody id="detail_body"></tbody>
-                          </table>
+                          </table> --}}
                           <!-- End Table Variants -->
-                        </div>
+                        {{-- </div>
                       </div>
-                    </div>
+                    </div> --}}
                   <div class="row g-3">
-                    <hr>
+                    {{-- <hr>
                     <p>Agregar Detalle</p>
                     <div class="col-md-3">
-                      <label for="materia_id" class="col-sm-4 col-form-label">Materia P.</label>
-                      <select class="selectpicker" data-live-search="true" name="materia_id" id="materia_id">
+                      <label for="materia_id" class="col-sm-4 col-form-label">Materia P.</label> --}}
+                      {{-- <select class="selectpicker" data-live-search="true" name="materia_id" id="materia_id">
                         <option value="">Seleccione...</option>
                         @foreach($materias as $materia)                              
                           <option value='{{$materia->id}}'>{{$materia->nombre.' | '.$materia->unidad_medida->descripcion}}</option>
                         @endforeach()                            
-                      </select>
-                    </div>
+                      </select> --}}
+                    {{-- </div>
                     <div class="col-md-3">
                       <label for="cantidad" class="col-sm-4 col-form-label">Cantidad</label>
                       <input name="cantidad" id="cantidad" type="text" class="form-control" format-number>
@@ -125,7 +116,7 @@
                     </div>
                     <div class="col-md-1" style="margin-top:3.5%;">
                       <button id="btn_agregar" type="button" class="btn btn-primary"><b><i class="bi-plus-lg"></i></b></button>
-                    </div>
+                    </div> --}}
                     <div id="oculto" class="card-body" hidden>
                       <h5 class="card-title">Detalle</h5>
                       <!-- Table with stripped rows -->
@@ -145,8 +136,10 @@
                             <tr>
                                 <td colspan="2"></td>
                                 <td id="td_total" class="text-right"></td>
-                                <td id="td_total_precio" class="text-right"></td>
+                                <td></td>
+                                {{-- <td id="td_total_precio" class="text-right"></td> --}}
                                 <td id="td_grand_total" class="text-right"></td>
+                                <td></td>
                             </tr>
                         </tfoot>
                       </table>
@@ -155,7 +148,7 @@
                     </div>
                     <div class="card-footer">                        
                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
-                        <a href="{{url('presupuestos-compras')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
+                        <a href="{{url('orden-compras')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
                     </div>
                   </div>    
                 </form>
@@ -170,19 +163,25 @@
 @section('script')
 <script>
     var count = 0;
-    $(document).ready(function() {
-      $('#compras-nav').addClass("show");//coloca el menu en show
-      $('#presupuestos-compras-menu').addClass("active");//coloca activo el submenu usuario
+    var solicitante = '';
+    var solicitante_id = '';
 
-      $('#form').on('submit', function(e) {        
+    $(function() {
+
+      $('#compras-nav').addClass("show");//coloca el menu en show
+      $('#orden-compras-menu').addClass("active");//coloca activo el submenu usuario
+
+      $('#form').on('submit', function(e) {
+
         e.preventDefault();
         $('input[type=submit]').prop('disable', true);
+
         $.ajax({
           type: "POST",
-          url: "{{route('presupuestos-compras.store')}}",
+          url: "{{route('orden-compras.store')}}",
           data: $(this).serialize(),            
           success: function (response) {
-            redirect("{{ route('presupuestos-compras.index') }}");
+            redirect("{{ route('orden-compras.index') }}");
           },
           error:function(data){
             laravelErrorMessages(data);
@@ -192,54 +191,44 @@
         });
       });
       
-      $('#check_pedido_compra').on('change', function() {
-
-          if ($(this).is(':checked')) {
-              $('#div-pedido_compra').prop('hidden', false);
-              $('#div-solicitante').prop('hidden', true);
-
-          } else {
-              $('#div-pedido_compra').prop('hidden', true);
-              $('#div-solicitante').prop('hidden', false);
-          }
-
-      });
-
-      $('#condicion').on('change', function() {
-
-        if ($(this).val() != 1) {
-            $('#div-nro_cuotas').prop('hidden', false);
-
-        } else {
-            $('#div-nro_cuotas').prop('hidden', true);
-        }
-
-      });
-
-      $('#pedido_compra_id').on('change', function() { 
-        if ( $(this).val() != 0  ) {
+      $('#presupuesto_compra_id').on('change', function() { 
           $.ajax({
+
             type: "POST",
-            url: "{{url('ajax/getdetailspedidos')}}",
+            url: "{{url('ajax/getpresupuestos')}}",
             data: $(this).serialize(),
             success: function (data) {
-              $('#detail_body').html('');
               $('#pre_det').html('');
-
-              $.each(data.detalles, function (key, value) {
-                showPedidoCompraDetalle(value.materianame, value.materia_id, value.cantidad);
+              $.each(data, function (key, value) { 
+                solicitante = value.solicitante;
+                solicitante_id = value.solicitante_id;
+                showPedidoCompraDetalle(value.materianame, value.materia_id, value.cantidad, value.precio);
               });
-              count = 0;
+
+              // var $option = $('#solicitante_id').find('option[value="' + solicitante + '"]');
+
+              console.log(solicitante);
+              if ( solicitante != '' && solicitante_id != '' ) {
+
+                $('#div-solicitante').html('');
+                $('#div-solicitante').append(
+                  '<label for="solicitante_id" class="form-label">Solicitante</label>'+
+                  '<input type="hidden" name="solicitante_id" class="form-control" value="'+solicitante_id+'" readonly/>'+
+                  '<input type="text" class="form-control" value="'+solicitante+'" readonly/>'
+                );
+
+              }
+
             },
             error:function(data) {
+
               laravelErrorMessages(data);
               $('#oculto').prop('hidden', true);
+
             }
+
           });
-        } else {
-          $('#detail_body').html('');
-          $('#oculto').prop('hidden', true);
-        }
+
       });
 
 
@@ -270,23 +259,22 @@
         dateFormat: "d/m/Y", // Formato de fecha
       });
     });
-    function showPedidoCompraDetalle(materianame, materia_id, cantidad)
+    function showPedidoCompraDetalle(materianame, materia_id, cantidad, precio)
     {
-      var precio = 0;
-
       count++;
         $('#pre_det').append(
           '<tr name="detalle[]" id="detalle">'+
             '<td>'+count+'</td>'+
             '<td>'+materianame+'</td>'+
             '<td id="td_cantidad_'+materia_id+'">'+$.number(cantidad,0,',','.')+'</td>'+
-            '<td><input type="text" name="precios_td[]" format-number class="form-control" id="td_precio_'+materia_id+'" onkeyup="recalculateTotal(this)"/></td>'+
+            '<td><input type="text" name="precios_td[]" format-number class="form-control" id="td_precio_'+materia_id+'" value="'+ precio +'" onkeyup="recalculateTotal(this)" readonly/></td>'+
             '<td name="subtotales[]" id="td_subtotal_'+materia_id+'">'+$.number((precio * cantidad),0,',','.')+'</td>'+
             '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
             '<input type="hidden" id="cantidad_'+materia_id+'" name="cantidades[]" value="'+cantidad+'"/>'+
             '<input type="hidden" id="precio_'+materia_id+'" name="precios[]" value="'+precio+'"/>'+
             '<input type="hidden" id="precio_total_'+materia_id+'" name="precios_total[]" value="'+precio * cantidad+'"/>'+
-            '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
+            '<td></td>'+
+            // '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
           +'</tr>'
         );
         calculateTotal();
