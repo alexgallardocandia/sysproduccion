@@ -45,18 +45,19 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Materia Prima</th>
                                     <th>Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>                                    
-                                    @foreach ($pedido_id->details as $detail)
-                                    
+                                @foreach ($pedido_id->details as $detail)
+                                    <tr>          
+                                        <td>{{$loop->iteration}}</td>
                                         <td>{{$detail->materia_prima->nombre}}</td>
                                         <td>{{number_format($detail->cantidad, 0, ',', '.').' '.$detail->materia_prima->unidad_medida->signo}}</td>
-                                    @endforeach
-                                </tr>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>                       
                     </div>

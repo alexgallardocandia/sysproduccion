@@ -96,4 +96,26 @@ return [
         2 => 'primary',
         3 => 'danger',
     ],
+    //COMPRAS
+    'compras-status' => [  
+        1 => 'PENDIENTE',
+        2 => 'AUTORIZADO',
+        3 => 'RECHAZADO',
+    ],
+    'compras-status-label' => [  
+        1 => 'warning',
+        2 => 'primary',
+        3 => 'danger',
+    ],
+    //COMPRAS
+    'compra-cuotas-status' => [  
+        1 => 'PENDIENTE',
+        2 => 'PAGADO',
+        3 => 'ANULADO',
+    ],
+    'compra-cuotas-status-label' => [  
+        1 => 'warning',
+        2 => 'primary',
+        3 => 'danger',
+    ],
 ];

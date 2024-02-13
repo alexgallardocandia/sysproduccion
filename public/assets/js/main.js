@@ -18,6 +18,8 @@ $(function(){
     removeMaskOnSubmit: true,
   });
   
+  $("[invoice-purchase-mask]").inputmask({ "mask": "999-999-9999999" });
+
 });
 function laravelErrorMessages(data) {
   

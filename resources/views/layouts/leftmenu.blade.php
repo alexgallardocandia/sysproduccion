@@ -143,6 +143,13 @@
                 </a>
               </li>
             @endpermission
+            @permission('compras.index')
+              <li>
+                <a id="compras-menu" href="{{route('compras.index')}}" >
+                  <i class="bi bi-circle"></i><span>Compras</span>
+                </a>
+              </li>
+            @endpermission
           </ul>
         </li>
       @endpermission

@@ -14,6 +14,7 @@ use App\Models\OrdenCompraDetalle;
 use App\Models\UnidadMedida;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PresupuestoCompraController extends Controller
 {
@@ -269,10 +270,14 @@ class PresupuestoCompraController extends Controller
                     }
     
                     $presupuesto_compra->update(['estado' => 2]);
-                    $presupuesto_compra->pedido_compra->update(['estado' => 2]);
+
+                    if ($presupuesto_compra->pedido_compra ) {
+                        $presupuesto_compra->pedido_compra->update(['estado' => 2]);
+                    }                    
                 
                     $presupuesto_compra_details = PresupuestoCompraDetalle::where('presupuesto_compra_id', $presupuesto_compra->id)->where('estado', 2)->get();
 
+                    Log::info($presupuesto_compra->pedido_compra);
                     /*ORDEN DE COMPRA*/
                         $orden_compra  = OrdenCompra::create([
                             'fecha'                     => now(),

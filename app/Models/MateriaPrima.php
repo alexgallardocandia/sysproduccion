@@ -18,6 +18,7 @@ class MateriaPrima extends Model
         'descripcion',
         'tipo',
         'precio',
+        'tipo_impuesto_id',
     ];
     public function unidad_medida() {
         return $this->belongsTo('App\Models\UnidadMedida');
@@ -27,6 +28,15 @@ class MateriaPrima extends Model
     }
     public function marca() {
         return $this->belongsTo('App\Models\Marca');
+    }
+    /**
+     * Get the user that owns the MateriaPrima
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tipo_impuesto()
+    {
+        return $this->belongsTo(TipoImpuesto::class);
     }
     // public function getFechaAttribute() {
     //     return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha_lote'])->format('d/m/Y');

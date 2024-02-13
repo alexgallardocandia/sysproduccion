@@ -15,14 +15,9 @@ class Timbrado extends Model
         'numero',
         'fecha_emision',
         'fecha_vencimiento',
-        'proveedor_id',
         'estado'
     ];
 
-    public function proveedor()
-    {
-        return $this->belongsTo('App\Models\Proveedor');
-    }
     public function getFechaEmisionAttribute() {
         return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha_emision'])->format('d/m/Y');
     }

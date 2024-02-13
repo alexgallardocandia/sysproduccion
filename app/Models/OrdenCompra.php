@@ -29,6 +29,10 @@ class OrdenCompra extends Model
     public function details() {
         return $this->hasMany('App\Models\OrdenCompraDetalle');
     }
+    public function compra()
+    {
+        return $this->hasOne('App\Models\Compra');
+    }
     public function getFechaAttribute() {
         return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha'])->format('d/m/Y');
     }

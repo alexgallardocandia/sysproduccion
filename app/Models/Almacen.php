@@ -20,4 +20,9 @@ class Almacen extends Model
     public function sucursal(){
         return $this->belongsTo('App\Models\Sucursal');
     }
+
+    public function stock_materia_prima()
+    {
+        return $this->hasMany(StockMateriaPrima::class);
+    }
 }

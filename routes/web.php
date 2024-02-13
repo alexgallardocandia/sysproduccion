@@ -181,8 +181,19 @@ Route::middleware(['auth'])->group(function () {
         Route::put('orden-compras', 'OrdenCompraController@update')->name('orden-compras.update');
         Route::delete('orden-compras', 'OrdenCompraController@destroy')->name('orden-compras.delete');
 
+        //compras routes
+        Route::get('compras','CompraController@index')->name('compras.index')->middleware('permission:compras.index');
+        Route::get('compras/create','CompraController@create')->name('compras.create')->middleware('permission:compras.create');
+        Route::post('compras','CompraController@store')->name('compras.store');
+        Route::get('compras/{compra}', 'CompraController@show')->name('compras.show')->middleware('permission:compras.show');
+        Route::get('compras/{compra}/edit', 'CompraController@edit')->name('compras.edit')->middleware('permission:compras.edit');
+        Route::get('compras/{compra}/pdf', 'CompraController@pdf')->name('compras.pdf')->middleware('permission:compras.index');
+        Route::put('compras', 'CompraController@update')->name('compras.update');
+        Route::delete('compras', 'CompraController@destroy')->name('compras.delete');
+
         //Ajax
         Route::post('ajax/getpresupuestos','OrdenCompraController@ajax_getpresupuestos')->name('ajax-getpresupuestos');
+        Route::post('ajax/getorden','CompraController@ajax_getorden')->name('ajax-getorden');
 
     /*FIN MENU COMPRAS*/
     /*MENU CONFIGURACIONES COMPRAS REFERENCIALES*/

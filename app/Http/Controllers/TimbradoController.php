@@ -33,7 +33,6 @@ class TimbradoController extends Controller
                 'numero'            => $request->numero,
                 'fecha_emision'     => Carbon::createFromFormat('d/m/Y',$request->fecha_emision)->format('Y-m-d'),
                 'fecha_vencimiento' => Carbon::createFromFormat('d/m/Y',$request->fecha_vencimiento)->format('Y-m-d'),
-                'proveedor_id'      => $request->proveedor_id,
                 'estado'            => 1
             ]);
 
@@ -50,9 +49,8 @@ class TimbradoController extends Controller
     }
 
     public function edit(Timbrado $timbrado) {
-        $proveedores = Proveedor::get();
 
-        return view('pages.timbrados.edit', compact('timbrado','proveedores'));
+        return view('pages.timbrados.edit', compact('timbrado'));
     }
 
     public function update(Request $request)
@@ -64,7 +62,6 @@ class TimbradoController extends Controller
             'numero'            => $request->numero,
             'fecha_emision'     => Carbon::createFromFormat('d/m/Y',$request->fecha_emision)->format('Y-m-d'),
             'fecha_vencimiento' => Carbon::createFromFormat('d/m/Y',$request->fecha_vencimiento)->format('Y-m-d'),
-            'proveedor_id'      => $request->proveedor_id,
             'estado'            => 1
         ]);
 

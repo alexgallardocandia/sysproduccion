@@ -17,14 +17,6 @@
                       <input name="numero" type="text" class="form-control" format-number required>
                     </div>
                     <div class="col-md-3">
-                      <label for="proveedor_id" class="form-label"><b>Proveedor</b></label>
-                      <select class="form-control" name="proveedor_id" id="proveedor_id">
-                        @foreach ($proveedores as $prov)
-                          <option value="@json($prov->id)">{{ $prov->razon_social }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                    <div class="col-md-3">
                       <label for="inputEmail3" class="form-label"><b>Fecha de Emision</b></label>
                       <input name="fecha_emision" type="text" id="fecha_emision" max="{{date('Y-m-d')}}" class="form-control" value="dd/mm/YYYY" required>
                     </div>

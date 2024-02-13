@@ -19,15 +19,6 @@
                         <input name="numero" type="number" min="100" class="form-control" value="{{$timbrado->numero}}" required>
                         <input name="timbrado_id" type="hidden" class="form-control" value="{{$timbrado->id}}" required>
                         </div>
-                        <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Proveedor</b></label>
-                        <div class="col-sm-3">
-                            <select class="form-control" name="proveedor_id" id="proveedor_id">
-                              <option value="@json($timbrado->proveedor_id)" selected>{{ $timbrado->proveedor->razon_social }}</option>
-                              @foreach ( $proveedores as $proveedor )
-                                <option value="@json($proveedor->id)">{{ $proveedor->razon_social }}</option>
-                              @endforeach
-                            </select>                          
-                        </div>
                     </div>     
                     <div class="row mb-3">
                         <label for="inputEmail3" class="col-sm-2 col-form-label"><b>Fecha de Emision</b></label>
