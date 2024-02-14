@@ -150,6 +150,13 @@
                 </a>
               </li>
             @endpermission
+            @permission('libro-compras.index')
+              <li>
+                <a id="libro-compras-menu" href="{{route('libro-compras.index')}}" >
+                  <i class="bi bi-circle"></i><span>Libro Compras</span>
+                </a>
+              </li>
+            @endpermission
           </ul>
         </li>
       @endpermission

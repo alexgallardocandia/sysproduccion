@@ -41,18 +41,18 @@
                             @if ($compra->estado == 2)
                               <a href="{{url('compras/' . $compra->id)}}"><i class="bi bi-info-circle-fill"></i></a>
                               <a href="{{url('compras/' . $compra->id . '/pdf')}}" target="new"><i class="bi bi-file-pdf-fill"></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#compra_delete" data-number="{{$compra->id}}" data-id="{{ $compra->id }}"><i class="bi bi-trash-fill"></i></a>
                             @endif
                             @if ($compra->estado == 3)
                               <a href="{{url('compras/' . $compra->id)}}"><i class="bi bi-info-circle-fill"></i></a>
                             @endif
-                            @if ($compra->estado != 2 && $compra->estado != 3)
+                            {{-- @if ($compra->estado != 2 && $compra->estado != 3)
                               @permission('compras.aprove')
                                 <a data-bs-toggle="modal" data-bs-target="#orden_aprove" data-number="{{$compra->id}}" data-id="{{ $compra->id }}"><i class="bi bi-check-circle-fill"></i></a>
                               @endpermission
                               <a href="{{url('compras/' . $compra->id)}}"><i class="bi bi-info-circle-fill"></i></a>
                               {{-- <a href="{{url('orden-compras/' . $compra->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a> --}}
-                              <a data-bs-toggle="modal" data-bs-target="#orden_delete" data-number="{{$compra->id}}" data-id="{{ $compra->id }}"><i class="bi bi-trash-fill"></i></a>                                                    
-                            @endif   
+                           {{-- @endif    --}}
                           </td>
                         </tr>
                     @endforeach
@@ -62,19 +62,19 @@
             </div>
           </div>     
           {{-- MODAL RECHAZAR --}}
-            <div class="modal fade" id="orden_delete" tabindex="-1">
+            <div class="modal fade" id="compra_delete" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title">Rechazar Orden </h5>
+                    <h5 class="modal-title">Anular Compra </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <form method="POST" action="{{route('orden-compras.delete')}}">
+                  <form method="POST" action="{{route('compras.delete')}}">
                     @csrf
                     @method('DELETE')
                     <div class="modal-body">
-                      <p>Deseas rechazar la orden Nro. <b><span id="orden_id"></span></b>?</p>
-                      <input name="orden_id" type="hidden" id="id_orden"/>
+                      <p>Deseas anular la compra Nro. <b><span id="compra_id"></span></b>?</p>
+                      <input name="compra_id" type="hidden" id="id_compra"/>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
@@ -96,8 +96,8 @@
                   <form method="POST" action="{{route('orden-compras.aprove')}}">
                     @csrf
                     <div class="modal-body">
-                      <p>Deseas aprobar la orden Nro. <b><span id="orden_id"></span></b>?</p>
-                      <input name="orden_id" type="hidden" id="id_orden_aprove"/>
+                      <p>Deseas aprobar la orden Nro. <b><span id="compra_id"></span></b>?</p>
+                      <input name="compra_id" type="hidden" id="id_compra_aprove"/>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
@@ -121,22 +121,22 @@
     $('#compras-nav').addClass('show');
     $('#compras-menu').addClass('active');
 
-    $('#orden_delete').on('show.bs.modal', function(event) {
+    $('#compra_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
-        var orden_id = button.data('id'); // Extraer el valor del atributo data-id
+        var compra_id = button.data('id'); // Extraer el valor del atributo data-id
         var number = button.data('number'); // Extraer el valor del atributo data-id
         var modal = $(this);
-        modal.find('#orden_id').text(number); // Insertar el valor en el modal
-        $('#id_orden').val(orden_id); // Insertar el valor en el modal        
+        modal.find('#compra_id').text(number); // Insertar el valor en el modal
+        $('#id_compra').val(compra_id); // Insertar el valor en el modal        
     });
 
     $('#orden_aprove').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
-        var orden_id = button.data('id'); // Extraer el valor del atributo data-id
+        var compra_id = button.data('id'); // Extraer el valor del atributo data-id
         var number = button.data('number'); // Extraer el valor del atributo data-id
         var modal = $(this);
-        modal.find('#orden_id').text(number); // Insertar el valor en el modal
-        $('#id_orden_aprove').val(orden_id); // Insertar el valor en el modal        
+        modal.find('#compra_id').text(number); // Insertar el valor en el modal
+        $('#id_compra_aprove').val(compra_id); // Insertar el valor en el modal        
     });
   });
 </script>

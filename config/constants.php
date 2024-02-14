@@ -98,12 +98,12 @@ return [
     ],
     //COMPRAS
     'compras-status' => [  
-        1 => 'PENDIENTE',
-        2 => 'AUTORIZADO',
-        3 => 'RECHAZADO',
+        // 1 => 'PENDIENTE',
+        2 => 'REGISTRADO',
+        3 => 'ANULADO',
     ],
     'compras-status-label' => [  
-        1 => 'warning',
+        // 1 => 'warning',
         2 => 'primary',
         3 => 'danger',
     ],

@@ -9,11 +9,14 @@ use App\Models\OrdenCompra;
 use App\Models\CompraDetalle;
 use App\Models\Timbrado;
 use App\Models\MateriaPrima;
+use App\Models\Proveedor;
 use App\Models\StockMateriaPrima;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+
 
 class CompraController extends Controller
 {
@@ -44,6 +47,7 @@ class CompraController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         
         if (request()->ajax()) {
 
@@ -53,6 +57,7 @@ class CompraController extends Controller
                 $monto_cuota = 0;
                 $frecuencia  = intval($request->frecuencia);
 
+                //CREAMOS LA COMPRA
                 $compra = Compra::create([
                     'proveedor_id'      => $request->proveedor_id,
                     'orden_compra_id'   => $request->orden_compra_id,
@@ -62,10 +67,12 @@ class CompraController extends Controller
                     'condicion'         => $request->condicion,
                     'electronico'       => 0,
                     'descuento'         => $request->descuento,
+                    'estado'            => 2,
                 ]);
-                
+                //RECUPERAMOS EL ALMACEN DEL SOLICITANTE
                 $almacen = Almacen::where('sucursal_id', $compra->orden_compra->solicitante->sucursal_id)->first();
 
+                //RECORREMOS EL DETALLE DE MATERIAS PRIMAS DE LA VISTA
                 foreach( $request->materias as $key => $value ) {
                     
                     $materia_prima = MateriaPrima::find($value);
@@ -83,30 +90,37 @@ class CompraController extends Controller
                         'iva5'              => $iva5,
                         'iva10'             => $iva10
                     ]);
-                    
-                    $old_stock = StockMateriaPrima::where('almacen_id',$almacen->id)->where('materia_prima_id', $value)->first();
+                }
+                //RECORREMOS LOS DETALLES DE LA COMPRA CREADA
+                foreach($compra->details as $detalle) {
+
+                    $old_stock = StockMateriaPrima::where('materia_prima_id', $detalle->materia_prima_id)->where('almacen_id',$almacen->id)->first();
+
 
                     if($old_stock) { //si ya existe un stock con el mismo almacen y la misma materia prima
+
                         if(($old_stock->actual + $request->cantidades[$key]) > $old_stock->cantidad_maxima) { //si supera la cantidad maxima
                             
-
                         } else {
-                            
-                            $old_stock->update([
-                                'actual' => $old_stock->actual + $request->cantidades[$key],
-                            ]);
+
+                            if($old_stock->materia_prima_id == $detalle->materia_prima_id)
+                            {
+                                $old_stock->where('materia_prima_id', $detalle->materia_prima_id)->where('almacen_id',$almacen->id)->update([
+                                    'actual' => $old_stock->actual + $request->cantidades[$key],
+                                ]);
+                            }
                         }
                     } else {
                         StockMateriaPrima::create([
                             'almacen_id'        => $almacen->id,
-                            'materia_prima_id'  => $value,
+                            'materia_prima_id'  => $detalle->materia_prima_id,
                             'cantidad_minima'   => 2,
                             'cantidad_maxima'   => 100,
-                            'actual'            => $request->cantidades[$key]
+                            'actual'            => $detalle->cantidad
                         ]);
                     }
                     
-                    $monto_cuota += intval($request->precios[$key]) * intval($request->cantidades[$key]);
+                    $monto_cuota += intval($detalle->precio_unitario) * intval($detalle->cantidad);
                 }
                 
                 
@@ -186,14 +200,63 @@ class CompraController extends Controller
      * @param  \App\Models\Compra  $compra
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Compra $compra)
+    public function destroy(Request $request)
     {
-        //
+        if( $request->compra_id ){
+            
+            $compra = Compra::find($request->compra_id);
+    
+            $almacen = Almacen::where('id', $compra->orden_compra->solicitante->sucursal_id)->first();
+
+            $stock = StockMateriaPrima::where('almacen_id',$almacen->id);
+
+            foreach ($compra->details as $detalle) {
+                Log::info($detalle);
+                $stock = $stock->where('materia_prima_id',$detalle->materia_prima_id)->first();
+    
+                if ($stock) {
+                    if ($stock->materia_prima_id == $detalle->materia_prima_id) {
+    
+                        $stock->where('materia_prima_id', $detalle->materia_prima_id)->where('almacen_id',$almacen->id)->update([
+                            'actual'    => $stock->actual - $detalle->cantidad,
+                        ]);
+                    }
+                }
+            }
+    
+            $compra_cuotas = CompraCuota::where('compra_id', $compra->id)->get();
+            
+            if ($compra_cuotas) {
+    
+                foreach ($compra_cuotas as $key => $cuota) {
+                    
+                    $cuota->update([
+                        'estado' => 0
+                    ]);
+                }
+            }
+    
+            $compra->update([
+                'orden_compra_id'   => null,
+                'estado'   => 3,
+            ]);
+    
+            return redirect()->route('compras.index')->with('Success','Compra Anulada');
+
+        } else {
+
+            return redirect()->route('compras.index')->with('danger','Algo salio mal');
+
+        }
+
+        
     }
 
-    public function pdf()
+    public function pdf(Compra $compra)
     {
-
+        
+        $pdf   = FacadePdf::loadView('pages.compras.compras.compra-pdf', compact('compra'))->setPaper('A4', 'portrait');
+        return $pdf->stream('orden_compra_'.$compra->id);
     }
 
     public function ajax_getorden()
@@ -218,5 +281,35 @@ class CompraController extends Controller
             return response()->json($detalles);
         }
         abort(404);
+    }
+
+    public function libro_compras()
+    {
+        // dd(request()->all());
+        $proveedores = Proveedor::get();
+        $compras = Compra::orderBy('id','DESC');
+
+        if (request()->compra_status) {
+            $compras = $compras->where('estado',request()->compra_status);
+        }
+        if (request()->proveedor_id) {
+            $compras = $compras->where('proveedor_id',request()->proveedor_id);
+        }
+        if (request()->rango) {
+            
+            if (count(explode('to',str_replace(' ', '', request()->rango))) == 1) {
+                $from_date  = Carbon::createFromFormat('d/m/Y', explode('to',str_replace(' ', '', request()->rango))[0])->format('Y-m-d');
+                $until_date = Carbon::createFromFormat('d/m/Y', explode('to',str_replace(' ', '', request()->rango))[0])->format('Y-m-d');
+                $compras = $compras->whereBetween('fecha', [$from_date, $until_date]);
+            } else {
+
+                $from_date  = Carbon::createFromFormat('d/m/Y', explode('to',str_replace(' ', '', request()->rango))[0])->format('Y-m-d');
+                $until_date = Carbon::createFromFormat('d/m/Y', explode('to',str_replace(' ', '', request()->rango))[1])->format('Y-m-d');
+                $compras = $compras->whereBetween('fecha', [$from_date, $until_date]);
+            }
+        }
+        $compras = $compras->paginate(20);
+
+        return view('pages.compras.compras.libro-compras', compact('compras','proveedores'));
     }
 }

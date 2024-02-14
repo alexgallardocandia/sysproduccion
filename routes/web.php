@@ -190,6 +190,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('compras/{compra}/pdf', 'CompraController@pdf')->name('compras.pdf')->middleware('permission:compras.index');
         Route::put('compras', 'CompraController@update')->name('compras.update');
         Route::delete('compras', 'CompraController@destroy')->name('compras.delete');
+        //Libro Compras
+        Route::get('libro-compras','CompraController@libro_compras')->name('libro-compras.index')->middleware('permission:libro-compras.index');
 
         //Ajax
         Route::post('ajax/getpresupuestos','OrdenCompraController@ajax_getpresupuestos')->name('ajax-getpresupuestos');

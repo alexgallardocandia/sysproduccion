@@ -26,6 +26,7 @@ class Compra extends Model
         'email',
         'electronico',
         'descuento',
+        'estado',
     ];
 
     public function proveedor()
@@ -46,6 +47,10 @@ class Compra extends Model
     }
     public function details() {
         return $this->hasMany('App\Models\CompraDetalle');
+    }
+    public function compra_cuota()
+    {
+        return $this->hasMany('App\Models\CompraCuota');
     }
     public function getFechaAttribute() {
         return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha'])->format('d/m/Y');
