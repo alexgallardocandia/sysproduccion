@@ -197,6 +197,17 @@ Route::middleware(['auth'])->group(function () {
         Route::post('ajax/getpresupuestos','OrdenCompraController@ajax_getpresupuestos')->name('ajax-getpresupuestos');
         Route::post('ajax/getorden','CompraController@ajax_getorden')->name('ajax-getorden');
 
+        //Ajuste de Stocks routes
+        Route::get('ajuste-stocks','AjusteStockController@index')->name('ajuste-stocks.index')->middleware('permission:ajuste-stocks.index');
+        Route::get('ajuste-stocks/create','AjusteStockController@create')->name('ajuste-stocks.create')->middleware('permission:ajuste-stocks.create');
+        Route::post('ajuste-stocks','AjusteStockController@store')->name('ajuste-stocks.store');
+        Route::get('ajuste-stocks/{ajuste}', 'AjusteStockController@show')->name('ajuste-stocks.show')->middleware('permission:ajuste-stocks.show');
+        Route::get('ajuste-stocks/{ajuste}/edit', 'AjusteStockController@edit')->name('ajuste-stocks.edit')->middleware('permission:ajuste-stocks.edit');
+        Route::get('ajuste-stocks/{ajuste}/pdf', 'AjusteStockController@pdf')->name('ajuste-stocks.pdf')->middleware('permission:ajuste-stocks.index');
+        Route::put('ajuste-stocks', 'AjusteStockController@update')->name('ajuste-stocks.update');
+        Route::delete('ajuste-stocks', 'AjusteStockController@destroy')->name('ajuste-stocks.delete');
+
+
     /*FIN MENU COMPRAS*/
     /*MENU CONFIGURACIONES COMPRAS REFERENCIALES*/
         //users routes
