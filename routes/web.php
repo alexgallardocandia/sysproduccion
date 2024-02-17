@@ -206,6 +206,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('ajuste-stocks/{ajuste}/pdf', 'AjusteStockController@pdf')->name('ajuste-stocks.pdf')->middleware('permission:ajuste-stocks.index');
         Route::put('ajuste-stocks', 'AjusteStockController@update')->name('ajuste-stocks.update');
         Route::delete('ajuste-stocks', 'AjusteStockController@destroy')->name('ajuste-stocks.delete');
+        //Ajax
+        Route::post('ajax/ajuste-stocks/getMateriaPrima','AjusteStockController@ajax_getMateriaPrima')->name('ajax.ajuste-stock.getMateriaPrima');
+        Route::post('ajax/ajuste-stocks/getStockMateria','AjusteStockController@ajax_getStockMateria')->name('ajax.ajuste-stock.getStockMateria');
 
 
     /*FIN MENU COMPRAS*/

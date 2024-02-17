@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Almacen;
 use App\Models\AjusteStock;
+use App\Models\MateriaPrima;
+use App\Models\StockMateriaPrima;
 use Illuminate\Http\Request;
 
 class AjusteStockController extends Controller
@@ -20,7 +23,8 @@ class AjusteStockController extends Controller
 
     public function create()
     {
-
+        $almacenes = Almacen::whereHas('stock_materia_prima')->get();
+        return view('pages.compras.ajuste-stocks.create', compact('almacenes'));
     }
 
     /**
@@ -76,5 +80,22 @@ class AjusteStockController extends Controller
     public function pdf()
     {
 
+    }
+
+    public function ajax_getMateriaPrima()
+    {
+        $materia_primas = MateriaPrima::whereHas('stock_materia_prima', function($query) {
+            $query->where('almacen_id', '=', request()->almacen_id);
+        })->get();
+        
+
+        return response()->json($materia_primas);
+    }
+    public function ajax_getStockMateria()
+    {
+
+        $stock_materia = StockMateriaPrima::where('almacen_id', request()->almacen_id)->where('materia_prima_id', request()->materia_id)->first();
+
+        return response()->json($stock_materia);
     }
 }

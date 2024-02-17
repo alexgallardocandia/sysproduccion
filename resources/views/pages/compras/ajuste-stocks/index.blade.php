@@ -8,9 +8,9 @@
           <div class="card">
             <div class="card-header">
               <h5>Ajuste de Stock</h5>
-              {{-- @permission('compras.create')
-                <a href="{{url('compras/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
-              @endpermission --}}
+              @permission('ajuste-stocks.create')
+                <a href="{{url('ajuste-stocks/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              @endpermission
             </div>
             <div class="card-body">                                     
               <div class="table-responsive">
