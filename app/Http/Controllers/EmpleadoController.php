@@ -72,7 +72,8 @@ class EmpleadoController extends Controller
                 'civil_id'          => $request->civil_id,
                 'imagen-empleado'   => $imagen_empleado,
                 'cargo_id'          => $request->cargo_id,
-                'sucursal_id'       => $request->sucursal_id
+                'sucursal_id'       => $request->sucursal_id,
+                'estado'            => 1,
             ]);
 
             toastr()->success('Empleado Creada!!');
