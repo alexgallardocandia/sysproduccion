@@ -23,6 +23,6 @@ class Almacen extends Model
 
     public function stock_materia_prima()
     {
-        return $this->hasMany(StockMateriaPrima::class);
+        return $this->hasMany('App\Models\StockMateriaPrima');
     }
 }

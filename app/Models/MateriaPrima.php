@@ -38,6 +38,15 @@ class MateriaPrima extends Model
     {
         return $this->belongsTo(TipoImpuesto::class);
     }
+    /**
+     * Get all of the comments for the MateriaPrima
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function stock_materia_prima()
+    {
+        return $this->hasMany(StockMateriaPrima::class);
+    }
     // public function getFechaAttribute() {
     //     return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha_lote'])->format('d/m/Y');
     // }

@@ -157,6 +157,13 @@
                 </a>
               </li>
             @endpermission
+            @permission('ajuste-stocks.index')
+              <li>
+                <a id="ajuste-stocks-menu" href="{{route('ajuste-stocks.index')}}" >
+                  <i class="bi bi-circle"></i><span>Ajuste Stock</span>
+                </a>
+              </li>
+            @endpermission
           </ul>
         </li>
       @endpermission
