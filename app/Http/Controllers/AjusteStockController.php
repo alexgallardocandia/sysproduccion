@@ -40,7 +40,7 @@ class AjusteStockController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(request()->all());
+        
         if ( request()->ajax() ) {
             DB::beginTransaction();
 
@@ -54,29 +54,28 @@ class AjusteStockController extends Controller
                 ]);
 
                 foreach ( request()->materias as $key => $value ) { 
+                    
                     AjusteStockDetalle::create([
                         'ajuste_stock_id'   => $ajusteStock->id,
                         'materia_prima_id'  => $value,
                         'cant_stock'        => request()->en_stock[$key],
                         'cant_almacen'      => request()->stock_fisico[$key],
-                        'motivo'            => request()->motivo[$key]
+                        'motivo'            => request()->motivos[$key]
                     ]);
                 }
-
 
                 foreach (request()->materias as $key => $value) {
 
                     $stock = StockMateriaPrima::where('almacen_id', request()->almacen_id)->where('materia_prima_id',$value)->first();
 
-                    // if ($stock->materia_prima_id == $value && $stock->almacen_id == request()->almacen_id) {
-                        $stock->update([
+                    if ($stock->materia_prima_id == $value && $stock->almacen_id == request()->almacen_id) {
+
+                        $stock->where('almacen_id', request()->almacen_id)->where('materia_prima_id',$value)->update([
                             'actual' => request()->stock_fisico[$key]
                         ]);
-                    // }
+                    }
 
                 }
-            Log::info('hola');
-
 
                 DB::commit();
 
@@ -108,9 +107,9 @@ class AjusteStockController extends Controller
      * @param  \App\Models\AjusteStock  $ajusteStock
      * @return \Illuminate\Http\Response
      */
-    public function show(AjusteStock $ajusteStock)
+    public function show(AjusteStock $ajuste)
     {
-        //
+        return view('pages.compras.ajuste-stocks.show', compact('ajuste'));   
     }
 
     public function edit()

@@ -64,13 +64,17 @@ class UserController extends Controller
         $user->update([
             'name'          => $request->nombre,
             'email'         => $request->email,
-            'password'      => bcrypt($request->password,),
             'empleado_id'   => $request->empleado_id
-
         ]);
 
+        if($request->password && $request->password != '') {
+            $user->update([
+                'password'      => bcrypt($request->password)
+            ]);
+        }
+
         if ($request->permission_id) {
-            $user->syncPermissions($request->permission_id, '');
+            $user->syncPermissions($request->permission_id, 'work');
         }
 
         return redirect()->route('users.index')->with('success', 'Usuario editado exitosamente.');

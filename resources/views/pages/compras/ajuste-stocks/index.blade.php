@@ -20,10 +20,8 @@
                       <th scope="col">Nro.</th>
                       <th scope="col">Fecha</th>
                       <th scope="col">Almacen</th>
-                      <th scope="col">Nro de Factura</th>
-                      <th scope="col">Proveedor</th>
-                      <th scope="col">Monto</th>
-                      <th scope="col">Estado</th>
+                      <th scope="col">Creado Por</th>
+                      {{-- <th scope="col">Estado</th> --}}
                       <th scope="col">Acciones</th>
                     </tr>
                   </thead>
@@ -32,19 +30,18 @@
                         <tr>
                           <td>{{$ajuste_stock->id}}</td>
                           <td>{{$ajuste_stock->fecha}}</td>
-                          <td>{{$ajuste_stock->almacen->nombre}}</td>
-                          <td>{{$ajuste_stock->nro_factura}}</td>
-                          <td>{{$ajuste_stock->proveedor->razon_social}}</td>
-                          <td>{{number_format($compra->getTotalDetalles(), 0, ',', '.')}}</td>
-                          <td><span class="badge bg-{{ config('constants.compras-status-label.' . intval($compra->estado)) }}">{{ config('constants.compras-status.'. intval($compra->estado)) }}</span></td>
-                          <td> 
-                            @if ($compra->estado == 2)
-                              <a href="{{url('compras/' . $compra->id)}}"><i class="bi bi-info-circle-fill"></i></a>
-                              <a href="{{url('compras/' . $compra->id . '/pdf')}}" target="new"><i class="bi bi-file-pdf-fill"></i></a>
-                              <a data-bs-toggle="modal" data-bs-target="#compra_delete" data-number="{{$compra->id}}" data-id="{{ $compra->id }}"><i class="bi bi-trash-fill"></i></a>
+                          <td>{{$ajuste_stock->almacen->descripcion}}</td>
+                          <td>{{$ajuste_stock->user->empleado->fullname}}</td>
+                          {{-- <td><span class="badge bg-{{ config('constants.compras-status-label.' . intval($ajuste_stock->estado)) }}">{{ config('constants.compras-status.'. intval($ajuste_stock->estado)) }}</span></td> --}}
+                          <td align="center"> 
+                            <a href="{{url('ajuste-stocks/' . $ajuste_stock->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                            @if ($ajuste_stock->estado == 2)
+                              <a href="{{url('compras/' . $ajuste_stock->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                              <a href="{{url('compras/' . $ajuste_stock->id . '/pdf')}}" target="new"><i class="bi bi-file-pdf-fill"></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#compra_delete" data-number="{{$ajuste_stock->id}}" data-id="{{ $ajuste_stock->id }}"><i class="bi bi-trash-fill"></i></a>
                             @endif
-                            @if ($compra->estado == 3)
-                              <a href="{{url('compras/' . $compra->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                            @if ($ajuste_stock->estado == 3)
+                              <a href="{{url('compras/' . $ajuste_stock->id)}}"><i class="bi bi-info-circle-fill"></i></a>
                             @endif
                           </td>
                         </tr>
@@ -112,7 +109,7 @@
 <script>
   $(document).ready(function(){
     $('#compras-nav').addClass('show');
-    $('#compras-menu').addClass('active');
+    $('#ajuste-stocks-menu').addClass('active');
 
     $('#compra_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal

@@ -108,8 +108,6 @@
 @section('script')
 <script>
     var count = 0;
-    // var solicitante = '';
-    // var solicitante_id = '';
 
     $(function() {
 
@@ -194,9 +192,10 @@
           addDetail( materianame, materia_id,en_stock, stock_fisico.replace('.',''), motivo);
 
         }
-        // $('#materia_id').select('');
-        // $('#cantidad').val('');
-        // $('#precio_unitario').val('');
+        $('#materia_id').selectpicker('val','');
+        $('#cant_almacen').val('');
+        $('#cant_stock').val(0);
+        $('#motivo').val('');
         
       });
     });
@@ -222,121 +221,12 @@
 
     }
 
-    // function recalculateTotal(param)
-    // {
-
-    //   var ids = param.id.split('_');
-    //   var total_cantidad  = 0;
-    //   var precio          = 0;
-    //   var total_precio    = 0;
-    //   var cantidad        = 0;
-    //   var grand_total     = 0;
-
-
-    //   precio = parseInt($('#td_precio_'+ids[2]).val());
-
-    //   cantidad = parseInt($('#td_cantidad_'+ids[2]).text().replace('.',''));
-
-    //   $('#td_subtotal_'+ids[2]).html($.number(precio * cantidad, 0,',','.'));
-    //   $('#precio_'+ids[2]).val(precio);
-
-
-    //   $('td[name^="subtotales[]"]').each(function (key, value) {
-    //     grand_total += parseInt($(this).text().replace('.',''));
-    //   });
-    //   $("#td_grand_total").html('<b>' + $.number(grand_total, 0, ',', '.')+'</b>');
-    //   $('input[name^="precios_total[]"]').val(grand_total);
-
-    // }
-
-    // function add_detail( materianame, materia_id, cantidad, precio ) 
-    // {
-    //   var old_cantidad = 0; //CONTENDRA EL VALOR ANTERIOR DE LA CANTIDAD
-    //   var new_cantidad = 0; //CONTENDRA LA SUMA DEL VALOR ANTERIOR Y EL NUEVO
-    //   var append       = true; //SE VUELVE FALSE CUANDO ES LA MISMA MATERIA_ID
-    //   var new_subtotal = 0;
-
-    //   $('input[name^="materias[]"]').each( function (key, value) {//RECORREMOS LAS MATERIAS
-
-    //     if($(this).val() == materia_id)//SI YA EXISTE UNA MATERIA PRIMA EN EL DETALLE 
-    //     {
-
-    //       old_cantidad = $('#td_cantidad_'+materia_id).text();//GUARDAMOS EL VALOR ACTUAL DE ESTE TD
-    //       new_cantidad = parseInt(old_cantidad.replace('.','')) + parseInt(cantidad); //GUARDAMOS LA SUMA DE LA CANTIDAD VIEJA CON LA NUEVA
-    //       new_subtotal = new_cantidad * precio;
-    //       $('#td_cantidad_'+materia_id).html(''); //LIMPIAMOS EL TD
-    //       $('#td_cantidad_'+materia_id).html($.number(new_cantidad, 0, ',','.')); //MANDAMOS LA NUEVA CANTIDAD AL TD
-
-    //       $('#cantidad_'+materia_id).val(new_cantidad); //MANDAMOS LA NUEVA CANTIDAD EN EL INPUT
-    //       $('#td_subtotal_'+materia_id).html(new_subtotal); //MANDAMOS EL NUEVO SUBTOTAL EN EL INPUT
-    //       $('#precio_total_'+materia_id).val(new_subtotal);
-
-    //       append = false;
-          
-    //       calculateTotal();
-    //     }
-    //   });
-    //   if(append)
-    //   {
-
-    //     count++;
-    //     $('#pre_det').append(
-    //       '<tr name="detalle" id="detalle">'+
-    //         '<td>'+count+'</td>'+
-    //         '<td>'+materianame+'</td>'+
-    //         '<td id="td_cantidad_'+materia_id+'">'+$.number(cantidad,0,',','.')+'</td>'+
-    //         '<td id="td_precio_'+materia_id+'">'+$.number(precio,0,',','.')+'</td>'+
-    //         '<td name="subtotales[]" id="td_subtotal_'+materia_id+'">'+$.number((precio * cantidad),0,',','.')+'</td>'+
-    //         '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
-    //         '<input type="hidden" id="cantidad_'+materia_id+'" name="cantidades[]" value="'+cantidad+'"/>'+
-    //         '<input type="hidden" id="precio_'+materia_id+'" name="precios[]" value="'+precio+'"/>'+
-    //         '<input type="hidden" id="precio_total_'+materia_id+'" name="precios_total[]" value="'+precio * cantidad+'"/>'+
-    //         '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'
-    //       +'</tr>'
-    //     );
-  
-    //     calculateTotal();
-    //   }
-    //   $('#cantidad').val('');
-    //   $('#precio_unitario').val('');
-    //   $('#materia_id').selectpicker('val',''); //selecciona el valor vacio
-    //   // $('#materia_id').selectpicker('render');
-    // }
     function removeRow(t)
     {
         $(t).parent().parent().remove();
         count--;
         calculateTotal();
     }
-    // function calculateTotal()
-    // {
-    //     var total_cantidad  = 0;
-    //     var total_precio    = 0;
-    //     var total_descuento = 0;
-        
-    //     $('input[name^="cantidades[]"]').each(function () {
-    //       total_cantidad += parseInt($(this).val());
-    //     });
-    //     $('input[name^="precios[]"]').each(function () {
-    //       total_precio += parseInt($(this).val());
-    //     });
-        
-    //     $("#td_total").html('<b>' + $.number(total_cantidad, 0, ',', '.')+'</b>');
-    //     $("#td_total_precio").html('<b>' + $.number(total_precio, 0, ',', '.')+'</b>');
 
-    //     $("#detail_total").val('');
-    //     $("#detail_total").val(total_cantidad);
-    //     calculateGrandTotal();
-    // }
-    // function calculateGrandTotal()
-    // {
-    //   var grand_total     = 0;
-
-    //   $('input[name^="precios_total[]"]').each(function () {
-    //     grand_total += parseInt($(this).val());
-    //   });
-    //   $("#td_grand_total").html('<b>' + $.number(grand_total, 0, ',', '.')+'</b>');
-
-    // }
 </script>
 @endsection

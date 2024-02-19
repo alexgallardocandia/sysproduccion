@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,5 +28,8 @@ class AjusteStock extends Model
     public function details()
     {
         return $this->hasMany('App\Models\AjusteStockDetalle');
+    }
+    public function getFechaAttribute() {
+        return Carbon::createFromFormat('Y-m-d', $this->attributes['fecha'])->format('d/m/Y');
     }
 }

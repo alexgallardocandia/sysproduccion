@@ -788,6 +788,42 @@ class PermissionTableSeeder extends Seeder
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
+             //Ajuste Stock routes
+             [
+                'name'          => 'ajuste-stocks.index',
+                'display_name'  => 'Ver Ajuste Stocks',
+                'description'   => 'Ajuste Stocks',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'ajuste-stocks.create',
+                'display_name'  => 'Crear Ajuste Stocks',
+                'description'   => 'Ajuste Stocks',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'ajuste-stocks.show',
+                'display_name'  => 'Detalles Ajuste Stocks',
+                'description'   => 'Ajuste Stocks',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'ajuste-stocks.edit',
+                'display_name'  => 'Editar Ajuste Stocks',
+                'description'   => 'Ajuste Stocks',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'ajuste-stocks.delete',
+                'display_name'  => 'Eliminar Ajuste Stocks',
+                'description'   => 'Ajuste Stocks',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
