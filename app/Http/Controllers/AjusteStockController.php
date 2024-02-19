@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Almacen;
 use App\Models\AjusteStock;
+use App\Models\AjusteStockDetalle;
 use App\Models\MateriaPrima;
 use App\Models\StockMateriaPrima;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AjusteStockController extends Controller
 {
@@ -17,7 +21,8 @@ class AjusteStockController extends Controller
      */
     public function index()
     {
-        return view('pages.compras.ajuste-stocks.index');
+        $ajuste_stocks = AjusteStock::get();
+        return view('pages.compras.ajuste-stocks.index', compact('ajuste_stocks'));
     }
 
 
@@ -35,7 +40,66 @@ class AjusteStockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd(request()->all());
+        if ( request()->ajax() ) {
+            DB::beginTransaction();
+
+            try {
+
+                $ajusteStock = AjusteStock::create([
+                    'fecha'         => Carbon::createFromFormat('d/m/Y', request()->fecha)->format('Y-m-d'),
+                    'almacen_id'    => request()->almacen_id,
+                    'user_id'       => Auth()->user()->id,
+                    'estado'        => 1,
+                ]);
+
+                foreach ( request()->materias as $key => $value ) { 
+                    AjusteStockDetalle::create([
+                        'ajuste_stock_id'   => $ajusteStock->id,
+                        'materia_prima_id'  => $value,
+                        'cant_stock'        => request()->en_stock[$key],
+                        'cant_almacen'      => request()->stock_fisico[$key],
+                        'motivo'            => request()->motivo[$key]
+                    ]);
+                }
+
+
+                foreach (request()->materias as $key => $value) {
+
+                    $stock = StockMateriaPrima::where('almacen_id', request()->almacen_id)->where('materia_prima_id',$value)->first();
+
+                    // if ($stock->materia_prima_id == $value && $stock->almacen_id == request()->almacen_id) {
+                        $stock->update([
+                            'actual' => request()->stock_fisico[$key]
+                        ]);
+                    // }
+
+                }
+            Log::info('hola');
+
+
+                DB::commit();
+
+                toastr()->success('Se ajusto el stock correctamente');
+    
+                return response()->json([
+                    'success' => true
+                ]);
+
+            } catch (\Exception $e) {
+                Log::error($e);
+                
+                DB::rollBack();
+                
+                toastr()->error('Error al crear el ajuste: ' . $e->getMessage());
+
+                return response()->json([
+                    'success' => false,
+                    'error'   => $e->getMessage()
+                ]);
+            }
+        }
+        abort(404);
     }
 
     /**

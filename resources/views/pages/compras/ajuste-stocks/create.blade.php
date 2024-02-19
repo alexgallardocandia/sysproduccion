@@ -123,10 +123,10 @@
 
         $.ajax({
           type: "POST",
-          url: "{{route('compras.store')}}",
+          url: "{{route('ajuste-stocks.store')}}",
           data: $(this).serialize(),            
           success: function (response) {
-            redirect("{{ route('compras.index') }}");
+            redirect("{{ route('ajuste-stocks.index') }}");
           },
           error:function(data){
             laravelErrorMessages(data);
@@ -212,6 +212,7 @@
             '<td>'+motivo+'</td>'+
             '<input type="hidden" name="materias[]" value="'+materia_id+'"/>'+
             '<input type="hidden" name="stock_fisico[]" value="'+stock_fisico+'"/>'+
+            '<input type="hidden" name="en_stock[]" value="'+en_stock+'"/>'+
             '<input type="hidden" name="motivos[]" value="'+motivo+'"/>'+
             '<td></td>'+
             '<td><a href="javascript:;" onClick="removeRow(this);"><i class="ri-close-line"></a></i></td>'

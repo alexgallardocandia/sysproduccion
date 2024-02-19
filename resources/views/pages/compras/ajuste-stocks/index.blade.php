@@ -19,7 +19,7 @@
                     <tr>
                       <th scope="col">Nro.</th>
                       <th scope="col">Fecha</th>
-                      <th scope="col">Timbrado</th>
+                      <th scope="col">Almacen</th>
                       <th scope="col">Nro de Factura</th>
                       <th scope="col">Proveedor</th>
                       <th scope="col">Monto</th>
@@ -28,13 +28,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {{-- @foreach ($compras as $compra)  
+                    @foreach ($ajuste_stocks as $ajuste_stock)  
                         <tr>
-                          <td>{{$compra->id}}</td>
-                          <td>{{$compra->fecha}}</td>
-                          <td>{{$compra->timbrado->numero}}</td>
-                          <td>{{$compra->nro_factura}}</td>
-                          <td>{{$compra->proveedor->razon_social}}</td>
+                          <td>{{$ajuste_stock->id}}</td>
+                          <td>{{$ajuste_stock->fecha}}</td>
+                          <td>{{$ajuste_stock->almacen->nombre}}</td>
+                          <td>{{$ajuste_stock->nro_factura}}</td>
+                          <td>{{$ajuste_stock->proveedor->razon_social}}</td>
                           <td>{{number_format($compra->getTotalDetalles(), 0, ',', '.')}}</td>
                           <td><span class="badge bg-{{ config('constants.compras-status-label.' . intval($compra->estado)) }}">{{ config('constants.compras-status.'. intval($compra->estado)) }}</span></td>
                           <td> 
@@ -48,7 +48,7 @@
                             @endif
                           </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                   </tbody>
                 </table>
               </div>
