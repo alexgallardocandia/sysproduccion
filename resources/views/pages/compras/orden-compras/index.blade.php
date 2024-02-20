@@ -20,6 +20,7 @@
                       <th scope="col">Nro.</th>
                       <th scope="col">Fecha</th>
                       <th scope="col">Solicitante</th>
+                      <th scope="col">Sucursal</th>
                       <th scope="col">Autorizado por</th>
                       <th scope="col">Proveedor</th>
                       <th scope="col">Monto</th>
@@ -33,6 +34,7 @@
                           <td>{{$orden_compra->id}}</td>
                           <td>{{$orden_compra->fecha}}</td>
                           <td>{{$orden_compra->solicitante->fullname}}</td>
+                          <td>{{$orden_compra->solicitante->sucursal->descripcion}}</td>
                           <td>{{$orden_compra->autorizador_id ? $orden_compra->autorizador->fullname : ''  }}</td>
                           <td>{{$orden_compra->presupuesto_compra->proveedor->razon_social}}</td>
                           <td>{{number_format($orden_compra->getTotalDetalles(), 0, ',', '.')}}</td>

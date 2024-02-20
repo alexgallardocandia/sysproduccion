@@ -69,19 +69,28 @@
         <table width="100%">
             <tr>
                 <td width="50%"><b>Dpto Solicitante:</b> {{$ordencompra->solicitante->cargo->departamento->nombre}}</td>
-                <td width="50%"><b>Solicitado por:</b> {{strtoupper($ordencompra->solicitante->fullname)}}</td>
+                <td width="50%"><b>Fecha:</b> {{$ordencompra->fecha}}</td>
             </tr>
             <tr>               
-                <td width="50%"><b>Fecha:</b> {{$ordencompra->fecha}}</td>
+                <td width="50%"><b>Solicitado por:</b> {{strtoupper($ordencompra->solicitante->fullname)}}</td>
                 <td width="50%"><b>Forma Pago:</b> {{ config('constants.type_condition.'.$ordencompra->presupuesto_compra->condicion) }} <b>Nro. Cuotas:</b>  {{$ordencompra->presupuesto_compra->nro_cuotas}}</td>
             </tr>
             <tr>
+                <td width="50%"><b>Sucursal:</b> {{$ordencompra->solicitante->sucursal->descripcion}}</td>
                 <td width="50%"><b>Proveedor:</b> {{$ordencompra->presupuesto_compra->proveedor->razon_social}}</td>
+            </tr>
+            <tr>
+                <td></td>
                 <td width="50%"><b>RUC:</b> {{$ordencompra->presupuesto_compra->proveedor->ruc}}</td>
             </tr>
             <tr>
-                <td width="50%"><b>Dirección:</b> {{$ordencompra->presupuesto_compra->proveedor->direccion}}</td>
+                <td></td>
                 <td width="50%"><b>Teléfono:</b> {{$ordencompra->presupuesto_compra->proveedor->telefono}}</td>
+                {{-- <td width="50%"><b>Teléfono:</b> {{$ordencompra->presupuesto_compra->proveedor->telefono}}</td> --}}
+            </tr>
+            <tr>
+                <td></td>
+                <td width="50%"><b>Dirección:</b> {{$ordencompra->presupuesto_compra->proveedor->direccion}}</td>
             </tr>
         </table>
     </div>    

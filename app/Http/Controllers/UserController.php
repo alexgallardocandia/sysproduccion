@@ -74,7 +74,7 @@ class UserController extends Controller
         }
 
         if ($request->permission_id) {
-            $user->syncPermissions($request->permission_id, 'work');
+            $user->syncPermissions($request->permission_id, '1');
         }
 
         return redirect()->route('users.index')->with('success', 'Usuario editado exitosamente.');

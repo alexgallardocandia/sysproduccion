@@ -71,6 +71,13 @@
                 </a>
               </li>
             @endpermission
+            @permission('nota-motivos.index')
+              <li>
+                <a id="nomta-motivos-menu" href="{{route('nota-motivos.index')}}" >
+                  <i class="bi bi-circle"></i><span>Motivos NC</span>
+                </a>
+              </li>
+            @endpermission
             @permission('proveedores.index')
               <li>
                 <a id="proveedores-menu" href="{{route('proveedores.index')}}" >
