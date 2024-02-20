@@ -85,6 +85,13 @@
                 </a>
               </li>
             @endpermission
+            @permission('stocks.index')
+              <li>
+                <a id="stocks-menu" href="{{route('stocks.index')}}" >
+                  <i class="bi bi-circle"></i><span>Stocks</span>
+                </a>
+              </li>
+            @endpermission
             @permission('timbrados.index')
               <li>
                 <a id="timbrados-menu" href="{{route('timbrados.index')}}" >

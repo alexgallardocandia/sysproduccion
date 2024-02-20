@@ -21,7 +21,7 @@
                       <th scope="col">Fecha</th>
                       <th scope="col">Almacen</th>
                       <th scope="col">Creado Por</th>
-                      {{-- <th scope="col">Estado</th> --}}
+                      <th scope="col">Estado</th>
                       <th scope="col">Acciones</th>
                     </tr>
                   </thead>
@@ -32,13 +32,12 @@
                           <td>{{$ajuste_stock->fecha}}</td>
                           <td>{{$ajuste_stock->almacen->descripcion}}</td>
                           <td>{{$ajuste_stock->user->empleado->fullname}}</td>
-                          {{-- <td><span class="badge bg-{{ config('constants.compras-status-label.' . intval($ajuste_stock->estado)) }}">{{ config('constants.compras-status.'. intval($ajuste_stock->estado)) }}</span></td> --}}
+                          <td><span class="badge bg-{{ config('constants.ajuste-stocks-status-label.'.$ajuste_stock->estado) }}">{{ config('constants.ajuste-stocks-status.'.$ajuste_stock->estado) }}</span></td>
                           <td align="center"> 
-                            <a href="{{url('ajuste-stocks/' . $ajuste_stock->id)}}"><i class="bi bi-info-circle-fill"></i></a>
-                            @if ($ajuste_stock->estado == 2)
-                              <a href="{{url('compras/' . $ajuste_stock->id)}}"><i class="bi bi-info-circle-fill"></i></a>
-                              <a href="{{url('compras/' . $ajuste_stock->id . '/pdf')}}" target="new"><i class="bi bi-file-pdf-fill"></i></a>
-                              <a data-bs-toggle="modal" data-bs-target="#compra_delete" data-number="{{$ajuste_stock->id}}" data-id="{{ $ajuste_stock->id }}"><i class="bi bi-trash-fill"></i></a>
+                            @if ($ajuste_stock->estado == 1)
+                              <a href="{{url('ajuste-stocks/' . $ajuste_stock->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                              <a href="{{url('ajuste-stocks/' . $ajuste_stock->id . '/pdf')}}" target="new"><i class="bi bi-file-pdf-fill"></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#ajuste_delete" data-number="{{$ajuste_stock->id}}" data-id="{{ $ajuste_stock->id }}"><i class="bi bi-trash-fill"></i></a>
                             @endif
                             @if ($ajuste_stock->estado == 3)
                               <a href="{{url('compras/' . $ajuste_stock->id)}}"><i class="bi bi-info-circle-fill"></i></a>
@@ -52,19 +51,19 @@
             </div>
           </div>     
           {{-- MODAL RECHAZAR --}}
-            <div class="modal fade" id="compra_delete" tabindex="-1">
+            <div class="modal fade" id="ajuste_delete" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title">Anular Compra </h5>
+                    <h5 class="modal-title">Anular Ajuste </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <form method="POST" action="{{route('compras.delete')}}">
+                  <form method="POST" action="{{route('ajuste-stocks.delete')}}">
                     @csrf
                     @method('DELETE')
                     <div class="modal-body">
-                      <p>Deseas anular la compra Nro. <b><span id="compra_id"></span></b>?</p>
-                      <input name="compra_id" type="hidden" id="id_compra"/>
+                      <p>Deseas anular el ajuste Nro. <b><span id="ajuste_id"></span></b>?</p>
+                      <input name="ajuste_id" type="hidden" id="id_ajuste"/>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
@@ -86,8 +85,8 @@
                   <form method="POST" action="{{route('orden-compras.aprove')}}">
                     @csrf
                     <div class="modal-body">
-                      <p>Deseas aprobar la orden Nro. <b><span id="compra_id"></span></b>?</p>
-                      <input name="compra_id" type="hidden" id="id_compra_aprove"/>
+                      <p>Deseas aprobar la orden Nro. <b><span id="ajuste_id"></span></b>?</p>
+                      <input name="ajuste_id" type="hidden" id="id_ajuste_aprove"/>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
@@ -111,22 +110,22 @@
     $('#compras-nav').addClass('show');
     $('#ajuste-stocks-menu').addClass('active');
 
-    $('#compra_delete').on('show.bs.modal', function(event) {
+    $('#ajuste_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
-        var compra_id = button.data('id'); // Extraer el valor del atributo data-id
+        var ajuste_id = button.data('id'); // Extraer el valor del atributo data-id
         var number = button.data('number'); // Extraer el valor del atributo data-id
         var modal = $(this);
-        modal.find('#compra_id').text(number); // Insertar el valor en el modal
-        $('#id_compra').val(compra_id); // Insertar el valor en el modal        
+        modal.find('#ajuste_id').text(number); // Insertar el valor en el modal
+        $('#id_ajuste').val(ajuste_id); // Insertar el valor en el modal        
     });
 
     $('#orden_aprove').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
-        var compra_id = button.data('id'); // Extraer el valor del atributo data-id
+        var ajuste_id = button.data('id'); // Extraer el valor del atributo data-id
         var number = button.data('number'); // Extraer el valor del atributo data-id
         var modal = $(this);
-        modal.find('#compra_id').text(number); // Insertar el valor en el modal
-        $('#id_compra_aprove').val(compra_id); // Insertar el valor en el modal        
+        modal.find('#ajuste_id').text(number); // Insertar el valor en el modal
+        $('#id_ajuste_aprove').val(ajuste_id); // Insertar el valor en el modal        
     });
   });
 </script>

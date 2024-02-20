@@ -23,20 +23,42 @@ class TimbradoController extends Controller
     }
     
     public function store(Request $request)
-    {        
-        $timbradoval = Timbrado::where('numero', $request->numero)->where('fecha_emision',$request->fecha_emision)->where('fecha_vencimiento',$request->fecha_vencimiento)->first();
+    {    
+        if (request()->modal_compra) {
+            if (request()->ajax()) {
+                $timbradoval = Timbrado::where('numero', $request->numero)->where('fecha_emision',Carbon::createFromFormat('d/m/Y',$request->fecha_emision)->format('Y-m-d'))->where('fecha_vencimiento',Carbon::createFromFormat('d/m/Y',$request->fecha_vencimiento)->format('Y-m-d'))->first();
+            
+                if($timbradoval){
+                    return redirect()->route('compras.create')->with('danger','El numero de timbrado ya esta registrado');        
+                }else{
+                    Timbrado::create([
+                        'numero'            => $request->numero,
+                        'fecha_emision'     => Carbon::createFromFormat('d/m/Y',$request->fecha_emision)->format('Y-m-d'),
+                        'fecha_vencimiento' => Carbon::createFromFormat('d/m/Y',$request->fecha_vencimiento)->format('Y-m-d'),
+                        'estado'            => 1
+                    ]);
         
-        if($timbradoval){
-            return redirect()->route('timbrados.creates')->with('danger','El numero de timbrado ya esta registrado');        
-        }else{
-            Timbrado::create([
-                'numero'            => $request->numero,
-                'fecha_emision'     => Carbon::createFromFormat('d/m/Y',$request->fecha_emision)->format('Y-m-d'),
-                'fecha_vencimiento' => Carbon::createFromFormat('d/m/Y',$request->fecha_vencimiento)->format('Y-m-d'),
-                'estado'            => 1
-            ]);
+                    return redirect()->route('compras.create')->with('success','Timbrado registrado exitosamente');
+                }
+            }
+            abort(404);
 
-            return redirect()->route('timbrados.index')->with('success','Timbrado registrado exitosamente');
+        } else {
+
+            $timbradoval = Timbrado::where('numero', $request->numero)->where('fecha_emision',Carbon::createFromFormat('d/m/Y',$request->fecha_emision)->format('Y-m-d'))->where('fecha_vencimiento',Carbon::createFromFormat('d/m/Y',$request->fecha_vencimiento)->format('Y-m-d'))->first();
+            
+            if($timbradoval){
+                return redirect()->route('timbrados.creates')->with('danger','El numero de timbrado ya esta registrado');        
+            }else{
+                Timbrado::create([
+                    'numero'            => $request->numero,
+                    'fecha_emision'     => Carbon::createFromFormat('d/m/Y',$request->fecha_emision)->format('Y-m-d'),
+                    'fecha_vencimiento' => Carbon::createFromFormat('d/m/Y',$request->fecha_vencimiento)->format('Y-m-d'),
+                    'estado'            => 1
+                ]);
+    
+                return redirect()->route('timbrados.index')->with('success','Timbrado registrado exitosamente');
+            }
         }
 
     }

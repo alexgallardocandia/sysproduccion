@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Almacen;
+use App\Models\MateriaPrima;
 use App\Models\StockMateriaPrima;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,19 @@ class StockMateriaPrimaController extends Controller
      */
     public function index()
     {
-        //
+        $almacenes = Almacen::whereHas('stock_materia_prima')->get();
+        $materias = MateriaPrima::whereHas('stock_materia_prima')->get();
+        $stocks = new StockMateriaPrima;
+
+        if( request()->almacen_id) {
+            $stocks = $stocks->where('almacen_id', request()->almacen_id);
+        }
+        if( request()->materia_prima_id) {
+            $stocks = $stocks->where('materia_prima_id', request()->materia_prima_id);
+        }
+
+        $stocks = $stocks->paginate(20);
+        return view('pages.stock.index', compact('stocks', 'almacenes', 'materias'));
     }
 
     /**

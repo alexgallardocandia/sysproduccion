@@ -824,6 +824,42 @@ class PermissionTableSeeder extends Seeder
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
+            //stocks routes
+            [
+                'name'          => 'stocks.index',
+                'display_name'  => 'Ver Stock',
+                'description'   => 'Stock',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'stocks.create',
+                'display_name'  => 'Crear Stock',
+                'description'   => 'Stock',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'stocks.show',
+                'display_name'  => 'Detalles Stock',
+                'description'   => 'Stock',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'stocks.edit',
+                'display_name'  => 'Editar Stock',
+                'description'   => 'Stock',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'stocks.delete',
+                'display_name'  => 'Eliminar Stock',
+                'description'   => 'Stock',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

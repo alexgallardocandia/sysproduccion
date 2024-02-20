@@ -13,7 +13,7 @@
                 <div class="mb-3"></div>
                 <form class="row g-3" id="form">
                   @csrf
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <label for="orden_compra_id" class="form-label">Orden de Compra</label>
                       <select class="selectpicker form-control" name="orden_compra_id" id="orden_compra_id" data-live-search="true" >
                         <option value="">Seleccione...</option>
@@ -22,15 +22,15 @@
                         @endforeach
                       </select>
                     </div>
-                    <div class="col-md-3" id="div-proveedor">
+                    <div class="col-md-4" id="div-proveedor">
                       <label for="proveedor_id" class="form-label">Proveedor</label>
                       <input name="proveedor_id" type="text" id="proveedor_id" class="form-control" readonly >
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <label for="fecha" class="form-label">Fecha</label>
                       <input name="fecha" type="text" id="fecha" class="form-control" value="dd/mm/YY" required>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 ">
                       <label for="timbrado_id" class="form-label">Timbrado</label>
                       <select class="selectpicker form-control" name="timbrado_id" id="timbrado_id" data-live-search="true" >
                         <option value="">Seleccione...</option>
@@ -39,11 +39,14 @@
                         @endforeach
                       </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-1">
+                      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_timbrado"><i class="bi-plus-lg"></i></a>
+                    </div>
+                    <div class="col-md-4">
                       <label for="nro_factura" class="form-label">Nro. de Factura</label>
                       <input type="text" class="form-control" name="nro_factura" id="nro_factura" invoice-purchase-mask required />
                     </div>
-                    <div class="col-md-3" id="div-condicion">
+                    <div class="col-md-4" id="div-condicion">
                       <label for="condicion" class="form-label">Condicion</label>
                       <select name="condicion" id="condicion" class="selectpicker form-control" data-live-search="true">
                         <option value="">Seleccione...</option>
@@ -52,15 +55,15 @@
                         @endforeach
                       </select>
                     </div>
-                    <div class="col-md-3" id="cant_cuotas" hidden>
+                    <div class="col-md-4" id="cant_cuotas" hidden>
                       <label for="nro_cuotas" class="form-label">Cant. Cuotas</label>
                       <input name="nro_cuotas"  id="nro_cuotas" type="number" min="0" max="100" value="1" class="form-control" format-number required>
                     </div>
-                    <div class="col-md-3" id="frecuencia" hidden>
+                    <div class="col-md-4" id="frecuencia" hidden>
                       <label for="frecuencia" class="form-label">Frecuencia</label>
                       <input name="frecuencia"  id="frecuencia" type="number" min="0" max="31" value="1" class="form-control" format-number required>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <label for="descuento" class="form-label">Descuento</label>
                       <input name="descuento"  id="descuento" type="number" min="0" max="100" class="form-control" format-number required>
                     </div>
@@ -118,7 +121,7 @@
                     </div>
                     <div class="card-footer">                        
                         <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill"></i> Guardar</button>
-                        <a href="{{url('orden-compras')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
+                        <a href="{{url('compras')}}" class="btn btn-danger"><i class="ri-close-circle-fill"></i> Cancelar</a>
                     </div>
                   </div>
                 </form>
@@ -126,6 +129,39 @@
             </div>    
           </div>
         </div>
+        {{-- MODAL Agregar Timbrado --}}
+        <div class="modal fade" id="add_timbrado" tabindex="-1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Agregar Timbrado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="card-body">                                  
+                <form class="row g-3" id="form_modal">
+                  @csrf
+                    <div class="col-md-3">
+                      <label for="numero" class="form-label">Numero</label>
+                      <input name="numero" type="text" class="form-control" format-number required>
+                      <input type="hidden" name="modal_compra" value="1" />
+                    </div>
+                    <div class="col-md-3">
+                      <label for="inputEmail3" class="form-label"><b>Fecha de Emision</b></label>
+                      <input name="fecha_emision" type="text" id="fecha_emision" max="{{date('Y-m-d')}}" class="form-control" value="dd/mm/YYYY" required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="inputEmail3" class="form-label"><b>Fecha de Vencimiento</b></label>
+                      <input name="fecha_vencimiento" type="text" id="fecha_vencimiento" min="{{date('Y-m-d')}}" class="form-control" value="dd/mm/YYYY" required>
+                    </div>
+                    <div class="card-footer">                        
+                        <button type="submit" class="btn btn-primary" id="save_modal"><i class="ri-save-3-fill"></i> Guardar</button>
+                    </div>
+                </form><!-- End Horizontal Form -->
+            </div>                   
+            </div>
+          </div>
+        </div>
+      {{-- MODAL Agregar Timbrado --}}
       </section> 
     </div>
   </div>
@@ -161,6 +197,23 @@
         });
       });
       
+      $('#form_modal').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: "{{route('timbrados.store')}}",
+          data: $(this).serialize(),            
+          success: function (response) {
+            redirect("{{ route('compras.create') }}");
+          },
+          error:function(data){
+            laravelErrorMessages(data);
+            $('input[type=submit]').prop('disable', false);
+
+          }
+        });
+      });
+
       $('#orden_compra_id').on('change', function() { 
           $.ajax({
             type: "POST",
@@ -232,6 +285,15 @@
         dateFormat: "d/m/Y", // Formato de fecha
       });
       flatpickr("#fecha",{
+        maxDate: "today", // Impide seleccionar fechas mayores a la actual
+        dateFormat: "d/m/Y", // Formato de fecha
+      });
+
+      flatpickr("#fecha_vencimiento",{
+      minDate: "today", // Impide seleccionar fechas anteriores a la actual
+      dateFormat: "d/m/Y", // Formato de fecha
+      });
+      flatpickr("#fecha_emision",{
         maxDate: "today", // Impide seleccionar fechas mayores a la actual
         dateFormat: "d/m/Y", // Formato de fecha
       });

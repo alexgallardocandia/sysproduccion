@@ -118,4 +118,13 @@ return [
         2 => 'primary',
         3 => 'danger',
     ],
+    //COMPRAS
+    'ajuste-stocks-status' => [  
+        1 => 'PROCESADO',
+        3 => 'ANULADO',
+    ],
+    'ajuste-stocks-status-label' => [  
+        1 => 'primary',
+        3 => 'danger',
+    ],
 ];

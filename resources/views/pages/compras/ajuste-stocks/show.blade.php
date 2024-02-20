@@ -74,6 +74,7 @@
                                         <td colspan="" align="left">TOTAL: </td>
                                         <td align="left"><b>{{ $cant_stock_total }}</b></td>
                                         <td align="left"><b>{{ number_format($cant_almacen_total, 0, ',', '.') }}</b></td>
+                                        <td></td>
                                     </tr>
                                 </tfoot>
                             </table>                       

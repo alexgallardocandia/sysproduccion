@@ -138,6 +138,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('proveedores/{proveedor_id}/edit', 'ProveedorController@edit')->name('proveedores.edit')->middleware('permission:proveedores.edit');
         Route::put('proveedores', 'ProveedorController@update')->name('proveedores.update');
         Route::delete('proveedores', 'ProveedorController@destroy')->name('proveedores.delete');
+        //depositos routes
+        Route::get('stocks','StockMateriaPrimaController@index')->name('stocks.index')->middleware('permission:stocks.index');
+        Route::get('stocks/create','StockMateriaPrimaController@create')->name('stocks.create')->middleware('permission:stocks.create');
+        Route::post('stocks','StockMateriaPrimaController@store')->name('stocks.store');
+        Route::get('stocks/{stock}', 'StockMateriaPrimaController@show')->name('stocks.show')->middleware('permission:stocks.show');
+        Route::get('stocks/{stock}/edit', 'StockMateriaPrimaController@edit')->name('stocks.edit')->middleware('permission:stocks.edit');
+        Route::put('stocks', 'StockMateriaPrimaController@update')->name('stocks.update');
+        Route::delete('stocks', 'StockMateriaPrimaController@destroy')->name('stocks.delete');
     /*FIN MENU REFERENCIALES*/
     /*MENU COMPRAS*/
         //materias-primas routes

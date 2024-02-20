@@ -135,9 +135,34 @@ class AjusteStockController extends Controller
      * @param  \App\Models\AjusteStock  $ajusteStock
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AjusteStock $ajusteStock)
+    public function destroy()
     {
-        //
+        DB::beginTransaction();
+        try {
+            $ajuste = AjusteStock::find(request()->ajuste_id);
+
+            $ajuste->update([
+                'estado' => 3
+            ]);
+            
+
+            foreach($ajuste->details as $key => $detail) {
+                StockMateriaPrima::where('almacen_id', $ajuste->almacen_id)->where('materia_prima_id', $detail->materia_prima_id)->update([
+                    'actual' => $detail->cant_stock,
+                ]);
+            }
+
+            DB::commit();
+            
+            return redirect()->route('ajuste-stocks.index')->with('Success','Ajuste Anulado');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+
+            return redirect()->route('ajuste-stocks.index')->with('Danger','Algo Salio Mal'.$e);
+
+        }
     }
 
     public function pdf()

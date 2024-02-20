@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('compras', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('proveedor_id')->nullable()->constrained('proveedores');            
+            $table->foreignId('proveedor_id')->nullable()->constrained('proveedores');
             $table->foreignId('orden_compra_id')->nullable()->constrained('orden_compras');            
             $table->foreignId('timbrado_id')->nullable()->constrained('timbrados');
             $table->foreignId('tipo_impuesto_id')->nullable()->constrained('tipo_impuestos');

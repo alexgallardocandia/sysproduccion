@@ -35,7 +35,7 @@ class CompraController extends Controller
     public function create()
     {
         $orden_compras  = OrdenCompra::where('estado', 2)->whereDoesntHave('compra')->get();
-        $timbrados      = Timbrado::where('estado', 1)->get();
+        $timbrados      = Timbrado::where('estado', 1)->where('fecha_vencimiento','>=',now())->get();
 
         return view('pages.compras.compras.create', compact('orden_compras', 'timbrados'));
     }
