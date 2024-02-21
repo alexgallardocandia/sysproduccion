@@ -65,11 +65,9 @@
                 </form>
               </div>
             </div>
+            </div>
             <div class="card-body">                                     
               <div class="table-responsive">
-                <div>
-                  <h5><b>Total: </b>{{$compras->count()}}</h5>
-                </div>
                 <table class="table table-striped">
                   <thead>
                     <tr>

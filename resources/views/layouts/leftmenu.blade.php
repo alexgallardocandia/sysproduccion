@@ -73,7 +73,7 @@
             @endpermission
             @permission('nota-motivos.index')
               <li>
-                <a id="nomta-motivos-menu" href="{{route('nota-motivos.index')}}" >
+                <a id="nota-motivos-menu" href="{{route('nota-motivos.index')}}" >
                   <i class="bi bi-circle"></i><span>Motivos NC</span>
                 </a>
               </li>
@@ -175,6 +175,13 @@
               <li>
                 <a id="ajuste-stocks-menu" href="{{route('ajuste-stocks.index')}}" >
                   <i class="bi bi-circle"></i><span>Ajuste Stock</span>
+                </a>
+              </li>
+            @endpermission
+            @permission('nota-creditos.index')
+              <li>
+                <a id="nota-creditos-menu" href="{{route('nota-creditos.index')}}" >
+                  <i class="bi bi-circle"></i><span>Nota de Credito</span>
                 </a>
               </li>
             @endpermission

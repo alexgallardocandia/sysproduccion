@@ -73,7 +73,7 @@
   $(document).ready(function(){
     $('#referenciales-nav').addClass('show');
     $('#nota-motivos-menu').addClass('active');
-    $('#departamento_delete').on('show.bs.modal', function(event) {
+    $('#nota_motivo_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal
         var motivo_id = button.data('id'); // Extraer el valor del atributo data-id
         var descripcion = button.data('name'); // Extraer el valor del atributo data-id

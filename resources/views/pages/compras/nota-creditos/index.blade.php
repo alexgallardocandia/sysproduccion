@@ -7,9 +7,9 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h5>Compras</h5>
-              @permission('compras.create')
-                <a href="{{url('compras/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
+              <h5>Nota de Creditos</h5>
+              @permission('nota-creditos.create')
+                <a href="{{url('nota-creditos/create')}}" class="btn btn-success btn-xs"><i class="ri-add-box-fill"></i>Agregar</a>
               @endpermission
             </div>
             <div class="card-body">                                     
@@ -23,35 +23,35 @@
                       <th scope="col">Nro de Factura</th>
                       <th scope="col">Proveedor</th>
                       <th scope="col">Monto</th>
-                      <th scope="col">Estado</th>
+                      {{-- <th scope="col">Estado</th> --}}
                       <th scope="col">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($compras as $compra)  
+                    @foreach ($nota_creditos as $nota_credito)  
                         <tr>
-                          <td>{{$compra->id}}</td>
-                          <td>{{$compra->fecha}}</td>
-                          <td>{{$compra->timbrado->numero}}</td>
-                          <td>{{$compra->nro_factura}}</td>
-                          <td>{{$compra->proveedor->razon_social}}</td>
-                          <td>{{number_format($compra->getTotalDetalles(), 0, ',', '.')}}</td>
-                          <td><span class="badge bg-{{ config('constants.compras-status-label.' . intval($compra->estado)) }}">{{ config('constants.compras-status.'. intval($compra->estado)) }}</span></td>
+                          <td>{{ $nota_credito->id}}</td>
+                          <td>{{ $nota_credito->fecha}}</td>
+                          <td>{{ $nota_credito->timbrado->numero}}</td>
+                          <td>{{ $nota_credito->nro_factura}}</td>
+                          <td>{{ $nota_credito->proveedor->razon_social}}</td>
+                          <td>{{number_format($nota_credito->getTotalDetalles(), 0, ',', '.')}}</td>
+                          {{-- <td><span class="badge bg-{{ config('constants.compras-status-label.' . intval($nota_credito->estado)) }}">{{ config('constants.compras-status.'. intval($nota_credito->estado)) }}</span></td> --}}
                           <td> 
-                            @if ($compra->estado == 2)
-                              <a href="{{url('compras/' . $compra->id)}}"><i class="bi bi-info-circle-fill"></i></a>
-                              <a href="{{url('compras/' . $compra->id . '/pdf')}}" target="new"><i class="bi bi-file-pdf-fill"></i></a>
-                              {{-- <a data-bs-toggle="modal" data-bs-target="#compra_delete" data-number="{{$compra->id}}" data-id="{{ $compra->id }}"><i class="bi bi-trash-fill"></i></a> --}}
+                            @if ($nota_credito->estado == 2)
+                              <a href="{{url('compras/' . $nota_credito->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                              <a href="{{url('compras/' . $nota_credito->id . '/pdf')}}" target="new"><i class="bi bi-file-pdf-fill"></i></a>
+                              <a data-bs-toggle="modal" data-bs-target="#compra_delete" data-number="{ $nota_credito->id}}" data-id="{{ $nota_credito->id }}"><i class="bi bi-trash-fill"></i></a>
                             @endif
-                            @if ($compra->estado == 3)
-                              <a href="{{url('compras/' . $compra->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                            @if ($nota_credito->estado == 3)
                             @endif
-                            {{-- @if ($compra->estado != 2 && $compra->estado != 3)
+                            <a href="{{url('nota-creditos/' . $nota_credito->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                            {{-- @if  $nota_credito->estado != 2 && $nota_credito->estado != 3)
                               @permission('compras.aprove')
-                                <a data-bs-toggle="modal" data-bs-target="#orden_aprove" data-number="{{$compra->id}}" data-id="{{ $compra->id }}"><i class="bi bi-check-circle-fill"></i></a>
+                                <a data-bs-toggle="modal" data-bs-target="#orden_aprove" data-number="{ $nota_credito->id}}" data-id="{{ $nota_credito->id }}"><i class="bi bi-check-circle-fill"></i></a>
                               @endpermission
-                              <a href="{{url('compras/' . $compra->id)}}"><i class="bi bi-info-circle-fill"></i></a>
-                              {{-- <a href="{{url('orden-compras/' . $compra->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a> --}}
+                              <a href="{{url('compras/' . $nota_credito->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                              {{-- <a href="{{url('orden-compras/' . $nota_credito->id.'/edit')}}"><i class="bi bi-pencil-fill"></i></i></a> --}}
                            {{-- @endif    --}}
                           </td>
                         </tr>
@@ -119,7 +119,7 @@
 <script>
   $(document).ready(function(){
     $('#compras-nav').addClass('show');
-    $('#compras-menu').addClass('active');
+    $('#nota-creditos-menu').addClass('active');
 
     $('#compra_delete').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que disparó el modal

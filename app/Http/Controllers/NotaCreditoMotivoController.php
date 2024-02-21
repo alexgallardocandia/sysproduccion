@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\NotaCreditoMotivo;
 use Illuminate\Http\Request;
+use Nette\Utils\Json;
 
 class NotaCreditoMotivoController extends Controller
 {
@@ -38,6 +39,8 @@ class NotaCreditoMotivoController extends Controller
             ]);
 
             toastr()->success('success', 'Motivo Agregado Exitosamente');
+
+            return response()->json(['success'=> true]);
         }
         abort(404);
     }
@@ -72,7 +75,7 @@ class NotaCreditoMotivoController extends Controller
             'nombre' => strtoupper($request->nombre),
         ]);
 
-        return redirect()->view('pages.nota-motivos.index')->with('success', 'Motivo Editado');
+        return redirect()->route('nota-motivos.index')->with('success','Motivo Editado');
     }
 
     /**
@@ -81,10 +84,11 @@ class NotaCreditoMotivoController extends Controller
      * @param  \App\Models\NotaCreditoMotivo  $notaCreditoMotivo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NotaCreditoMotivo $motivo)
+    public function destroy()
     {
+        $motivo = NotaCreditoMotivo::find(request()->motivo_id);
         $motivo->delete();
 
-        return redirect()->view('pages.nota-motivos.index')->wit('success', 'Motivo Eliminado');
+        return redirect()->route('nota-motivos.index')->with('success', 'Motivo Eliminado');
     }
 }

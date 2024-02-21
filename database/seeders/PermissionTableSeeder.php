@@ -896,6 +896,42 @@ class PermissionTableSeeder extends Seeder
                 'created_at'    => date('Y-m-d H:i:s'),
                 'updated_at'    => date('Y-m-d H:i:s'),
             ],
+            //NotaCreditos routes
+            [
+                'name'          => 'nota-creditos.index',
+                'display_name'  => 'Ver Nota Credito',
+                'description'   => 'Nota Credito',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'nota-creditos.create',
+                'display_name'  => 'Crear Nota Credito',
+                'description'   => 'Nota Credito',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'nota-creditos.show',
+                'display_name'  => 'Detalles Nota Credito',
+                'description'   => 'Nota Credito',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'nota-creditos.edit',
+                'display_name'  => 'Editar Nota Credito',
+                'description'   => 'Nota Credito',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'nota-creditos.delete',
+                'display_name'  => 'Eliminar Nota Credito',
+                'description'   => 'Nota Credito',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

@@ -107,7 +107,7 @@ return [
         2 => 'primary',
         3 => 'danger',
     ],
-    //COMPRAS
+    //compras-cuotas
     'compra-cuotas-status' => [  
         1 => 'PENDIENTE',
         2 => 'PAGADO',
@@ -118,12 +118,21 @@ return [
         2 => 'primary',
         3 => 'danger',
     ],
-    //COMPRAS
+    //ajuste-stocks
     'ajuste-stocks-status' => [  
         1 => 'PROCESADO',
         3 => 'ANULADO',
     ],
     'ajuste-stocks-status-label' => [  
+        1 => 'primary',
+        3 => 'danger',
+    ],
+    //Nota-creditos
+    'nota-creditos-status' => [  
+        1 => 'EMITIDO',
+        3 => 'ANULADO',
+    ],
+    'nota-creditos-status-label' => [  
         1 => 'primary',
         3 => 'danger',
     ],

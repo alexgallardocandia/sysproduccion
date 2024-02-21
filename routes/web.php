@@ -66,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('marcas/{marca}/edit', 'MarcaController@edit')->name('marcas.edit')->middleware('permission:marcas.edit');
             Route::put('marcas', 'MarcaController@update')->name('marcas.update');
             Route::delete('marcas', 'MarcaController@destroy')->name('marcas.delete');
-        //Departamentos routes
+        //Nota Motivos routes
             Route::get('nota-motivos','NotaCreditoMotivoController@index')->name('nota-motivos.index')->middleware('permission:nota-motivos.index');
             Route::get('nota-motivos/create','NotaCreditoMotivoController@create')->name('nota-motivos.create')->middleware('permission:nota-motivos.create');
             Route::post('nota-motivos','NotaCreditoMotivoController@store')->name('nota-motivos.store');
@@ -226,6 +226,17 @@ Route::middleware(['auth'])->group(function () {
         Route::post('ajax/ajuste-stocks/getMateriaPrima','AjusteStockController@ajax_getMateriaPrima')->name('ajax.ajuste-stock.getMateriaPrima');
         Route::post('ajax/ajuste-stocks/getStockMateria','AjusteStockController@ajax_getStockMateria')->name('ajax.ajuste-stock.getStockMateria');
 
+        //compras routes
+        Route::get('nota-creditos','NotaCreditoController@index')->name('nota-creditos.index')->middleware('permission:nota-creditos.index');
+        Route::get('nota-creditos/create','NotaCreditoController@create')->name('nota-creditos.create')->middleware('permission:nota-creditos.create');
+        Route::post('nota-creditos','NotaCreditoController@store')->name('nota-creditos.store');
+        Route::get('nota-creditos/{nota}', 'NotaCreditoController@show')->name('nota-creditos.show')->middleware('permission:nota-creditos.show');
+        Route::get('nota-creditos/{nota}/edit', 'NotaCreditoController@edit')->name('nota-creditos.edit')->middleware('permission:nota-creditos.edit');
+        Route::get('nota-creditos/{nota}/pdf', 'NotaCreditoController@pdf')->name('nota-creditos.pdf')->middleware('permission:nota-creditos.index');
+        Route::put('nota-creditos', 'NotaCreditoController@update')->name('nota-creditos.update');
+        Route::delete('nota-creditos', 'NotaCreditoController@destroy')->name('nota-creditos.delete');
+        //Ajax
+        Route::post('ajax/getCompras','NotaCreditoController@ajax_getCompras')->name('ajax-getCompras');
 
     /*FIN MENU COMPRAS*/
     /*MENU CONFIGURACIONES COMPRAS REFERENCIALES*/
