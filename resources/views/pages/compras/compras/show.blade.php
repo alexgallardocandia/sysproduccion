@@ -17,7 +17,7 @@
                               <ul class="list-group">                                                                                      
                                   <li class="list-group-item"><i class="ri-calendar-2-fill me-1 text-success"></i><b>Fecha: </b>{{ $compra->fecha }}</li>
                                   <li class="list-group-item"><i class="bi bi-person-fill text-success"></i><b>Proveedor: </b>{{ $compra->proveedor->razon_social}}</li>
-                                  <li class="list-group-item"><i class="bi bi-person-fill text-success"></i><b>Solicitante: </b>{{ $compra->orden_compra->solicitante->fullname}}</li>
+                                  <li class="list-group-item"><i class="bi bi-person-fill text-success"></i><b>Solicitante: </b>{{ $compra->orden_comrpa ? $compra->orden_compra->solicitante->fullname : ''}}</li>
                                   <li class="list-group-item"><i class="ri-money-dollar-circle-line"></i><b>Descuento: </b>{{ number_format($compra->descuento, 0, ',', '.') }} %</li>
                               </ul><!-- End List group With Icons -->                              
                             </div>
