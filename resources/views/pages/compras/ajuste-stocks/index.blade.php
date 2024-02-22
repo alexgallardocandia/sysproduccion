@@ -40,7 +40,7 @@
                               <a data-bs-toggle="modal" data-bs-target="#ajuste_delete" data-number="{{$ajuste_stock->id}}" data-id="{{ $ajuste_stock->id }}"><i class="bi bi-trash-fill"></i></a>
                             @endif
                             @if ($ajuste_stock->estado == 3)
-                              <a href="{{url('compras/' . $ajuste_stock->id)}}"><i class="bi bi-info-circle-fill"></i></a>
+                              <a href="{{url('ajuste-stocks/' . $ajuste_stock->id)}}"><i class="bi bi-info-circle-fill"></i></a>
                             @endif
                           </td>
                         </tr>
