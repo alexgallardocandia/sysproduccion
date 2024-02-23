@@ -7,6 +7,7 @@ use App\Models\CompraCuota;
 use App\Models\Compra;
 use App\Models\OrdenCompra;
 use App\Models\CompraDetalle;
+use App\Models\Empleado;
 use App\Models\Timbrado;
 use App\Models\MateriaPrima;
 use App\Models\Proveedor;
@@ -35,9 +36,9 @@ class CompraController extends Controller
     public function create()
     {
         $orden_compras  = OrdenCompra::where('estado', 2)->whereDoesntHave('compra')->get();
-        $timbrados      = Timbrado::where('estado', 1)->where('fecha_vencimiento','>=',now())->get();
+        $empleados  = Empleado::get();
 
-        return view('pages.compras.compras.create', compact('orden_compras', 'timbrados'));
+        return view('pages.compras.compras.create', compact('orden_compras', 'empleados'));
     }
     /**
      * Store a newly created resource in storage.

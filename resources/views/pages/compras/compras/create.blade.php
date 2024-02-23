@@ -13,12 +13,28 @@
                 <div class="mb-3"></div>
                 <form class="row g-3" id="form">
                   @csrf
-                    <div class="col-md-4">
+                  <div class="col-md-3">
+                    <br>
+                    <div class="checkbox checkbox-inline">
+                        <input type="checkbox" name="check_orden_compra" id="check_orden_compra" value="1" >
+                        <label for="check_orden_compra">Con Orden de Compra</label>
+                    </div>
+                  </div>
+                    <div class="col-md-4" id="div_orden" hidden>
                       <label for="orden_compra_id" class="form-label">Orden de Compra</label>
                       <select class="selectpicker form-control" name="orden_compra_id" id="orden_compra_id" data-live-search="true" >
                         <option value="">Seleccione...</option>
                         @foreach ($orden_compras as $orden_compra )
                             <option value="@json($orden_compra->id)">{{$orden_compra->id.'|'.$orden_compra->fecha.'|'.number_format($orden_compra->getTotalDetalles(), 0, ',', '.')}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-4" id="div_solicitante">
+                      <label for="solicitante_id" class="form-label">Solicitante</label>
+                      <select class="selectpicker form-control" name="solicitante_id" id="solicitante_id" data-live-search="true" >
+                        <option value="">Seleccione...</option>
+                        @foreach ($empleados as $empleado )
+                            <option value="@json($empleado->id)">{{ $empleado->fullname }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -31,16 +47,14 @@
                       <input name="fecha" type="text" id="fecha" class="form-control" value="dd/mm/YY" required>
                     </div>
                     <div class="col-md-3 ">
-                      <label for="timbrado_id" class="form-label">Timbrado</label>
-                      <select class="selectpicker form-control" name="timbrado_id" id="timbrado_id" data-live-search="true" >
-                        <option value="">Seleccione...</option>
-                        @foreach ($timbrados as $timbrado )
-                            <option value="@json($timbrado->id)">{{$timbrado->numero}}</option>
-                        @endforeach
-                      </select>
+                      <label for="timbrado" class="form-label">Timbrado</label>
+                      <input type="text" class="form-control" name="timbrado" id="timbrado" onkeyup="changeValidationStamped();">
+                      <span style="color:red;" id="text_stamped_validation"></span>
+
                     </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_timbrado"><i class="bi-plus-lg"></i></a>
+                    <div class="col-md-3 ">
+                      <label for="vencimiento_timbrado" class="form-label">Vencimiento de Timbrado</label>
+                      <input name="vencimiento_timbrado" type="text" id="vencimiento_timbrado" class="form-control" value="dd/mm/YYYY" required>
                     </div>
                     <div class="col-md-4">
                       <label for="nro_factura" class="form-label">Nro. de Factura</label>
@@ -262,6 +276,19 @@
         }
       });
 
+      $('#check_orden_compra').on('change', function() {
+
+        if ($(this).is(':checked')) {
+            $('#div_orden').prop('hidden', false);
+            $('#div_solicitante').prop('hidden', true);
+
+        } else {
+            $('#div_orden').prop('hidden', true);
+            $('#div_solicitante').prop('hidden', false);
+        }
+
+      });
+
       $('#btn_agregar').click(function() {
 
         var materianame = $('#materia_id option:selected').text();
@@ -289,8 +316,8 @@
         dateFormat: "d/m/Y", // Formato de fecha
       });
 
-      flatpickr("#fecha_vencimiento",{
-      minDate: "today", // Impide seleccionar fechas anteriores a la actual
+      flatpickr("#vencimiento_timbrado",{
+      // minDate: "today", // Impide seleccionar fechas anteriores a la actual
       dateFormat: "d/m/Y", // Formato de fecha
       });
       flatpickr("#fecha_emision",{
@@ -437,5 +464,24 @@
       $("#td_grand_total").html('<b>' + $.number(grand_total, 0, ',', '.')+'</b>');
 
     }
+    changeValidationStamped();
+    function changeValidationStamped() {
+
+      $("#text_stamped_validation").html('');
+      var Max_Length = 8;
+      var length     = $("#timbrado").val().length;
+      if (length > 0) 
+      {
+          if (length < Max_Length) 
+          {
+              $("#text_stamped_validation").html("Faltan "+ (Max_Length-length) + " numeros");
+          }
+          
+          if (length > Max_Length) 
+          {
+              $("#text_stamped_validation").html("Ha superado la cantidad de numeros");
+          }
+      }            
+      }
 </script>
 @endsection
