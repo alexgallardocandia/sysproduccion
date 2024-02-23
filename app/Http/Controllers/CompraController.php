@@ -37,8 +37,9 @@ class CompraController extends Controller
     {
         $orden_compras  = OrdenCompra::where('estado', 2)->whereDoesntHave('compra')->get();
         $empleados  = Empleado::get();
-
-        return view('pages.compras.compras.create', compact('orden_compras', 'empleados'));
+        $proveedores = Proveedor::get();
+        $materias = MateriaPrima::get();
+        return view('pages.compras.compras.create', compact('orden_compras', 'empleados', 'proveedores', 'materias'));
     }
     /**
      * Store a newly created resource in storage.

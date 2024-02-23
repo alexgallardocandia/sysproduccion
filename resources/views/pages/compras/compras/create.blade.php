@@ -38,9 +38,18 @@
                         @endforeach
                       </select>
                     </div>
+                    <div class="col-md-4" id="div-proveedor" hidden>
+                      <label for="proveedor_input_id" class="form-label">Proveedor</label>
+                      <input name="proveedor_input_id" type="text" id="proveedor_input_id" class="form-control" readonly >
+                    </div>
                     <div class="col-md-4" id="div-proveedor">
                       <label for="proveedor_id" class="form-label">Proveedor</label>
-                      <input name="proveedor_id" type="text" id="proveedor_id" class="form-control" readonly >
+                      <select name="proveedor_id" id="proveedor_id" class="form-control selectpicker" data-live-search="true">
+                        <option value="">Seleccione...</option>
+                        @foreach ($proveedores as $proveedor)
+                            <option value="@json($proveedor->id)">{{$proveedor->razon_social}}</option>
+                        @endforeach
+                      </select>
                     </div>
                     <div class="col-md-4">
                       <label for="fecha" class="form-label">Fecha</label>
@@ -48,9 +57,8 @@
                     </div>
                     <div class="col-md-3 ">
                       <label for="timbrado" class="form-label">Timbrado</label>
-                      <input type="text" class="form-control" name="timbrado" id="timbrado" onkeyup="changeValidationStamped();">
+                      <input type="text" class="form-control" name="timbrado" id="timbrado" format-number onkeyup="changeValidationStamped();">
                       <span style="color:red;" id="text_stamped_validation"></span>
-
                     </div>
                     <div class="col-md-3 ">
                       <label for="vencimiento_timbrado" class="form-label">Vencimiento de Timbrado</label>
@@ -82,17 +90,17 @@
                       <input name="descuento"  id="descuento" type="number" min="0" max="100" class="form-control" format-number required>
                     </div>
                   <div class="row g-3">
-                    {{-- <hr>
+                    <hr>
                     <p>Agregar Detalle</p>
                     <div class="col-md-3">
-                      <label for="materia_id" class="col-sm-4 col-form-label">Materia P.</label> --}}
-                      {{-- <select class="selectpicker" data-live-search="true" name="materia_id" id="materia_id">
+                      <label for="materia_id" class="col-sm-4 col-form-label">Materia P.</label>
+                      <select class="selectpicker" data-live-search="true" name="materia_id" id="materia_id">
                         <option value="">Seleccione...</option>
                         @foreach($materias as $materia)                              
                           <option value='{{$materia->id}}'>{{$materia->nombre.' | '.$materia->unidad_medida->descripcion}}</option>
                         @endforeach()                            
-                      </select> --}}
-                    {{-- </div>
+                      </select>
+                    </div>
                     <div class="col-md-3">
                       <label for="cantidad" class="col-sm-4 col-form-label">Cantidad</label>
                       <input name="cantidad" id="cantidad" type="text" class="form-control" format-number>
@@ -103,7 +111,7 @@
                     </div>
                     <div class="col-md-1" style="margin-top:3.5%;">
                       <button id="btn_agregar" type="button" class="btn btn-primary"><b><i class="bi-plus-lg"></i></b></button>
-                    </div> --}}
+                    </div>
                     <div id="oculto" class="card-body" hidden>
                       <h5 class="card-title">Detalle</h5>
                       <!-- Table with stripped rows -->
@@ -114,7 +122,7 @@
                             <th scope="col">Materia Prima</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Precio</th>
-                            <th scope="col">SubTotal</th>
+                            {{-- <th scope="col">SubTotal</th> --}}
                             <th scope="col"></th>
                           </tr>
                         </thead>
@@ -266,14 +274,20 @@
           });
       });
 
-      $('#condicion').on('change', function(){
+      $('#condicion').on('change', function() {
+
         if($(this).val() != '' && $(this).val() != 1) {
+
           $('#cant_cuotas').prop('hidden', false);
           $('#frecuencia').prop('hidden', false);
-        }else {
+          
+        } else {
+
           $('#cant_cuotas').prop('hidden', true);
           $('#frecuencia').prop('hidden', true);
+          
         }
+
       });
 
       $('#check_orden_compra').on('change', function() {
@@ -464,24 +478,24 @@
       $("#td_grand_total").html('<b>' + $.number(grand_total, 0, ',', '.')+'</b>');
 
     }
-    changeValidationStamped();
-    function changeValidationStamped() {
+    // changeValidationStamped();
+    // function changeValidationStamped() {
 
-      $("#text_stamped_validation").html('');
-      var Max_Length = 8;
-      var length     = $("#timbrado").val().length;
-      if (length > 0) 
-      {
-          if (length < Max_Length) 
-          {
-              $("#text_stamped_validation").html("Faltan "+ (Max_Length-length) + " numeros");
-          }
+    //   $("#text_stamped_validation").html('');
+    //   var Max_Length = 8;
+    //   var length     = $("#timbrado").val().length;
+    //   if (length > 0) 
+    //   {
+    //       if (length < Max_Length) 
+    //       {
+    //           $("#text_stamped_validation").html("Faltan "+ (Max_Length-length) + " numeros");
+    //       }
           
-          if (length > Max_Length) 
-          {
-              $("#text_stamped_validation").html("Ha superado la cantidad de numeros");
-          }
-      }            
-      }
+    //       if (length > Max_Length) 
+    //       {
+    //           $("#text_stamped_validation").html("Ha superado la cantidad de numeros");
+    //       }
+    //   }            
+    // }
 </script>
 @endsection
