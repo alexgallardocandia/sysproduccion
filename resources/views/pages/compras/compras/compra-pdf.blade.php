@@ -62,17 +62,17 @@
             <tr>
                 <td width="50%" align="center"><b>{{ $compra->proveedor->razon_social }}</b></td>
                 <td width="50%" align="center"></td>
-                <td width="50%" align="center">Timbrado: {{$compra->timbrado->numero}}</td>
+                <td width="50%" align="center">Timbrado: {{$compra->timbrado}}</td>
             </tr>
             <tr>
                 <td whidth="50%" align="center"></td>
                 <td width="50%" align="center"></td>
-                <td width="50%" >Inicio: {{$compra->timbrado->fecha_emision}}</td>
+                <td width="50%" ></td>
             </tr>
             <tr>
                 <td whidth="50%"><b>Direccion: </b>{{$compra->proveedor->direccion}}</td>
                 <td width="50%" align="center"></td>
-                <td width="50%" >Vencimiento: {{$compra->timbrado->fecha_vencimiento}}</td>
+                <td width="50%" >Vencimiento: {{$compra->vencimiento_timbrado}}</td>
             </tr>
             <tr>
                 <td whidth="50%"><b>Telefono: </b>{{$compra->proveedor->telefono}}</td>

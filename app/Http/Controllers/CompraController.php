@@ -49,30 +49,47 @@ class CompraController extends Controller
      */
     public function store(Request $request)
     {
+//         "orden_compra_id" => null
+//   "solicitante_id" => "2"
+//   "proveedor_input_id" => null
+//   "proveedor_id" => "2"
+//   "fecha" => "16/02/2024"
+//   "timbrado" => "1236549"
+//   "vencimiento_timbrado" => "04/02/2024"
+//   "nro_factura" => "001-002-0003265"
+//   "condicion" => "2"
+//   "nro_cuotas" => "3"
+//   "frecuencia" => "30"
+//   "descuento" => "0"
         // dd($request->all());
         
         if (request()->ajax()) {
 
-            DB::beginTransaction();
+            // DB::beginTransaction();
 
-            try {
+            // try {
                 $monto_cuota = 0;
                 $frecuencia  = intval($request->frecuencia);
 
                 //CREAMOS LA COMPRA
                 $compra = Compra::create([
-                    'proveedor_id'      => $request->proveedor_id,
-                    'orden_compra_id'   => $request->orden_compra_id,
-                    'timbrado_id'       => $request->timbrado_id,
-                    'fecha'             => Carbon::createFromFormat('d/m/Y',$request->fecha)->format('Y-m-d'),
-                    'nro_factura'       => $request->nro_factura,
-                    'condicion'         => $request->condicion,
-                    'electronico'       => 0,
-                    'descuento'         => $request->descuento,
-                    'estado'            => 2,
+                    'proveedor_id'          => $request->proveedor_id,
+                    'orden_compra_id'       => $request->orden_compra_id ?? NULL,
+                    'solicitante_id'        => $request->solicitante_id ?? NULL ,
+                    'proveedor_id'          => $request->proveedor_id,
+                    'timbrado'              => $request->timbrado,
+                    'vencimiento_timbrado'  => Carbon::createFromFormat('d/m/Y',$request->vencimiento_timbrado)->format('Y-m-d'),
+                    'fecha'                 => Carbon::createFromFormat('d/m/Y',$request->fecha)->format('Y-m-d'),
+                    'nro_factura'           => $request->nro_factura,
+                    'condicion'             => $request->condicion,
+                    'electronico'           => 0,
+                    'descuento'             => $request->descuento,
+                    'estado'                => 2,
                 ]);
+
+                $sucursal = $compra->solicitante_id ? $compra->solicitante->sucursal_id   : $compra->orden_compra->solicitante->sucursal_id;
                 //RECUPERAMOS EL ALMACEN DEL SOLICITANTE
-                $almacen = Almacen::where('sucursal_id', $compra->orden_compra->solicitante->sucursal_id)->first();
+                $almacen = Almacen::where('sucursal_id', $sucursal)->first();
 
                 //RECORREMOS EL DETALLE DE MATERIAS PRIMAS DE LA VISTA
                 foreach( $request->materias as $key => $value ) {
@@ -144,7 +161,7 @@ class CompraController extends Controller
                     ]);
                 }
 
-                DB::commit();
+                // DB::commit();
 
                 toastr()->success('Compra Creada Exitosamente ','#'.$compra->id);
     
@@ -152,17 +169,17 @@ class CompraController extends Controller
                     'success' => true
                 ]);
 
-            } catch (\Exception $e) {
+            // } catch (\Exception $e) {
                 
-                DB::rollBack();
+                // DB::rollBack();
                 
-                toastr()->error('Error al crear la compra: ' . $e->getMessage());
+                // toastr()->error('Error al crear la compra: ' . $e->getMessage());
 
-                return response()->json([
-                    'success' => false,
-                    'error'   => $e->getMessage()
-                ]);
-            }
+                // return response()->json([
+                //     'success' => false,
+                //     'error'   => $e->getMessage()
+                // ]);
+            // }
         }
         abort(404);
 

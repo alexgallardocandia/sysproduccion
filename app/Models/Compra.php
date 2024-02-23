@@ -14,8 +14,9 @@ class Compra extends Model
         'id',
         'proveedor_id',
         'orden_compra_id',
-        'timbrado_id',
-        'tipo_impuesto_id',
+        'solicitante_id',
+        'timbrado',
+        'vencimiento_timbrado',
         'fecha',
         'nro_factura',
         'condicion',
@@ -33,6 +34,10 @@ class Compra extends Model
     {
         return $this->belongsTo('App\Models\Proveedor');
     }
+    public function solicitante()
+    {
+        return $this->belongsTo('App\Models\Empleado');
+    }
     public function orden_compra()
     {
         return $this->belongsTo('App\Models\OrdenCompra');
@@ -40,10 +45,6 @@ class Compra extends Model
     public function timbrado()
     {
         return $this->belongsTo('App\Models\Timbrado');
-    }
-    public function tipo_impuesto()
-    {
-        return $this->belongsTo('App\Models\TipoImpuesto');
     }
     public function details() {
         return $this->hasMany('App\Models\CompraDetalle');
