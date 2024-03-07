@@ -57,7 +57,9 @@ class NotaCreditoController extends Controller
 
                     $compra = Compra::find($request->compra_id);
         
-                    $almacen = Almacen::where('id', $compra->orden_compra->solicitante->sucursal_id)->first();
+                    $sucursal = $compra->solicitante_id ? $compra->solicitante->sucursal_id   : $compra->orden_compra->solicitante->sucursal_id;
+
+                    $almacen = Almacen::where('id', $sucursal)->first();
         
                     $stock = StockMateriaPrima::where('almacen_id',$almacen->id);
         

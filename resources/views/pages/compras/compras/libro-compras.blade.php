@@ -89,7 +89,7 @@
                           <td>{{$compra->id}}</td>
                           <td>{{$compra->orden_compra_id ? $compra->orden_compra->solicitante->fullname : 'ANULADO'}}</td>
                           <td>{{$compra->fecha}}</td>
-                          <td>{{$compra->timbrado->numero}}</td>
+                          <td>{{$compra->timbrado}}</td>
                           <td>{{$compra->nro_factura}}</td>
                           <td>{{$compra->proveedor->razon_social}}</td>
                           <td>{{number_format($compra->getTotalDetalles(), 0, ',', '.')}}</td>
