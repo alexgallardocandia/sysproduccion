@@ -16,7 +16,7 @@ class CreateUserStartSeeder extends Seeder
             'email_verified_at' => null,
             'password'          => Hash::make('admin'),
             'status'            => true,
-            'persona_id'        => null
+            'empleado_id'        => null
         ]);
     }
 }
